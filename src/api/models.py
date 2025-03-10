@@ -11,9 +11,19 @@ class User(db.Model):
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(nullable=False)
     is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
-    location: Mapped[str] = mapped_column(nullable=False)
-    photo: Mapped[str] = mapped_column(nullable=False)
-    phone: Mapped[str] = mapped_column(nullable=False)
+    location: Mapped[str] = mapped_column(nullable=True) 
+    photo: Mapped[str] = mapped_column(nullable=True)
+    phone: Mapped[str] = mapped_column(nullable=True)
+
+    #constructor
+    def __init__(self, name, email, password, is_active, location, photo, phone):
+        self.name = name
+        self.email = email
+        self.password = password
+        self.is_active = is_active
+        self.location = location
+        self.photo = photo
+        self.phone = phone
 
     def serialize(self):
         return {
@@ -35,6 +45,14 @@ class Company(db.Model):
     password: Mapped[str] = mapped_column(nullable=False)
     location: Mapped[str] = mapped_column(nullable=False)
     photo: Mapped[str] = mapped_column(nullable=False)
+
+    #constructor
+    def __init__(self, name_company, email, password, location, photo):
+        self.name_company = name_company
+        self.email = email
+        self.password = password
+        self.location = location
+        self.photo = photo
 
     def serialize(self):
         return {
@@ -61,6 +79,18 @@ class Pet(db.Model):
 
     id_user: Mapped[int] = mapped_column(ForeignKey("user.id"))
     user: Mapped["User"] = relationship()
+
+    #constructor
+    def __init__(self, name,gender,photo,medical_history,race,specie,emergency_phone,id_user):
+        self.name = name
+        self.gender = gender
+        self.photo = photo
+        self.medical_history = medical_history
+        self.race = race
+        self.specie = specie
+        self.emergency_phone = emergency_phone
+        self.id_user = id_user
+
 
     def serialize(self):
         return {
@@ -106,6 +136,11 @@ class Favorites(db.Model):
     id_company: Mapped[int] = mapped_column(ForeignKey("company.id"))
     company: Mapped["Company"] = relationship()
 
+    #constructor
+    def __init__(self, id_user, id_company):
+        self.id_user = id_user
+        self.id_company = id_company
+
     def serialize(self):
         return {
             "id": self.id,
@@ -129,6 +164,16 @@ class Appointments(db.Model):
     id_service: Mapped[int] = mapped_column(ForeignKey("services.id"))
     service: Mapped["Services"] = relationship()
 
+
+    #constructor
+    def __init__(self, date, status, time, location, id_pet, id_service):
+        self.date = date
+        self.status = status
+        self.time = time
+        self.location = location
+        self.id_pet = id_pet
+        self.id_service = id_service
+
     def serialize(self):
         return {
             "id": self.id,
@@ -139,3 +184,5 @@ class Appointments(db.Model):
             "id_pet": self.id_pet,
             "id_service": self.id_service,
         }
+    
+

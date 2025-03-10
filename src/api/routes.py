@@ -12,6 +12,8 @@ api = Blueprint('api', __name__)
 CORS(api)
 
 
+
+
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
@@ -22,7 +24,7 @@ def handle_hello():
     return jsonify(response_body), 200
 
 # Se crea la ruta para crear un usuario en la base de datos y se retorna el usuario creado en formato JSON 
-@api.route('/user', methods=['POST'])
+@api.route('/createuser', methods=['POST'])
 def create_user():
     request_body = request.get_json()
     user = User(name=request_body['name'], email=request_body['email'], password=request_body['password'])
@@ -33,6 +35,9 @@ def create_user():
 # Se crea la ruta para obtener todos los usuarios de la base de datos y se retorna en formato JSON
 @api.route('/users', methods=['GET'])
 def get_users():
+    print("Received a GET request to /users")  # Mensaje de log
     users = User.query.all()
+    print("Users found:", users)  # Log de los usuarios encontrados
     users = list(map(lambda x: x.serialize(), users))
     return jsonify(users), 200
+
