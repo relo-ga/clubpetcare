@@ -13,6 +13,7 @@ import { DashboardUser } from "./pages/DashboardUser";
 import Login from "./pages/Login";
 import Veterinarios from "./pages/Veterinarios";
 import Registercom from "./pages/Registercom"
+import ProfilePet from "./pages/ProfilePet";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -32,6 +33,7 @@ export const router = createBrowserRouter(
         <Route path="/DashboardUser" element= {<DashboardUser/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/veterinarios" element={<Veterinarios />} />
+        <Route path="/profilepet" element={<ProfilePet />} />
         <Route path="/registercom" element={<Registercom />} />
 
       </Route>
