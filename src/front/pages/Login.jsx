@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Login = () =>{
 
+    const navigate = useNavigate();
 
     return(
         <div>
@@ -29,10 +31,10 @@ const Login = () =>{
                             Remember me
                         </label>
                     </div>
-                    <button className="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+                    <button className="btn btn-primary w-100 py-2" type="submit" onClick={ () => navigate("/DashboardUser")}>Sign in</button>
                     <div>
-                        <p className="mt-5 mb-3 text-body-secondary">No tienes cuenta? sé parte del club <Link to="/">aquí.</Link></p>
-                        <p className="mb-3 text-body-secondary">Eres empresa? ofrece tus servicios <Link to="/">aquí.</Link></p>
+                        <p className="mt-5 mb-3 text-body-secondary">No tienes cuenta? sé parte del club <Link to="/registeruse">aquí.</Link></p>
+                        <p className="mb-3 text-body-secondary">Eres empresa? ofrece tus servicios <Link to="/registercom">aquí.</Link></p>
                     </div>
                 </div>
             </div>
