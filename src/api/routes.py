@@ -27,7 +27,7 @@ def handle_hello():
 @api.route('/user', methods=['POST'])
 def create_user():
     request_body = request.get_json()
-    user = User(name=request_body['name'], email=request_body['email'], password=request_body['password'], is_active=[True])
+    user = User(name=request_body['name'], email=request_body['email'], password=request_body['password'], is_active=True)
     db.session.add(user)
     db.session.commit()
     return jsonify(user.serialize()), 200

@@ -19,6 +19,29 @@ const Registeruse = () => {
     });
   };
 
+  const register = async (user) => {
+    if (user.password === user.confirm) {
+      console.log("User: ", user);
+
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Data: ", data);
+        alert("User created successfully ✅");
+      }
+
+    } else {
+      alert("Password and Confirm Password are different");
+    }
+  }
+
     return( 
       <main className="col-4 form-signin m-auto">
         <div>
@@ -59,7 +82,7 @@ const Registeruse = () => {
               <i className="fa-solid fa-eye"></i>
             </button>
             <button className="btn btn-primary py-2 me-5 w-25" type="submit"
-              onClick={() => console.log(user)}
+              onClick={() => register(user)}
             >
               Sign in
             </button>
