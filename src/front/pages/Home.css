@@ -1,0 +1,224 @@
+/* Importar Bootstrap Icons */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
+
+/* Variables de colores */
+:root {
+  --caribbean-current: #006d77;
+  --tiffany-blue: #83c5be;
+  --alice-blue: #edf6f9;
+  --pale-dogwood: #ffddd2;
+  --atomic-tangerine: #e29578;
+}
+
+/* Estilos generales */
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  background-color: var(--alice-blue);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+.btn-primary {
+  background-color: var(--caribbean-current);
+  border-color: var(--caribbean-current);
+}
+
+.btn-primary:hover {
+  background-color: #005a62;
+  border-color: #005a62;
+}
+
+.btn-outline-secondary {
+  color: var(--atomic-tangerine);
+  border-color: var(--atomic-tangerine);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--atomic-tangerine);
+  color: white;
+}
+
+/* Hero section */
+.hero-section {
+  background-color: var(--alice-blue);
+  padding: 5px 0;
+}
+
+.hero-section h1 {
+  color: var(--caribbean-current);
+  margin-bottom: 20px;
+}
+
+.hero-section .lead {
+  color: #555;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+/* Servicios */
+.services-section {
+  background-color: white;
+}
+
+.services-section h2 {
+  color: var(--caribbean-current);
+}
+
+.service-card {
+  background-color: var(--alice-blue);
+  border-radius: 12px;
+  padding: 30px;
+  height: 100%;
+  transition: transform 0.3s, box-shadow 0.3s;
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-icon {
+  font-size: 2.5rem;
+  color: var(--atomic-tangerine);
+  margin-bottom: 20px;
+}
+
+.service-card h3 {
+  color: var(--caribbean-current);
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.service-link {
+  color: var(--tiffany-blue);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.service-link:hover {
+  color: var(--caribbean-current);
+}
+
+/* Por qué elegirnos */
+.why-us-section {
+  background-color: var(--pale-dogwood);
+  padding: 80px 0;
+}
+
+.why-us-section h2 {
+  color: var(--caribbean-current);
+  margin-bottom: 30px;
+}
+
+.why-us-list {
+  list-style: none;
+  padding: 0;
+}
+
+.why-us-list li {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+.why-us-list li i {
+  color: var(--atomic-tangerine);
+  margin-right: 10px;
+  font-size: 1.4rem;
+}
+
+/* Testimonios */
+.testimonials-section {
+  background-color: white;
+}
+
+.testimonials-section h2 {
+  color: var(--caribbean-current);
+}
+
+.testimonial-card {
+  background-color: var(--alice-blue);
+  border-radius: 12px;
+  padding: 30px;
+  height: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-content {
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+}
+
+.testimonial-author img {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+  object-fit: cover;
+}
+
+.testimonial-author h5 {
+  margin-bottom: 0;
+  color: var(--caribbean-current);
+}
+
+.testimonial-author small {
+  color: #777;
+}
+
+/* Contacto */
+.contact-section {
+  background-color: var(--tiffany-blue);
+  padding: 80px 0;
+  color: white;
+}
+
+.contact-section h2 {
+  color: var(--caribbean-current);
+  margin-bottom: 20px;
+}
+
+.contact-info p {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.contact-info i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: var(--caribbean-current);
+  color: white;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  transition: background-color 0.3s;
+}
+
+.social-link:hover {
+  background-color: var(--atomic-tangerine);
+  color: white;
+}
