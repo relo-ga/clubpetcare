@@ -30,9 +30,9 @@ const Veterinarios = () =>{
     }
 
     return(
-        <div>
-            <div className="mb-3 col-8 mx-auto border-bottom">
-                <div className="row g-0 m-5">
+        <div className="py-4" style={{ backgroundColor: "#FFDDD2" }}>
+            <div className="mb-3 col-8 mx-auto border-bottom rounded-4" style={{ backgroundColor: "#fff" }}>
+                <div className="row g-0 m-5 pt-4">
                     <div className="col-md-6 p-3 d-flex align-items-center">
                         <div>
                             <img src="https://www.clinicaveterinariapanchocavero.com/assets/img/logo.png" className="img-fluid rounded-start" alt="..."/>
@@ -52,7 +52,10 @@ const Veterinarios = () =>{
             </div>
             
 
-            <div className="mb-3 col-8 mx-auto border-bottom">
+            <div className="mb-3 col-8 mx-auto border-bottom rounded-4" style={{ backgroundColor: "#fff" }}>
+                <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
+                    <h2 className="text-center" style={{color:"#006D77"}}>Descripción</h2>
+                </div>
                 <div className="row g-0 m-5">
                     <div className="col-md-6 p-3 d-flex align-items-center">
                         <div className="card-body">
@@ -80,9 +83,12 @@ const Veterinarios = () =>{
                 </div>
             </div>
 
-            <div className="mb-3 col-8 mx-auto">
+            <div className="mb-3 col-8 mx-auto rounded-4" style={{ backgroundColor: "#fff" }}>
+                
+                <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
+                    <h2 className="text-center" style={{color:"#006D77"}}>Servicios</h2>
+                </div>
                 <div className="m-5">
-                    <h1 className="">Servicios:</h1>
                     <div className="d-flex position-relative overflow-auto">
                             <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
                             <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
