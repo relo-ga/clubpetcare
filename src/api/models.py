@@ -16,7 +16,7 @@ class User(db.Model):
     phone: Mapped[str] = mapped_column(nullable=True)
 
     #constructor
-    def __init__(self, name, email, password, is_active, location, photo, phone):
+    def __init__(self, name, email, password, is_active, location=None, photo=None, phone=None):
         self.name = name
         self.email = email
         self.password = password
