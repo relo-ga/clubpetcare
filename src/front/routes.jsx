@@ -39,6 +39,6 @@ export const router = createBrowserRouter(
         <Route path="/registercom" element={<Registercom />} />
         <Route path="/registeruse" element={<Registeruse />} />
         <Route path="/registerpet" element={<Registerpet />} />
-      </Route>
+        </Route>
     )
 );

@@ -1,0 +1,25 @@
+/* colors.css */
+.primary {
+    background-color: #006D77;
+  }
+  
+  .secondary {
+    background-color: #83C5BE;
+  }
+  
+  .accent { /* color de botones o redirigimiento */
+    background-color: #E29578;
+  }
+  
+  .text-white {
+    color: #FFFFFF;
+  }
+  
+  .text-primary-css {
+    color: #006D77;
+  }
+
+  .btn.accent:hover {
+  background-color: #D17A5F;
+  color: #FFFFFF; 
+}
