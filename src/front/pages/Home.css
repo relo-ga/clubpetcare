@@ -26,6 +26,17 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--caribbean-current);
 }
 
+.nav-pills .nav-link.active{
+  background-color: var(--caribbean-current);
+  border-color: var(--caribbean-current);
+}
+.nav-link{
+  color: var(--caribbean-current);
+}
+.nav-link:hover{
+  color: var(--caribbean-current);
+}
+
 .btn-primary:hover {
   background-color: #005a62;
   border-color: #005a62;
