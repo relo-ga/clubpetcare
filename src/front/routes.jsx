@@ -13,6 +13,8 @@ import { DashboardUser } from "./pages/DashboardUser";
 import Login from "./pages/Login";
 import Veterinarios from "./pages/Veterinarios";
 import Registercom from "./pages/Registercom"
+import Registeruse from "./pages/Registeruse";
+import Registerpet from "./pages/Registerpet";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -33,7 +35,8 @@ export const router = createBrowserRouter(
         <Route path="/login" element={<Login />} />
         <Route path="/veterinarios" element={<Veterinarios />} />
         <Route path="/registercom" element={<Registercom />} />
-
+        <Route path="/registeruse" element={<Registeruse />} />
+        <Route path="/registerpet" element={<Registerpet />} />
       </Route>
     )
 );
