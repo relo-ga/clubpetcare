@@ -44,7 +44,7 @@ const ProfilePet = () => {
                                 </tbody>
                             </table>
                             <div className="d-flex justify-content-center">
-                                <button type="button" class="btn btn-outline-dark rounded-pill" onClick={ () => navigate("/login")}>
+                                <button type="button" class="btn btn-outline-dark rounded-pill" onClick={ () => navigate("/registerpet")}>
                                     <i class="fa-solid fa-plus"></i>
                                 </button>
                             </div>
@@ -83,7 +83,7 @@ const ProfilePet = () => {
                                 </tr>
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-outline-dark rounded-pill" onClick={ () => navigate("/login")}>
+                        <button type="button" class="btn btn-outline-dark rounded-pill" onClick={ () => navigate("/registerpet")}>
                             <i class="fa-solid fa-plus"></i>
                         </button>
                     </div>
