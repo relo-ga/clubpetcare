@@ -25,11 +25,11 @@ export const CompanyProfile = () => {
   };
 
   return (
-    <div style={{ backgroundColor: "#FFDDD2" }}>
+    <div style={{ backgroundColor: "#EDF6F9" }}>
       <div className="container py-5">
 
         <div className="text-center pb-2">
-          <img src="https://images.unsplash.com/photo-1596272875729-ed2ff7d6d9c5?w=400&h=400" alt="Logo" className="mb-2 rounded-circle" />
+          <img src="https://images.unsplash.com/photo-1596272875729-ed2ff7d6d9c5?w=400&h=400" alt="Logo" className="mb-2 rounded-pill" />
           {editando ? (
             <button className="btn btn-success ms-3" onClick={handleSave}>
               Save
