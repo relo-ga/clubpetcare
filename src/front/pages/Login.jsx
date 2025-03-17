@@ -76,7 +76,7 @@ const Login = () =>{
                                         Remember me
                                     </label>
                                 </div>
-                                <button className="btn btn-primary w-100 py-2" type="submit" onClick={ () => navigate("/DashboardUser")}>Sign in</button>
+                                <button className="btn btn-primary w-100 py-2" type="submit" onClick={ () => navigate("/CompanyProfile")}>Sign in</button>
                                 <div>
                                     <p className="mt-5 mb-3 text-body-secondary">Eres empresa? ofrece tus servicios <Link to="/registercom">aquí.</Link></p>
                                 </div>
