@@ -40,6 +40,7 @@ class User(db.Model):
 class Company(db.Model):
     __tablename__ = "company"
     id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(nullable=False)
     name_company: Mapped[str] = mapped_column(nullable=False)
     email: Mapped[str] = mapped_column(nullable=False)
     password: Mapped[str] = mapped_column(nullable=False)
@@ -47,7 +48,8 @@ class Company(db.Model):
     photo: Mapped[str] = mapped_column(nullable=False)
 
     #constructor
-    def __init__(self, name_company, email, password, location, photo):
+    def __init__(self, name, name_company, email, password, location, photo):
+        self.name = name
         self.name_company = name_company
         self.email = email
         self.password = password

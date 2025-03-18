@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Company
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -32,6 +32,21 @@ def create_user():
     db.session.commit()
     return jsonify(user.serialize()), 200
 
+# Post para crear una empresa
+@api.route('/createcompany', methods=['POST'])
+def create_company():
+    request_body = request.get_json()
+    new_company = Company(name=request_body['name'], name_company=request_body['name_company'], email=request_body['email'], password=request_body['password'],
+                          location=request_body['location'], photo=request_body['photo'])
+    db.session.add(new_company)
+    db.session.commit()
+    return jsonify(new_company.serialize()), 200
+
+
+
+
+
+
 # Se crea la ruta para obtener todos los usuarios de la base de datos y se retorna en formato JSON
 @api.route('/users', methods=['GET'])
 def get_users():
@@ -40,4 +55,16 @@ def get_users():
     print("Users found:", users)  # Log de los usuarios encontrados
     users = list(map(lambda x: x.serialize(), users))
     return jsonify(users), 200
+
+@api.route('/company', methods=['GET'])
+def get_company():
+    print("Received a GET request to /company")  # Mensaje de log
+    company = Company.query.all()
+    print("Users found:", company)  # Log de los usuarios encontrados
+    company = list(map(lambda x: x.serialize(), company))
+    return jsonify(company), 200
+
+
+
+
 

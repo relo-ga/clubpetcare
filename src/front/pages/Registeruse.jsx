@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Registeruse = () => {
 
@@ -86,6 +87,9 @@ const Registeruse = () => {
             >
               Sign in
             </button>
+          </div>
+          <div>
+           <p className="mt-5 mb-3 text-body-secondary">Eres empresa? ofrece tus servicios <Link to="/registercom">aquí.</Link></p>
           </div>
         </div>
       </main>
