@@ -1,6 +1,11 @@
 import React from "react";
 
+import { useNavigate } from "react-router-dom";
+
 const Registerpet = () => {
+
+    const navigate = useNavigate();
+
     return( <div className="d-flex flex-column">
             <div className="mx-auto my-5">
                 <img className="mx-auto rounded-circle" src="https://u4d2z7k9.delivery.rocketcdn.me/wp-content/uploads/2023/05/Untitled-683-%C3%97-1024px-1024-%C3%97-683px-15.jpg" alt="" width="300"/>
@@ -41,7 +46,8 @@ const Registerpet = () => {
                     <label for="floatingInput">Weight</label>
                 </div>
                 <div className="text-center my-1">
-                    <button className="btn btn-warning py-2 mx-auto rounded-pill" type="submit">
+                    <button className="btn btn-warning py-2 mx-auto rounded-pill" type="submit"
+                        onClick={ () => navigate("/profilepet")}>
                         Done!
                     </button>
                 </div>
