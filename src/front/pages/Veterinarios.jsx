@@ -1,6 +1,9 @@
 import React from "react";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const Veterinarios = () =>{
+
+    const { store } = useGlobalReducer();
 
     const CardVeterinarios = (props) =>{
 
@@ -18,7 +21,7 @@ const Veterinarios = () =>{
                         </p>
                     </div>
                     <div className="d-flex justify-content-center">
-                        <button type="button" class="btn btn-outline-danger" >
+                        <button type="button" class="btn btn-outline-danger">
                            Reservar
                         </button>
                     </div>
@@ -88,14 +91,15 @@ const Veterinarios = () =>{
                 <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
                     <h2 className="text-center" style={{color:"#006D77"}}>Servicios</h2>
                 </div>
-                <div className="m-5">
-                    <div className="d-flex position-relative overflow-auto">
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
+                <div className="m-4">
+                    <div className="d-flex justify-content-center position-relative overflow-auto pb-3">
+                        {
+                            store.servicios_vet.map((element) => {
+                                return(
+                                    <CardVeterinarios key={0} title={element.servicio} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
+                                );
+                            })
+                        }
                     </div>
 
                 </div>

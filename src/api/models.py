@@ -117,6 +117,11 @@ class Services(db.Model):
     id_company: Mapped[int] = mapped_column(ForeignKey("company.id"))
     company: Mapped["Company"] = relationship()
 
+    #constructor
+    def __init__(self, name, id_company):
+        self.name = name
+        self.id_company = id_company
+
     def serialize(self):
         return {
             "id": self.id,

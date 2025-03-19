@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Company
+from api.models import db, User, Company, Services, Pet
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -43,6 +43,14 @@ def create_company():
     return jsonify(new_company.serialize()), 200
 
 
+# Post para crear una reserva 
+@api.route('/appointments', methods=['POST'])
+def create_reserve():
+    request_body = request.get_json()
+    reserve = Services(name=request_body['name'], id_company=request_body['id_company'], is_active=True)
+    db.session.add(reserve)
+    db.session.commit()
+    return jsonify(reserve.serialize()), 200
 
 
 
@@ -63,6 +71,15 @@ def get_company():
     print("Users found:", company)  # Log de los usuarios encontrados
     company = list(map(lambda x: x.serialize(), company))
     return jsonify(company), 200
+
+
+@api.route('/appointments', methods=['GET'])
+def get_reserve():
+    print("Received a GET request to /reserve")  # Mensaje de log
+    reserve = Services.query.all()
+    print("Reserves found:", reserve)  # Log de los usuarios encontrados
+    reserve = list(map(lambda x: x.serialize(), reserve))
+    return jsonify(reserve), 200
 
 
 
