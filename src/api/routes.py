@@ -1,6 +1,3 @@
-"""
-This module takes care of starting the API Server, Loading the DB and Adding the endpoints
-"""
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Company, Services, Pet
 from api.utils import generate_sitemap, APIException
@@ -24,13 +21,13 @@ def handle_hello():
     return jsonify(response_body), 200
 
 # Se crea la ruta para crear un usuario en la base de datos y se retorna el usuario creado en formato JSON 
-@api.route('/user', methods=['POST'])
+@api.route('/createuser', methods=['POST'])
 def create_user():
     request_body = request.get_json()
-    user = User(name=request_body['name'], email=request_body['email'], password=request_body['password'], is_active=True)
-    db.session.add(user)
+    new_user = User(name=request_body['name'], email=request_body['email'], password=request_body['password'], is_active=True)
+    db.session.add(new_user)
     db.session.commit()
-    return jsonify(user.serialize()), 200
+    return jsonify(new_user.serialize()), 200
 
 # Post para crear una empresa
 @api.route('/createcompany', methods=['POST'])
@@ -85,3 +82,38 @@ def get_reserve():
 
 
 
+
+#Post para crear pets
+
+@api.route('/createpet', methods=['POST'])
+def create_pet():
+    request_body = request.get_json()
+    user_id = request_body.get("user_id")
+    if not user_id:
+        return "No has indicado un user id!", 400
+    owner = User.query.get(user_id) 
+    if not owner:
+        return "User not found", 404
+    new_pet = Pet(name=request_body['name'], gender=request_body['gender'], photo=request_body["photo"], medical_history=request_body["medical_history"]
+              ,race=request_body["race"], specie=request_body["specie"], emergency_phone=request_body["emergency_phone"], user=owner)
+    db.session.add(new_pet)
+    db.session.commit()
+    return jsonify(new_pet.serialize()), 200
+
+# Get para obtener pets
+@api.route('/pets',methods=['GET'])
+def get_pets():
+    print("Received a get request to /pets")
+    pets = Pet.query.all()
+    print("Pets found:", pets)  # Log de los usuarios encontrados
+    pets = list(map(lambda x: x.serialize(), pets))
+    return jsonify(pets), 200
+
+# Get para obtener pets por id
+@api.route('/pet/<int:id>',methods=['GET'])
+def get_pet_by_id(id):
+    print("Received a get request to /pets")
+    pet = Pet.query.get(id)
+    print("Pet found:", pet)  # Log de los usuarios encontrados
+    
+    return jsonify(pet.serialize()), 200

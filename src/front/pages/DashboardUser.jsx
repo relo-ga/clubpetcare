@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./colors.css"; // Importa el archivo de colores
 
 export const DashboardUser = () => {
   // Hooks
   const [pets, setPets] = useState([
-    { id: 1, name: "Capy", hasPending: true, src: "https://i.pinimg.com/736x/64/a8/84/64a884b56b595ebe57a87fa387802916.jpg" },
-    { id: 2, name: "Titan", hasPending: false, src: "https://i.pinimg.com/736x/56/37/21/5637217d86a44baf78f13af6dd4e6744.jpg" }
+
   ]);
 
   const [profesional, setProfesional] = useState([
@@ -16,6 +15,32 @@ export const DashboardUser = () => {
   ]);
 
   const navigate = useNavigate();
+  /** Sufrimiento de conectar backend */
+ 
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/pets", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch pets");
+        }
+
+        const data = await response.json();
+        setPets(data);
+      } catch (error) {
+        console.error("Error fetching pets:", error);
+      }
+    };
+
+    fetchPets();
+  }
+    , []);
 
   return (
     <div className="container-fluid p-4 background">
@@ -35,7 +60,7 @@ export const DashboardUser = () => {
                     onClick={() => navigate("/profilepet")}
                   >
                     <img
-                      src={pet.src}
+                      src={pet.photo || "https://images3.memedroid.com/images/UPLOADED537/665c8560a1300.jpeg"}
                       className="rounded-circle"
                       style={{ width: "100px", height: "100px", objectFit: "cover" }}
                       alt={pet.name}
@@ -52,7 +77,7 @@ export const DashboardUser = () => {
               <h4 className="text-primary-css">¿Tienes un familiar nuevo?</h4>
               <button
                 className="btn rounded-pill accent text-white"
-                onClick={() => navigate("/registercom")}
+                onClick={() => navigate("/Registerpet")}
               >
                 Add Pet
               </button>
