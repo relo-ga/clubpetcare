@@ -62,7 +62,7 @@ def get_company():
     company = Company.query.all()
     print("Users found:", company)  # Log de los usuarios encontrados
     company = list(map(lambda x: x.serialize(), company))
-    return jsonify(company), 200
+    return jsonify(company), 200gi
 
 
 
