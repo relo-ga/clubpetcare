@@ -115,5 +115,4 @@ def get_pet_by_id(id):
     print("Received a get request to /pets")
     pet = Pet.query.get(id)
     print("Pet found:", pet)  # Log de los usuarios encontrados
-    
     return jsonify(pet.serialize()), 200

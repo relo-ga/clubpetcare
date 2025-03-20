@@ -1,5 +1,3 @@
-
-import React from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import React, { useState } from "react";
 import {Calendar} from "../components/Calendar"; // Importa el componente Calendar
@@ -55,6 +53,8 @@ const Veterinarios = () => {
 
     return(
         <div className="py-4" style={{ backgroundColor: "#FFDDD2" }}>
+             {/* Modal para reservar */}
+            <Calendar show={showModal} onClose={handleCloseModal} onConfirm={handleReservar} />
             <div className="mb-3 col-8 mx-auto border-bottom rounded-4" style={{ backgroundColor: "#fff" }}>
                 <div className="row g-0 m-5 pt-4">
                     <div className="col-md-6 p-3 d-flex align-items-center">
@@ -115,9 +115,9 @@ const Veterinarios = () => {
                 <div className="m-4">
                     <div className="d-flex justify-content-center position-relative overflow-auto pb-3">
                         {
-                            store.servicios_vet.map((element) => {
+                            store.servicios_vet.map((element,index) => {
                                 return(
-                                    <CardVeterinarios key={0} title={element.servicio} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
+                                    <CardVeterinarios key={index} title={element.servicio} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
                                 );
                             })
                         }
