@@ -72,7 +72,7 @@ class Pet(db.Model):
     name: Mapped[str] = mapped_column(String(50), nullable=False)
     gender: Mapped[str] = mapped_column(nullable=False)
     photo: Mapped[str] = mapped_column(nullable=False)
-    medical_history: Mapped[str] = mapped_column(nullable=False)
+    medical_history: Mapped[str] = mapped_column(nullable=False)  # Otra tabla?
     race: Mapped[str] = mapped_column(nullable=False)
     specie: Mapped[str] = mapped_column(nullable=False)
     emergency_phone: Mapped[str] = mapped_column(nullable=False)
@@ -80,7 +80,7 @@ class Pet(db.Model):
 # > Relation One to Many with Pets
 
     id_user: Mapped[int] = mapped_column(ForeignKey("user.id"))
-    user: Mapped["User"] = relationship()
+    user: Mapped["User"] = relationship("User", backref="pets")
 
     #constructor
     def __init__(self, name,gender,photo,medical_history,race,specie,emergency_phone,user):
