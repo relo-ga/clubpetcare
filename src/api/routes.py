@@ -19,8 +19,6 @@ def handle_hello():
     return jsonify(response_body), 200
 
 # Se crea la ruta para crear un usuario en la base de datos y se retorna el usuario creado en formato JSON
-
-
 @api.route('/user', methods=['POST'])
 def create_user():
     request_body = request.get_json()
@@ -37,8 +35,6 @@ def create_user():
     return jsonify(new_user.serialize()), 200
 
 # GET para obtener un suario
-
-
 @api.route('/user/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get(id)
@@ -47,8 +43,6 @@ def get_user(id):
     return jsonify(user.serialize()), 200
 
 # PUT para actualizar un usuario
-
-
 @api.route('/user/<int:id>', methods=['PUT'])
 def update_user(id):
     user = User.query.get(id)
@@ -88,8 +82,6 @@ def create_reserve():
 
 
 # Se crea la ruta para obtener todos los usuarios de la base de datos y se retorna en formato JSON
-
-
 @api.route('/users', methods=['GET'])
 def get_users():
     print("Received a GET request to /users")  # Mensaje de log
@@ -122,7 +114,6 @@ def get_reserve():
 
 
 #Post para crear pets
-
 @api.route('/createpet', methods=['POST'])
 def create_pet():
     request_body = request.get_json()
