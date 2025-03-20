@@ -22,14 +22,17 @@ def handle_hello():
 
 
 @api.route('/user', methods=['POST'])
-def create_user():
+def create_user_diego():
     request_body = request.get_json()
     user = User(name=request_body['name'], email=request_body['email'],
                 password=request_body['password'], is_active=True)
     db.session.add(user)
+    db.session.commit()
+    return jsonify(user.serialize()), 200
+
 # Se crea la ruta para crear un usuario en la base de datos y se retorna el usuario creado en formato JSON 
 @api.route('/createuser', methods=['POST'])
-def create_user():
+def create_user_david():
     request_body = request.get_json()
     new_user = User(name=request_body['name'], email=request_body['email'], password=request_body['password'], is_active=True)
     db.session.add(new_user)
@@ -37,8 +40,6 @@ def create_user():
     return jsonify(new_user.serialize()), 200
 
 # GET para obtener un suario
-
-
 @api.route('/user/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get(id)
