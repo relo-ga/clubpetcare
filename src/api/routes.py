@@ -32,6 +32,14 @@ def login():
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
 
+
+@api.route('/me', methods=['GET'])
+@jwt_required()
+def me():
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(email=current_user).first()
+    return jsonify(user.serialize()), 200
+
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 

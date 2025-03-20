@@ -1,9 +1,30 @@
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Navbar = () => {
 
 	const { store, dispatch } = useGlobalReducer();
+
+	const fetchProfile = async () => {
+		try {
+			const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/me", {
+				headers: {
+					Authorization: `Bearer ${store.token}`
+				}
+			});
+			const data = await response.json();
+			dispatch({ type: "update_profile", payload: data });
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		if (store.token) {
+			fetchProfile();
+		}
+	}, [store.token]);
 
 	return (
 
@@ -35,6 +56,9 @@ export const Navbar = () => {
 					}
 					{
 						store.token && <>
+							<p className="m-0 me-2 fw-bold text-black p-2">
+								{store.profile?.name}
+							</p>
 							<Link to="/profile" className="me-2" style={{ textDecoration: 'none' }}>
 								<button className="btn" style={{ background: "#FFDDD2" }}>
 									Profile
