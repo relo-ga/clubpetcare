@@ -3,11 +3,42 @@ from api.models import db, User, Company, Services, Pet
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
 CORS(api)
 
+
+def password_match(user, password):
+    return user.password == password
+
+@api.route("/login", methods=["POST"])
+def login():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+
+    if not email or not password:
+        return jsonify({"msg": "Email and password are required"}), 400
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user or not password_match(user, password):
+        return jsonify({"msg": "Invalid email or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
+
+
+@api.route('/me', methods=['GET'])
+@jwt_required()
+def me():
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(email=current_user).first()
+    return jsonify(user.serialize()), 200
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
@@ -20,14 +51,19 @@ def handle_hello():
 
 # Se crea la ruta para crear un usuario en la base de datos y se retorna el usuario creado en formato JSON
 @api.route('/user', methods=['POST'])
-def create_user():
+def create_user_diego():
     request_body = request.get_json()
     user = User(name=request_body['name'], email=request_body['email'],
                 password=request_body['password'], is_active=True)
     db.session.add(user)
-# Se crea la ruta para crear un usuario en la base de datos y se retorna el usuario creado en formato JSON 
+    db.session.commit()
+    return jsonify(user.serialize()), 200
+
+
+# TODO: No se esta utilizando en el proyecto por el momento
+# Se puede utilizar para crear un usuario desde el frontend
 @api.route('/createuser', methods=['POST'])
-def create_user():
+def create_user_david():
     request_body = request.get_json()
     new_user = User(name=request_body['name'], email=request_body['email'], password=request_body['password'], is_active=True)
     db.session.add(new_user)
@@ -115,9 +151,19 @@ def get_reserve():
 
 #Post para crear pets
 @api.route('/createpet', methods=['POST'])
+@jwt_required()
 def create_pet():
     request_body = request.get_json()
-    user_id = request_body.get("user_id")
+
+    owner_email = get_jwt_identity()
+
+    owner = User.query.filter_by(email=owner_email).first()
+
+    if not owner:
+        return "User not found", 404
+
+    user_id = owner.id
+
     if not user_id:
         return "No has indicado un user id!", 400
     owner = User.query.get(user_id) 

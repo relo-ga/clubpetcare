@@ -23,8 +23,9 @@ export const initialStore=()=>{
       {
         servicio: "Peluquería"
       }
-      
-  ]
+    ],
+    token: null || localStorage.getItem('token'),
+    profile: null
   }
 }
 
@@ -44,6 +45,20 @@ export default function storeReducer(store, action = {}) {
         ...store,
         todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
       };
+
+    case 'update_token':
+      localStorage.setItem("token", action.payload);
+      return {
+        ...store,
+        token: action.payload
+      };
+
+    case 'update_profile':
+      return {
+        ...store,
+        profile: action.payload
+      };
+
     default:
       throw Error('Unknown action.');
   }    

@@ -1,10 +1,52 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const Login = () =>{
 
     const navigate = useNavigate();
+    const { store, dispatch } = useGlobalReducer();
+
+    const [credentials, setCredentials] = useState({
+        email: "",
+        password: ""
+    });
+
+    const handleCrendentials = (e) => {
+        setCredentials({
+            ...credentials,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    // nos manda al home si ya estamos logueados
+    useEffect(() => {
+        if (store.token) {
+            navigate("/");
+        }
+    }, [store.token]);
+
+    const login = async () => {
+        try {
+            const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(credentials)
+            });
+            const data = await response.json();
+            if (response.ok) {
+                dispatch({ type: "update_token", payload: data.access_token });
+                navigate("/");
+            } else {
+                alert("Credenciales incorrectas");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return(
         <div>
@@ -32,11 +74,15 @@ const Login = () =>{
                             </div>
                             <div className="mt-3 col-5">
                                 <div className="form-floating my-2">
-                                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"/>
+                                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"
+                                        onChange={handleCrendentials} name="email" value={credentials.email}
+                                    />
                                     <label for="floatingInput">Email address</label>
                                 </div>
                                 <div className="form-floating my-2">
-                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password"/>
+                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password"
+                                        onChange={handleCrendentials} name="password" value={credentials.password}
+                                    />
                                     <label for="floatingPassword">Password</label>
                                 </div>
 
@@ -46,7 +92,7 @@ const Login = () =>{
                                         Remember me
                                     </label>
                                 </div>
-                                <button className="btn btn-primary w-100 py-2" type="submit" onClick={ () => navigate("/DashboardUser")}>Sign in</button>
+                                <button className="btn btn-primary w-100 py-2" type="submit" onClick={() => login()}>Sign in</button>
                                 <div>
                                     <p className="mt-5 mb-3 text-body-secondary">No tienes cuenta? sé parte del club <Link to="/registeruse">aquí.</Link></p>
                                 </div>
@@ -76,7 +122,7 @@ const Login = () =>{
                                         Remember me
                                     </label>
                                 </div>
-                                <button className="btn btn-primary w-100 py-2" type="submit" onClick={ () => navigate("/CompanyProfile")}>Sign in</button>
+                                <button className="btn btn-primary w-100 py-2" type="submit" onClick={() => console.log("holas")}>Sign in</button>
                                 <div>
                                     <p className="mt-5 mb-3 text-body-secondary">Eres empresa? ofrece tus servicios <Link to="/registercom">aquí.</Link></p>
                                 </div>

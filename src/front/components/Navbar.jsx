@@ -1,6 +1,30 @@
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Navbar = () => {
+
+	const { store, dispatch } = useGlobalReducer();
+
+	const fetchProfile = async () => {
+		try {
+			const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/me", {
+				headers: {
+					Authorization: `Bearer ${store.token}`
+				}
+			});
+			const data = await response.json();
+			dispatch({ type: "update_profile", payload: data });
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		if (store.token) {
+			fetchProfile();
+		}
+	}, [store.token]);
 
 	return (
 
@@ -14,18 +38,41 @@ export const Navbar = () => {
 				</Link>
 
 				<div className="d-flex align-items-center">
-					<Link to="/registeruse" className="me-2" style={{ textDecoration: 'none' }}>
-						<button className="btn" style={{ background: "#FFDDD2" }}>
-							Register
-						</button>
-					</Link>
-					<Link to="/login" style={{ textDecoration: 'none' }}>
-						<button className="btn"
-							style={{ background: "#EDF6F9" }}
-						>
-							Login
-						</button>
-					</Link>
+					{
+						!store.token && <>
+							<Link to="/registeruse" className="me-2" style={{ textDecoration: 'none' }}>
+								<button className="btn" style={{ background: "#FFDDD2" }}>
+									Register
+								</button>
+							</Link>
+							<Link to="/login" style={{ textDecoration: 'none' }}>
+								<button className="btn"
+									style={{ background: "#EDF6F9" }}
+								>
+									Login
+								</button>
+							</Link>
+						</>
+					}
+					{
+						store.token && <>
+							<p className="m-0 me-2 fw-bold text-black p-2">
+								{store.profile?.name}
+							</p>
+							<Link to="/profile" className="me-2" style={{ textDecoration: 'none' }}>
+								<button className="btn" style={{ background: "#FFDDD2" }}>
+									Profile
+								</button>
+							</Link>
+
+							<button className="btn"
+								style={{ background: "#EDF6F9" }}
+								onClick={() => dispatch({ type: "update_token", payload: null })}
+							>
+								Logout
+							</button>
+						</>
+					}
 					<nav className="navbar">
 						<div className="container-fluid">
 							<a className="navbar-brand" href="#"></a>
