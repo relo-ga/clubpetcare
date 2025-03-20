@@ -13,14 +13,23 @@ api = Blueprint('api', __name__)
 CORS(api)
 
 
+def password_match(user, password):
+    return user.password == password
+
 @api.route("/login", methods=["POST"])
 def login():
-    username = request.json.get("username", None)
+    email = request.json.get("email", None)
     password = request.json.get("password", None)
-    if username != "test" or password != "test":
-        return jsonify({"msg": "Bad username or password"}), 401
 
-    access_token = create_access_token(identity=username)
+    if not email or not password:
+        return jsonify({"msg": "Email and password are required"}), 400
+
+    user = User.query.filter_by(email=email).first()
+
+    if not user or not password_match(user, password):
+        return jsonify({"msg": "Invalid email or password"}), 401
+
+    access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
 
 @api.route('/hello', methods=['POST', 'GET'])
@@ -139,11 +148,20 @@ def get_reserve():
 
 
 #Post para crear pets
-
 @api.route('/createpet', methods=['POST'])
+@jwt_required()
 def create_pet():
     request_body = request.get_json()
-    user_id = request_body.get("user_id")
+
+    owner_email = get_jwt_identity()
+
+    owner = User.query.filter_by(email=owner_email).first()
+
+    if not owner:
+        return "User not found", 404
+
+    user_id = owner.id
+
     if not user_id:
         return "No has indicado un user id!", 400
     owner = User.query.get(user_id) 

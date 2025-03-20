@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Navbar = () => {
+
+	const { store, dispatch } = useGlobalReducer();
 
 	return (
 
@@ -14,18 +17,38 @@ export const Navbar = () => {
 				</Link>
 
 				<div className="d-flex align-items-center">
-					<Link to="/registeruse" className="me-2" style={{ textDecoration: 'none' }}>
-						<button className="btn" style={{ background: "#FFDDD2" }}>
-							Register
-						</button>
-					</Link>
-					<Link to="/login" style={{ textDecoration: 'none' }}>
-						<button className="btn"
-							style={{ background: "#EDF6F9" }}
-						>
-							Login
-						</button>
-					</Link>
+					{
+						!store.token && <>
+							<Link to="/registeruse" className="me-2" style={{ textDecoration: 'none' }}>
+								<button className="btn" style={{ background: "#FFDDD2" }}>
+									Register
+								</button>
+							</Link>
+							<Link to="/login" style={{ textDecoration: 'none' }}>
+								<button className="btn"
+									style={{ background: "#EDF6F9" }}
+								>
+									Login
+								</button>
+							</Link>
+						</>
+					}
+					{
+						store.token && <>
+							<Link to="/profile" className="me-2" style={{ textDecoration: 'none' }}>
+								<button className="btn" style={{ background: "#FFDDD2" }}>
+									Profile
+								</button>
+							</Link>
+
+							<button className="btn"
+								style={{ background: "#EDF6F9" }}
+								onClick={() => dispatch({ type: "update_token", payload: null })}
+							>
+								Logout
+							</button>
+						</>
+					}
 					<nav className="navbar">
 						<div className="container-fluid">
 							<a className="navbar-brand" href="#"></a>
