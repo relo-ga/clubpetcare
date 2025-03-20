@@ -52,7 +52,7 @@ export const DashboardUser = () => {
               <h4 className="text-primary-css">¿Tienes un familiar nuevo?</h4>
               <button
                 className="btn rounded-pill accent text-white"
-                onClick={() => navigate("/registercom")}
+                onClick={() => navigate("/registerpet")}
               >
                 Add Pet
               </button>

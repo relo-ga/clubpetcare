@@ -12,8 +12,6 @@ api = Blueprint('api', __name__)
 CORS(api)
 
 
-
-
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
@@ -23,14 +21,45 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-# Se crea la ruta para crear un usuario en la base de datos y se retorna el usuario creado en formato JSON 
+# Se crea la ruta para crear un usuario en la base de datos y se retorna el usuario creado en formato JSON
+
+
 @api.route('/user', methods=['POST'])
 def create_user():
     request_body = request.get_json()
-    user = User(name=request_body['name'], email=request_body['email'], password=request_body['password'], is_active=True)
+    user = User(name=request_body['name'], email=request_body['email'],
+                password=request_body['password'], is_active=True)
     db.session.add(user)
     db.session.commit()
     return jsonify(user.serialize()), 200
+
+# GET para obtener un suario
+
+
+@api.route('/user/<int:id>', methods=['GET'])
+def get_user(id):
+    user = User.query.get(id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    return jsonify(user.serialize()), 200
+
+# PUT para actualizar un usuario
+
+
+@api.route('/user/<int:id>', methods=['PUT'])
+def update_user(id):
+    user = User.query.get(id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    request_body = request.get_json()
+    user.name = request_body.get("name", user.name)
+    user.email = request_body.get("email", user.email)
+    user.password = request_body.get("password", user.password)
+    db.session.commit()
+
+    return jsonify(user.serialize()), 200
+
 
 # Post para crear una empresa
 @api.route('/createcompany', methods=['POST'])
@@ -42,12 +71,9 @@ def create_company():
     db.session.commit()
     return jsonify(new_company.serialize()), 200
 
-
-
-
-
-
 # Se crea la ruta para obtener todos los usuarios de la base de datos y se retorna en formato JSON
+
+
 @api.route('/users', methods=['GET'])
 def get_users():
     print("Received a GET request to /users")  # Mensaje de log
@@ -56,6 +82,7 @@ def get_users():
     users = list(map(lambda x: x.serialize(), users))
     return jsonify(users), 200
 
+
 @api.route('/company', methods=['GET'])
 def get_company():
     print("Received a GET request to /company")  # Mensaje de log
@@ -63,8 +90,3 @@ def get_company():
     print("Users found:", company)  # Log de los usuarios encontrados
     company = list(map(lambda x: x.serialize(), company))
     return jsonify(company), 200
-
-
-
-
-
