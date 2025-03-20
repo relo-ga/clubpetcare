@@ -83,7 +83,7 @@ class Pet(db.Model):
     user: Mapped["User"] = relationship()
 
     #constructor
-    def __init__(self, name,gender,photo,medical_history,race,specie,emergency_phone,id_user):
+    def __init__(self, name,gender,photo,medical_history,race,specie,emergency_phone,user):
         self.name = name
         self.gender = gender
         self.photo = photo
@@ -91,7 +91,7 @@ class Pet(db.Model):
         self.race = race
         self.specie = specie
         self.emergency_phone = emergency_phone
-        self.id_user = id_user
+        self.user = user
 
 
     def serialize(self):
@@ -116,6 +116,11 @@ class Services(db.Model):
 
     id_company: Mapped[int] = mapped_column(ForeignKey("company.id"))
     company: Mapped["Company"] = relationship()
+
+    #constructor
+    def __init__(self, name, id_company):
+        self.name = name
+        self.id_company = id_company
 
     def serialize(self):
         return {

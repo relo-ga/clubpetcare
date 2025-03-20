@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const CompanyProfile = () => {
   const [nombreEmpresa, setNombreEmpresa] = useState("Nombre de la Empresa");
@@ -23,6 +24,8 @@ export const CompanyProfile = () => {
       setEditando(false);
     }
   };
+
+  const { store } = useGlobalReducer();
 
   return (
     <div style={{ backgroundColor: "#EDF6F9" }}>
@@ -109,9 +112,13 @@ export const CompanyProfile = () => {
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
           <h2 style={{ color: "#006D77", }}><i className="fa-solid fa-paw me-1" style={{ color: "#006D77", }}></i>Nuestros Servicios</h2>
           <ul className="list-group">
-            <li className="list-group-item">Servicio 1</li>
-            <li className="list-group-item">Servicio 2</li>
-            <li className="list-group-item">Servicio 3</li>
+            {
+              store.servicios_vet.map((element,index) => {
+                return(
+                  <li key={index} className="list-group-item">{element.servicio}</li>
+                )
+              })
+            }
           </ul>
         </section>
 

@@ -1,10 +1,25 @@
 import React from "react";
+import { use } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProfilePet = () => {
 
-    const navigate = useNavigate();
-
+    /**const navigate = useNavigate();
+    
+    useEffect(() => {
+        const fetchpet = async () => {
+            try {
+                const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/pet/1", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+            }
+        }
+    }
+    , []); 
+**/
     return(
         <div className="py-4" style={{ backgroundColor: "#FFDDD2" }}>
             <div className="my-3 col-5 mx-auto rounded-4 pb-2" style={{ backgroundColor: "#fff" }}>

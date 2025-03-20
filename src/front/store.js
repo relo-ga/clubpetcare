@@ -12,7 +12,19 @@ export const initialStore=()=>{
         title: "Do my homework",
         background: null,
       }
-    ]
+    ],
+    servicios_vet:[
+      {
+        servicio: "Paseos",
+      },
+      {
+        servicio: "Veterinaria"
+      },
+      {
+        servicio: "Peluquería"
+      }
+      
+  ]
   }
 }
 

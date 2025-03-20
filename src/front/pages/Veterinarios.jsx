@@ -1,29 +1,51 @@
-import React from "react";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+import React, { useState } from "react";
+import {Calendar} from "../components/Calendar"; // Importa el componente Calendar
 
-const Veterinarios = () =>{
+const Veterinarios = () => {
+  const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
 
-    const CardVeterinarios = (props) =>{
+    const { store } = useGlobalReducer();
 
-        return(<div className="col-3 mt-5 me-3">
-            <div className="card">
-                <div className="p-3 d-flex justify-content-center mx-auto" style={{width:"100px"}}>
-                    <img src={props.image} className="card-img-top" alt="..." />
-                </div>
-                <div className="card-body p-4">
-                    <h5 className="card-title mb-3 text-center">{props.title}</h5>
-                    <div className="text-wrap mb-3 text-center">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia porro, amet eligendi saepe 
-                            laborum sit officiis pariatur necessitatibus esse, quisquam ut nihil numquam aut repellendus 
-                            odio animi veniam voluptates placeat.
-                        </p>
-                    </div>
-                    <div className="d-flex justify-content-center">
-                        <button type="button" class="btn btn-outline-danger" >
-                           Reservar
-                        </button>
-                    </div>
-                </div>
+    // Función para abrir el modal
+    const handleReservarClick = () => {
+        setShowModal(true);
+    };
+
+    // Función para cerrar el modal
+    const handleCloseModal = () => {
+        setShowModal(false);
+    };
+
+    // Función para manejar la reserva
+    const handleReservar = () => {
+        alert("Reserva realizada con éxito");
+        setShowModal(false);
+    };
+
+  const CardVeterinarios = (props) => {
+    return (
+      <div className="col-3 mt-5 me-3">
+        <div className="card">
+          <div className="p-3 d-flex justify-content-center mx-auto" style={{ width: "100px" }}>
+            <img src={props.image} className="card-img-top" alt="..." />
+          </div>
+          <div className="card-body p-4">
+            <h5 className="card-title mb-3 text-center">{props.title}</h5>
+            <div className="text-wrap mb-3 text-center">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia porro, amet eligendi saepe laborum sit
+                officiis pariatur necessitatibus esse, quisquam ut nihil numquam aut repellendus odio animi veniam
+                voluptates placeat.
+              </p>
             </div>
+            <div className="d-flex justify-content-center">
+              <button type="button" className="btn btn-outline-danger" onClick={handleReservarClick}>
+                Reservar
+              </button>
+            </div>
+          </div>
+        </div>
         </div>
 
         );
@@ -31,6 +53,8 @@ const Veterinarios = () =>{
 
     return(
         <div className="py-4" style={{ backgroundColor: "#FFDDD2" }}>
+             {/* Modal para reservar */}
+            <Calendar show={showModal} onClose={handleCloseModal} onConfirm={handleReservar} />
             <div className="mb-3 col-8 mx-auto border-bottom rounded-4" style={{ backgroundColor: "#fff" }}>
                 <div className="row g-0 m-5 pt-4">
                     <div className="col-md-6 p-3 d-flex align-items-center">
@@ -88,14 +112,15 @@ const Veterinarios = () =>{
                 <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
                     <h2 className="text-center" style={{color:"#006D77"}}>Servicios</h2>
                 </div>
-                <div className="m-5">
-                    <div className="d-flex position-relative overflow-auto">
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
-                            <CardVeterinarios key={0} title={"Peluqueria"} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
+                <div className="m-4">
+                    <div className="d-flex justify-content-center position-relative overflow-auto pb-3">
+                        {
+                            store.servicios_vet.map((element,index) => {
+                                return(
+                                    <CardVeterinarios key={index} title={element.servicio} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
+                                );
+                            })
+                        }
                     </div>
 
                 </div>
@@ -103,6 +128,5 @@ const Veterinarios = () =>{
 
         </div>
     );
-}
-
+  };
 export default Veterinarios;
