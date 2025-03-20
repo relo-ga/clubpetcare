@@ -30,7 +30,9 @@ def create_user_diego():
     db.session.commit()
     return jsonify(user.serialize()), 200
 
-# Se crea la ruta para crear un usuario en la base de datos y se retorna el usuario creado en formato JSON 
+
+# TODO: No se esta utilizando en el proyecto por el momento
+# Se puede utilizar para crear un usuario desde el frontend
 @api.route('/createuser', methods=['POST'])
 def create_user_david():
     request_body = request.get_json()
