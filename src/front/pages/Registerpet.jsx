@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const Registerpet = () => {
     const navigate = useNavigate();
+
+    const { store } = useGlobalReducer();
 
     const [pet, setPet] = useState({
         name: "",
@@ -10,8 +13,7 @@ const Registerpet = () => {
         photo: "",
         medical_history: "",
         race: "",
-        emergency_phone: "",
-        user_id: "1" // Replace with dynamic user ID from your authentication system
+        emergency_phone: ""
     });
 
     const handleInputChange = (e) => {
@@ -26,7 +28,8 @@ const Registerpet = () => {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/createpet`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${store.token}`
                 },
                 body: JSON.stringify(pet)
             });
