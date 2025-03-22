@@ -59,7 +59,6 @@ def create_user_diego():
     db.session.commit()
     return jsonify(user.serialize()), 200
 
-
 # TODO: No se esta utilizando en el proyecto por el momento
 # Se puede utilizar para crear un usuario desde el frontend
 @api.route('/createuser', methods=['POST'])
@@ -218,3 +217,27 @@ def create_appointment():
     db.session.add(new_appointment)
     db.session.commit()
     return jsonify(new_appointment.serialize()), 200
+#
+# SERVICIOS
+#
+#Ruta para POST de servicios
+@api.route('/services', methods=['POST'])
+@jwt_required()
+def create_services():
+    current_company = get_jwt_identity()
+    company = Company.query.filter_by(email=current_company).first()
+    request_body = request.get_json()
+    services = Services(name=request_body['name'], description=request_body['description'],
+                image=request_body['image'],id_company=request_body['id_company'], is_active=True)
+    db.session.add(services)
+    db.session.commit()
+    return jsonify(services.serialize()), 200
+
+#Ruta para GET de servicios
+@api.route('/services',methods=['GET'])
+def get_services():
+    print("Received a get request to /services")
+    services = Services.query.all()
+    print("Services found:", services)  # Log de los servicios encontrados
+    services = list(map(lambda x: x.serialize(), services))
+    return jsonify(services), 200
