@@ -41,9 +41,9 @@ export const CompanyProfile = () => {
       setShowModal(false);
   };
 
-  // Función para manejar la reserva
+  // Función para manejar el servicio
   const handleReservar = () => {
-      alert("Reserva realizada con éxito");
+      alert("Servicio agregado con éxito ✅");
       setShowModal(false);
   };
 

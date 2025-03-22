@@ -32,12 +32,36 @@ def login():
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
 
+@api.route("/loginCompany", methods=["POST"])
+def loginCompany():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+
+    if not email or not password:
+        return jsonify({"msg": "Email and password are required"}), 400
+
+    user = Company.query.filter_by(email=email).first()
+
+    if not user or not password_match(user, password):
+        return jsonify({"msg": "Invalid email or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
+
+
 
 @api.route('/me', methods=['GET'])
 @jwt_required()
 def me():
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
+    return jsonify(user.serialize()), 200
+
+@api.route('/meCompany', methods=['GET'])
+@jwt_required()
+def meCompany():
+    current_user = get_jwt_identity()
+    user = Company.query.filter_by(email=current_user).first()
     return jsonify(user.serialize()), 200
 
 @api.route('/hello', methods=['POST', 'GET'])
@@ -222,10 +246,7 @@ def create_appointment():
 #
 #Ruta para POST de servicios
 @api.route('/services', methods=['POST'])
-@jwt_required()
 def create_services():
-    current_company = get_jwt_identity()
-    company = Company.query.filter_by(email=current_company).first()
     request_body = request.get_json()
     services = Services(name=request_body['name'], description=request_body['description'],
                 image=request_body['image'],id_company=request_body['id_company'], is_active=True)
@@ -235,9 +256,12 @@ def create_services():
 
 #Ruta para GET de servicios
 @api.route('/services',methods=['GET'])
+@jwt_required()
 def get_services():
+    current_company = get_jwt_identity()
     print("Received a get request to /services")
-    services = Services.query.all()
+    #services = Services.query.all()
+    services = Services.query.filter_by(id_company=current_company).all()
     print("Services found:", services)  # Log de los servicios encontrados
     services = list(map(lambda x: x.serialize(), services))
     return jsonify(services), 200
