@@ -14,9 +14,10 @@ class User(db.Model):
     location: Mapped[str] = mapped_column(nullable=True) 
     photo: Mapped[str] = mapped_column(nullable=True)
     phone: Mapped[str] = mapped_column(nullable=True)
+    age: Mapped[int] = mapped_column(nullable=True)
 
     #constructor
-    def __init__(self, name, email, password, is_active, location=None, photo=None, phone=None):
+    def __init__(self, name, email, password, is_active, location=None, photo=None, phone=None, age=None):
         self.name = name
         self.email = email
         self.password = password
@@ -24,6 +25,7 @@ class User(db.Model):
         self.location = location
         self.photo = photo
         self.phone = phone
+        self.age = age
 
     def serialize(self):
         return {
