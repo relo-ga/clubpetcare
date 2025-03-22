@@ -162,6 +162,8 @@ class Appointments(db.Model):
     status: Mapped[str] = mapped_column(nullable=False)
     time: Mapped[str] = mapped_column(nullable=False)
     location: Mapped[str] = mapped_column(nullable=False)
+    details: Mapped[str] = mapped_column(nullable=False)
+    duration: Mapped[str] = mapped_column(nullable=False)  
 
 # --> Relation Many to many with Pet
     id_pet: Mapped[int] = mapped_column(ForeignKey("pet.id"))
@@ -172,14 +174,22 @@ class Appointments(db.Model):
     service: Mapped["Services"] = relationship()
 
 
+# --> Relation
+    id_company: Mapped[int] = mapped_column(ForeignKey("company.id"))
+    company: Mapped["Company"] = relationship()
+
     #constructor
-    def __init__(self, date, status, time, location, id_pet, id_service):
+    def __init__(self, date, status, time, location,details,duration, id_pet, id_service,id_company):
         self.date = date
         self.status = status
         self.time = time
         self.location = location
+        self.details = details
+        self.duration = duration
         self.id_pet = id_pet
         self.id_service = id_service
+        self.id_company = id_company
+
 
     def serialize(self):
         return {
@@ -188,8 +198,10 @@ class Appointments(db.Model):
             "status": self.status,
             "time": self.time,
             "location": self.location,
+            "details": self.details,
+            "duration": self.duration,
             "id_pet": self.id_pet,
             "id_service": self.id_service,
+            "id_company": self.id_company
         }
-    
 

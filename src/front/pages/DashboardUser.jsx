@@ -1,22 +1,25 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./colors.css"; // Importa el archivo de colores
-
+import {Calendar} from "../components/Calendar"; // Importa el componente Calendar
+import { AppointmentForm } from "../components/AppointmentForm";
 export const DashboardUser = () => {
   // Hooks
-  const [pets, setPets] = useState([
-
-  ]);
-
+  const [pets, setPets] = useState([]);
   const [profesional, setProfesional] = useState([
     { id: 1, name: "PomPom", specialty: "Veterinarian and Cantones", phone: 1234567890, email: "popon@gmail.com", location: "Costa Rica, San José, San Pedro, a la par de la UCR", img: "https://i.pinimg.com/736x/0c/b7/8a/0cb78a0d81370df294a89459e4734a98.jpg" },
     { id: 2, name: "Dr. Titan", specialty: "Ser Feliz", phone: 9876543210, email: "titan@gmail.com", location: "Costa Rica, San José, Curridabat", img: "https://i.pinimg.com/736x/56/37/21/5637217d86a44baf78f13af6dd4e6744.jpg" },
     { id: 3, name: "Dr. Capy", specialty: "Aves", phone: 1122334455, email: "capy@gmail.com", location: "Costa Rica, Heredia, San Pablo", img: "https://i.pinimg.com/736x/64/a8/84/64a884b56b595ebe57a87fa387802916.jpg" }
   ]);
 
+  const [formData, setFormData] = useState({
+    service: "",
+    petId: "",
+    professionalId: ""
+  });
+
   const navigate = useNavigate();
-  /** Sufrimiento de conectar backend */
- 
+
   useEffect(() => {
     const fetchPets = async () => {
       try {
@@ -39,8 +42,22 @@ export const DashboardUser = () => {
     };
 
     fetchPets();
-  }
-    , []);
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí puedes manejar la solicitud, por ejemplo, enviarla al backend
+    console.log("Formulario enviado:", formData);
+    alert("Solicitud de cita enviada correctamente");
+  };
 
   return (
     <div className="container-fluid p-4 background">
@@ -183,6 +200,19 @@ export const DashboardUser = () => {
           </div>
         </div>
       </div>
+
+      {/** Formulario de solicitud de cita */}
+     <AppointmentForm
+        formData={formData}
+        pets={pets}
+        professionals={profesional}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
+
+      {/** Calendario */}
+      
+                
     </div>
   );
 };

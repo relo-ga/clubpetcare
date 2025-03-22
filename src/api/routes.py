@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Company, Services, Pet
+from api.models import db, User, Company, Services, Pet, Appointments
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -146,9 +146,6 @@ def get_reserve():
 
 
 
-
-
-
 #Post para crear pets
 @api.route('/createpet', methods=['POST'])
 @jwt_required()
@@ -177,7 +174,12 @@ def create_pet():
 
 # Get para obtener pets
 @api.route('/pets',methods=['GET'])
+@jwt_required()
 def get_pets():
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(email=current_user).first()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
     print("Received a get request to /pets")
     pets = Pet.query.all()
     print("Pets found:", pets)  # Log de los usuarios encontrados
@@ -191,3 +193,28 @@ def get_pet_by_id(id):
     pet = Pet.query.get(id)
     print("Pet found:", pet)  # Log de los usuarios encontrados
     return jsonify(pet.serialize()), 200
+
+
+# post para crear una reserva de potato
+@api.route('/appointmentPotato', methods=['POST'])
+def create_appointment():
+    request_body = request.get_json()
+    required_fields = ['date', 'status', 'time', 'location', 'details', 'duration', 'id_pet', 'id_service', 'id_company']
+    for field in required_fields:
+        if field not in request_body:
+            return {"error": f"Field {field} is required"}, 400
+        
+    new_appointment = Appointments(
+            date=request_body['date'],
+            status=request_body['status'],
+            time=request_body['time'],
+            location=request_body['location'],
+            details=request_body['details'],
+            duration=request_body['duration'],
+            id_pet=request_body['id_pet'],
+            id_service=request_body['id_service'],
+            id_company=request_body['id_company']
+        )
+    db.session.add(new_appointment)
+    db.session.commit()
+    return jsonify(new_appointment.serialize()), 200

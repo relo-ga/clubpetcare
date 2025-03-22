@@ -39,7 +39,7 @@ const Login = () =>{
             const data = await response.json();
             if (response.ok) {
                 dispatch({ type: "update_token", payload: data.access_token });
-                navigate("/");
+                navigate("/dashboarduser");
             } else {
                 alert("Credenciales incorrectas");
             }
