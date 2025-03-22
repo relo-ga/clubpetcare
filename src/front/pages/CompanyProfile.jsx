@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import ListCompanyServices from "../components/ListCompanyServices";
+import { ModalServices } from "../components/ModalServices";
 
 export const CompanyProfile = () => {
   const [nombreEmpresa, setNombreEmpresa] = useState("Nombre de la Empresa");
@@ -26,6 +28,24 @@ export const CompanyProfile = () => {
   };
 
   const { store } = useGlobalReducer();
+
+  //Modal Services
+  const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
+  
+  // Función para abrir el modal
+  const handleReservarClick = () => {
+      setShowModal(true);
+  };
+  // Función para cerrar el modal
+  const handleCloseModal = () => {
+      setShowModal(false);
+  };
+
+  // Función para manejar la reserva
+  const handleReservar = () => {
+      alert("Reserva realizada con éxito");
+      setShowModal(false);
+  };
 
   return (
     <div style={{ backgroundColor: "#EDF6F9" }}>
@@ -110,16 +130,24 @@ export const CompanyProfile = () => {
         </section>
 
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
+          {/* Modal para reservar */}
+          <ModalServices show={showModal} onClose={handleCloseModal} onConfirm={handleReservar} />
           <h2 style={{ color: "#006D77", }}><i className="fa-solid fa-paw me-1" style={{ color: "#006D77", }}></i>Nuestros Servicios</h2>
-          <ul className="list-group">
+          <div className="list-group">
             {
               store.servicios_vet.map((element,index) => {
                 return(
-                  <li key={index} className="list-group-item">{element.servicio}</li>
+                  <ListCompanyServices key={index} className="list-group-item" service={element.servicio} description={element.description} image={element.image} />
                 )
               })
             }
-          </ul>
+          </div>
+          <div className="d-flex align-items-center mt-3 ms-3">
+            <p className="fw-bold m-0 me-2">Agregar servicio</p>
+            <button type="button" class="btn btn-outline-dark rounded-pill" onClick={handleReservarClick}>
+                <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
         </section>
 
         <section className="bg-white mt-4 p-3 rounded shadow-sm">

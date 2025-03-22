@@ -111,22 +111,31 @@ class Services(db.Model):
     __tablename__ = "services"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(nullable=False)
+    description: Mapped[str] = mapped_column(nullable=False)
+    image: Mapped[str] = mapped_column(nullable=False)
+    is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
 
 # --> Relation one to many with Company
 
     id_company: Mapped[int] = mapped_column(ForeignKey("company.id"))
-    company: Mapped["Company"] = relationship()
+    company: Mapped["Company"] = relationship("Company", backref="services")
 
     #constructor
-    def __init__(self, name, id_company):
+    def __init__(self, name, description, image, id_company, is_active):
         self.name = name
+        self.description = description
+        self.image = image
         self.id_company = id_company
+        self.is_active = is_active
 
     def serialize(self):
         return {
             "id": self.id,
             "name": self.name,
+            "description": self.description,
+            "image": self.image,
             "id_company": self.id_company,
+            "is_active": self.is_active
         }
 
 class Favorites(db.Model):

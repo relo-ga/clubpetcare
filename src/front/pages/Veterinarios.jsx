@@ -1,60 +1,13 @@
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import React, { useState } from "react";
-import {Calendar} from "../components/Calendar"; // Importa el componente Calendar
+import CardServicesProf from "../components/CardServicesProf";
 
 const Veterinarios = () => {
-  const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
 
     const { store } = useGlobalReducer();
 
-    // Función para abrir el modal
-    const handleReservarClick = () => {
-        setShowModal(true);
-    };
-
-    // Función para cerrar el modal
-    const handleCloseModal = () => {
-        setShowModal(false);
-    };
-
-    // Función para manejar la reserva
-    const handleReservar = () => {
-        alert("Reserva realizada con éxito");
-        setShowModal(false);
-    };
-
-  const CardVeterinarios = (props) => {
-    return (
-      <div className="col-3 mt-5 me-3">
-        <div className="card">
-          <div className="p-3 d-flex justify-content-center mx-auto" style={{ width: "100px" }}>
-            <img src={props.image} className="card-img-top" alt="..." />
-          </div>
-          <div className="card-body p-4">
-            <h5 className="card-title mb-3 text-center">{props.title}</h5>
-            <div className="text-wrap mb-3 text-center">
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia porro, amet eligendi saepe laborum sit
-                officiis pariatur necessitatibus esse, quisquam ut nihil numquam aut repellendus odio animi veniam
-                voluptates placeat.
-              </p>
-            </div>
-            <div className="d-flex justify-content-center">
-              <button type="button" className="btn btn-outline-danger" onClick={handleReservarClick}>
-                Reservar
-              </button>
-            </div>
-          </div>
-        </div>
-        </div>
-
-        );
-    }
-
     return(
         <div className="py-4" style={{ backgroundColor: "#FFDDD2" }}>
-             {/* Modal para reservar */}
-            <Calendar show={showModal} onClose={handleCloseModal} onConfirm={handleReservar} />
             <div className="mb-3 col-8 mx-auto border-bottom rounded-4" style={{ backgroundColor: "#fff" }}>
                 <div className="row g-0 m-5 pt-4">
                     <div className="col-md-6 p-3 d-flex align-items-center">
@@ -117,7 +70,7 @@ const Veterinarios = () => {
                         {
                             store.servicios_vet.map((element,index) => {
                                 return(
-                                    <CardVeterinarios key={index} title={element.servicio} image={"https://cdn-icons-png.flaticon.com/512/17781/17781111.png"} />
+                                    <CardServicesProf key={index} title={element.servicio} image={element.image} description={element.description} />
                                 );
                             })
                         }
