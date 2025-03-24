@@ -69,7 +69,7 @@ def create_user_david():
     db.session.commit()
     return jsonify(new_user.serialize()), 200
 
-# GET para obtener un suario
+# GET para obtener un Usuario
 @api.route('/user/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get(id)
@@ -241,3 +241,25 @@ def get_services():
     print("Services found:", services)  # Log de los servicios encontrados
     services = list(map(lambda x: x.serialize(), services))
     return jsonify(services), 200
+
+
+#Ryta para PUT para modificar informacion del usuario en la API
+
+@api.route('/user/<int:id>', methods=['PUT'])
+def user_update2(id):
+    user = User.query.get(id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    request_body = request.get_json()
+    user.email = request_body.get("email", user.email)
+    user.password = request_body.get("password", user.password)
+    user.location = request_body.get("location", user.location)
+    user.photo = request_body.get("photo", user.photo)
+    user.phone = request_body.get("phone", user.phone)
+    user.age = request_body.get("age", user.age)
+
+    db.session.commit()
+
+    return jsonify(user.serialize()), 200
+

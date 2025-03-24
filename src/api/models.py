@@ -36,6 +36,7 @@ class User(db.Model):
             "location": self.location,
             "photo": self.photo,
             "phone": self.phone,
+            "age": self.age,
             # Excluir la contraseña por seguridad
         }
     
