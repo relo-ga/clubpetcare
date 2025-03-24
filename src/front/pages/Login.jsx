@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const Login = () =>{
@@ -12,6 +11,9 @@ const Login = () =>{
         email: "",
         password: ""
     });
+
+    
+    const [selectedRole, setSelectedRole] = useState("usuario");
 
     const handleCrendentials = (e) => {
         setCredentials({
@@ -29,6 +31,7 @@ const Login = () =>{
 
     const login = async () => {
         try {
+            
             const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/login", {
                 method: "POST",
                 headers: {

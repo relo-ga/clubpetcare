@@ -4,6 +4,15 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 db = SQLAlchemy()
 
+class Role(db.Model):
+    __tablename__ = "role"
+    id: Mapped[int] = mapped_column (primary_key=True)
+    name: Mapped[str] = mapped_column (String(50), unique=True)
+    description: Mapped[str] = mapped_column (String(255))
+
+    def __repr__(self):
+        return f"<Role {self.name}>"
+
 class User(db.Model):
     __tablename__ = "user"
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -14,6 +23,10 @@ class User(db.Model):
     location: Mapped[str] = mapped_column(nullable=True) 
     photo: Mapped[str] = mapped_column(nullable=True)
     phone: Mapped[str] = mapped_column(nullable=True)
+
+    #ASIGNACIÓN DE ROLES, one to many
+    role_id: Mapped[int] = mapped_column(ForeignKey("role.id"), nullable=False)
+    role: Mapped = relationship("Role", backref= "users", lazy=True)
 
     #constructor
     def __init__(self, name, email, password, is_active, location=None, photo=None, phone=None):
@@ -34,6 +47,7 @@ class User(db.Model):
             "location": self.location,
             "photo": self.photo,
             "phone": self.phone,
+            "role": self.role.name if self.role else None
             # Excluir la contraseña por seguridad
         }
     
@@ -46,6 +60,10 @@ class Company(db.Model):
     password: Mapped[str] = mapped_column(nullable=False)
     location: Mapped[str] = mapped_column(nullable=False)
     photo: Mapped[str] = mapped_column(nullable=False)
+
+    #ASIGNACIÓN DE ROLES, one to many
+    role_id: Mapped[int] = mapped_column(ForeignKey("role.id"), nullable=False)
+    role: Mapped = relationship("Role", backref= "companies", lazy=True)
 
     #constructor
     def __init__(self, name, name_company, email, password, location, photo):
@@ -63,6 +81,7 @@ class Company(db.Model):
             "email": self.email,
             "location": self.location,
             "photo": self.photo,
+            "role": self.role.name if self.role else None
             # Excluir la contraseña por seguridad
         }   
 
