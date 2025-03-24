@@ -33,11 +33,8 @@ export const initialStore=()=>{
     services_company:[],
     token: null || localStorage.getItem('token'),
     profile: null,
-<<<<<<< HEAD
-    pets: []
-=======
+    pets: [],
     profileCompany: null
->>>>>>> refs/remotes/origin/main
   }
 }
 
