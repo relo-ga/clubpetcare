@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./colors.css"; // Importa el archivo de colores
-import {Calendar} from "../components/Calendar"; // Importa el componente Calendar
+import { Calendar } from "../components/Calendar"; // Importa el componente Calendar
 import { AppointmentForm } from "../components/AppointmentForm";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+
 export const DashboardUser = () => {
   // Hooks
+  const [loading, setLoading] = useState(true); // Corregido
+  const { store, dispatch } = useGlobalReducer();
+
   const [pets, setPets] = useState([]);
   const [profesional, setProfesional] = useState([
     { id: 1, name: "PomPom", specialty: "Veterinarian and Cantones", phone: 1234567890, email: "popon@gmail.com", location: "Costa Rica, San José, San Pedro, a la par de la UCR", img: "https://i.pinimg.com/736x/0c/b7/8a/0cb78a0d81370df294a89459e4734a98.jpg" },
@@ -20,28 +25,41 @@ export const DashboardUser = () => {
 
   const navigate = useNavigate();
 
+  console.log("Token: " + store.token);
+
+  const fetchPets = async () => {
+    try {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/pets", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${store.token}`
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch pets");
+      }
+
+      const data = await response.json();
+      setPets(data); // Actualiza el estado local `pets`
+      dispatch({ type: "pet_info", payload: data });
+    } catch (error) {
+      console.error("Error fetching pets:", error);
+    } finally {
+      setLoading(false); // Finaliza la carga, incluso si hay un error
+    }
+  };
+
   useEffect(() => {
-    const fetchPets = async () => {
+    const getPets = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/pets", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch pets");
-        }
-
-        const data = await response.json();
-        setPets(data);
+        await fetchPets();
       } catch (error) {
         console.error("Error fetching pets:", error);
       }
     };
-
-    fetchPets();
+    getPets();
   }, []);
 
   const handleChange = (e) => {
@@ -54,7 +72,6 @@ export const DashboardUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes manejar la solicitud, por ejemplo, enviarla al backend
     console.log("Formulario enviado:", formData);
     alert("Solicitud de cita enviada correctamente");
   };
@@ -70,25 +87,31 @@ export const DashboardUser = () => {
               <i className="fa-solid fa-paw text-primary-css"></i>
             </h1>
             <div className="d-flex flex-wrap gap-3 justify-content-center mt-4">
-              {pets.map(pet => (
-                <div key={pet.id} className="text-center position-relative">
-                  <button
-                    style={{ border: "none", background: "none" }}
-                    onClick={() => navigate("/profilepet")}
-                  >
-                    <img
-                      src={pet.photo || "https://images3.memedroid.com/images/UPLOADED537/665c8560a1300.jpeg"}
-                      className="rounded-circle"
-                      style={{ width: "100px", height: "100px", objectFit: "cover" }}
-                      alt={pet.name}
-                    />
-                    {pet.hasPending && (
-                      <span className="position-absolute translate-middle p-2 bg-danger rounded-circle"></span>
-                    )}
-                  </button>
-                  <h5 className="mt-2 text-primary-css">{pet.name}</h5>
-                </div>
-              ))}
+              {loading ? (
+                <p>Cargando mascotas...</p>
+              ) : pets && Array.isArray(pets) && pets.length > 0 ? (
+                pets.map(pet => (
+                  <div key={pet.id} className="text-center position-relative">
+                    <button
+                      style={{ border: "none", background: "none" }}
+                      onClick={() => navigate(`/profilepet/${pet.id}`)}
+                    >
+                      <img
+                        src={pet.photo || "https://images3.memedroid.com/images/UPLOADED537/665c8560a1300.jpeg"}
+                        className="rounded-circle"
+                        style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                        alt={pet.name}
+                      />
+                      {pet.hasPending && (
+                        <span className="position-absolute translate-middle p-2 bg-danger rounded-circle"></span>
+                      )}
+                    </button>
+                    <h5 className="mt-2 text-primary-css">{pet.name}</h5>
+                  </div>
+                ))
+              ) : (
+                <p>No se encontraron mascotas.</p>
+              )}
             </div>
             <div className="d-flex justify-content-between align-items-center mt-4">
               <h4 className="text-primary-css">¿Tienes un familiar nuevo?</h4>
@@ -202,7 +225,7 @@ export const DashboardUser = () => {
       </div>
 
       {/** Formulario de solicitud de cita */}
-     <AppointmentForm
+      <AppointmentForm
         formData={formData}
         pets={pets}
         professionals={profesional}
@@ -211,8 +234,8 @@ export const DashboardUser = () => {
       />
 
       {/** Calendario */}
-      
-                
+
+
     </div>
   );
 };

@@ -31,7 +31,8 @@ export const initialStore=()=>{
       }
     ],
     token: null || localStorage.getItem('token'),
-    profile: null
+    profile: null,
+    pets: []
   }
 }
 
@@ -63,6 +64,18 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         profile: action.payload
+      };
+
+    case 'pet_info':
+      return {
+        ...store,
+        pets: action.payload
+      };
+      
+      case '1pet_info':
+      return {
+        ...store,
+        pet: action.payload // Actualiza un solo pet
       };
 
     default:
