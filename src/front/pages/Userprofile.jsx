@@ -6,6 +6,7 @@ const Userprofile = () => {
 
     const navigate = useNavigate();
 
+
   return (
     <div className="container my-5">
         <h1 className="text-center mb-4">Personal Information</h1>
@@ -21,29 +22,34 @@ const Userprofile = () => {
 
             <div className="col-md-8 d-flex justify-content-around align-items-center mx-2">
                 
-                <form id="profileForm" className="row g-3">
-                    <div className="mb-3 col-5">
-                        <label for="name" className="form-label">Name</label>
-                        <input type="text" className="form-control" id="name" placeholder="Juan Pérez"/>
-                    </div>
-                    <div className="mb-3 col-5">
-                        <label for="phone" className="form-label">Principal Phone Number</label>
-                        <input type="tel" className="form-control" id="phone" placeholder="000-000-00-00"/>
-                    </div>
-                    <div className="mb-3 col-5">
-                        <label for="phone" className="form-label">Seconary Phone Number</label>
-                        <input type="tel" className="form-control" id="phone" placeholder="000-000-00-00"/>
-                    </div>
-                    <div className="mb-3 col-5">
-                        <label for="age" className="form-label">Age</label>
-                        <input type="number" className="form-control" id="age" placeholder="30" />
-                    </div>
-                    <div className="mb-5 col-5">
-                        <label for="location" className="form-label">Address</label>
-                        <input type="text" className="form-control" id="location" placeholder="1234 Downtown AV, Apt 5, 25643"/>
-                    </div>
-                    <button type="submit" className="btn btn-primary" onClick={ () => navigate("/DashboardUser")}>Update Changes</button>
-                </form>
+                    
+                        <div id="profileForm" className="row g-3">
+                            <div className="mb-3 col-5">
+                                <label for="name" className="form-label">
+                                   
+                                </label>
+                                <input type="text" className="form-control" id="name" placeholder="Juan Perez"/>
+                            </div>
+                            <div className="mb-3 col-5">
+                                <label for="phone" className="form-label">Principal Phone Number</label>
+                                <input type="tel" className="form-control" id="phone" placeholder="000-000-00-00"/>
+                            </div>
+                            <div className="mb-3 col-5">
+                                <label for="phone" className="form-label">Seconary Phone Number</label>
+                                <input type="tel" className="form-control" id="phone" placeholder="000-000-00-00"/>
+                            </div>
+                            <div className="mb-3 col-5">
+                                <label for="age" className="form-label">Age</label>
+                                <input type="number" className="form-control" id="age" placeholder="30" />
+                            </div>
+                            <div className="mb-5 col-5">
+                                <label for="location" className="form-label">Address</label>
+                                <input type="text" className="form-control" id="location" placeholder="1234 Downtown AV, Apt 5, 25643"/>
+                            </div>
+                    
+                        <button type="submit" className="btn btn-primary" onClick={ () => navigate("/DashboardUser")}>Update Changes</button>
+                
+                </div>
             </div>
         </div>
     </div>

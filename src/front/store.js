@@ -30,9 +30,14 @@ export const initialStore=()=>{
         image: "https://cdn-icons-png.freepik.com/256/8672/8672697.png?ga=GA1.1.1432144542.1742526992&semt=ais_hybrid"
       }
     ],
+    services_company:[],
     token: null || localStorage.getItem('token'),
     profile: null,
+<<<<<<< HEAD
     pets: []
+=======
+    profileCompany: null
+>>>>>>> refs/remotes/origin/main
   }
 }
 
@@ -60,6 +65,13 @@ export default function storeReducer(store, action = {}) {
         token: action.payload
       };
 
+      case 'update_tokenCompany':
+      localStorage.setItem("token", action.payload);
+      return {
+        ...store,
+        token: action.payload
+      };
+
     case 'update_profile':
       return {
         ...store,
@@ -77,6 +89,22 @@ export default function storeReducer(store, action = {}) {
         ...store,
         pet: action.payload // Actualiza un solo pet
       };
+
+    case 'update_profileCompany':
+      return {
+        ...store,
+        profileCompany: action.payload
+      };
+
+    case 'add_services':
+      // const companyWithServices = store.company;
+      // companyWithServices.post = [ action.payload, ...store.user.post];
+
+      // return {
+      //   ...store,
+      //   services_company: [ action.payload, ...store.posts],
+      //   user: companyWithServices
+      // };
 
     default:
       throw Error('Unknown action.');

@@ -1,12 +1,13 @@
 // src/components/Calendar.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const ModalServices = ({ show, onClose, onConfirm }) => {
 
-  const navigate = useNavigate();
+  const { store, dispatch } = useGlobalReducer();
 
-  const [file, setFile] = useState(null);
+  const navigate = useNavigate();
 
   const [service, setService] = useState({
           name: "",
@@ -18,28 +19,18 @@ export const ModalServices = ({ show, onClose, onConfirm }) => {
   const handleInputChange = (e) => {
       setService({
           ...service,
-          [e.target.name]: e.target.value
+          [e.target.name]: e.target.value,
+          id_company: store.profileCompany.id
       });
   };
-  
-  const handleFileChange= (e)=> {
-    if (e.target.files) {
-      setFile( e.target.files[0])
-    }
-  }
-    
 
   const registerService = async (services) => {
     
-    const formData = new FormData();
-    formData.append('file', file);
-    
       try {
-          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/services`, formData, {
+          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/services`, {
               method: "POST",
               headers: {
                   "Content-Type": "application/json", // multipart/form-data habria que cambiar el tipo de dato de imagen en models.py a binario: Column(LargeBinary, nullable = True)
-                  Authorization: `Bearer ${store.token}`
               },
               body: JSON.stringify(services)
           });
@@ -51,8 +42,8 @@ export const ModalServices = ({ show, onClose, onConfirm }) => {
               console.error("Failed to register services");
               alert("Failed to register service ❌");
           } else {
-              alert("service created successfully ✅");
-              navigate("/companyprofile"); // Redirect to home or another page after successful registration
+              //alert("service created successfully ✅");
+              navigate("/companyprofile");
           }
       } catch (error) {
           console.error("Error:", error);
@@ -63,8 +54,8 @@ export const ModalServices = ({ show, onClose, onConfirm }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     registerService(service);
+    onConfirm()
   };
-
 
   return (
     <div className={`modal ${show ? "show" : ""}`} style={{ display: show ? "block" : "none" }}>
@@ -83,22 +74,15 @@ export const ModalServices = ({ show, onClose, onConfirm }) => {
             <div className="mb-3">
               <div className="mb-3">
                 <label for="titleServices" className="form-label">Título:</label>
-                <input type="text" className="form-control" id="titleServices" placeholder="agregar un titulo" onChange={handleInputChange}/>
+                <input type="text" className="form-control" id="titleServices" placeholder="agregar un titulo" name="name" onChange={handleInputChange}/>
               </div>
               <div className="mb-3">
                 <label for="descriptionServices" className="form-label">Descripción:</label>
-                <textarea className="form-control" id="descriptionServices" rows="3" placeholder="agregue una breve descripción" onChange={handleInputChange}></textarea>
+                <textarea className="form-control" id="descriptionServices" rows="3" placeholder="agregue una breve descripción" name="description" onChange={handleInputChange}></textarea>
               </div>
               <div class="mb-3">
                 <label for="uploadImageService" class="form-label">Agregar imagen:</label>
-                <input class="form-control form-control-sm" id="uploadImageService" type="text" onChange={handleFileChange}/>
-                {file && (
-                  <div className="mb-4 text-sm">
-                    <p>File name: {file.name}</p>
-                    <p>Size: {(file.size / 1024).toFixed(2)} KB</p>
-                    <p>Type: {file.type}</p>
-                  </div>
-                )}
+                <input class="form-control form-control-sm" id="uploadImageService" type="text" name="image" onChange={handleInputChange}/>
               </div>
             </div>
           </div>
