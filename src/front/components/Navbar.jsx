@@ -20,9 +20,24 @@ export const Navbar = () => {
 		}
 	};
 
+	const fetchProfileCompany = async () => {
+		try {
+			const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/meCompany", {
+				headers: {
+					Authorization: `Bearer ${store.token}`
+				}
+			});
+			const data = await response.json();
+			dispatch({ type: "update_profileCompany", payload: data });
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	useEffect(() => {
 		if (store.token) {
 			fetchProfile();
+			fetchProfileCompany();
 		}
 	}, [store.token]);
 
@@ -58,6 +73,7 @@ export const Navbar = () => {
 						store.token && <>
 							<p className="m-0 me-2 fw-bold text-black p-2">
 								{store.profile?.name}
+								{store.profileCompany?.name_company}
 							</p>
 							<Link to="/profile" className="me-2" style={{ textDecoration: 'none' }}>
 								<button className="btn" style={{ background: "#FFDDD2" }}>
