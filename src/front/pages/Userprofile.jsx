@@ -10,6 +10,7 @@ const Userprofile = () => {
     const [ person, setPerson ] = useState({});
     const { store, dispatch } = useGlobalReducer();
     const { id } = useParams();
+    const naigate = useNavigate();
 
     const updateUser = async (id) => {
         try {
@@ -31,7 +32,13 @@ const Userprofile = () => {
     };
 
     useEffect(() => {
-    }, []);
+
+        // Route protection or Route Guard
+        if (store.token || store.role != "user") {
+            naigate("/login");
+        }
+
+    }, [store.role]);
           
           
 
@@ -40,7 +47,7 @@ const Userprofile = () => {
 
   return (
     <div className="container my-5">
-        <h1 className="text-center mb-4">Personal Information</h1>
+          <h1 className="text-center mb-4">{store.role == "company" ? "Company" : "Personal"} Information</h1>
         <div className="d-flex justify-content-center">
             <div className="col-md-4 text-center mx-2">
                 
