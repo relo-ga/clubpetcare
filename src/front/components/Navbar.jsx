@@ -76,7 +76,7 @@ export const Navbar = () => {
 								{store.profile?.name}
 								{store.profileCompany?.name_company}
 							</p>
-							<Link to="/userprofile" className="me-2" style={{ textDecoration: 'none' }} >
+							<Link to={"/userprofile/" + store?.profile?.id} className="me-2" style={{ textDecoration: 'none' }} >
 								<button className="btn" style={{ background: "#FFDDD2" }}>
 									Profile
 								</button>
