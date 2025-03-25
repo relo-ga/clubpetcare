@@ -42,6 +42,31 @@ def me():
     return jsonify(user.serialize()), 200
 
 
+@api.route("/loginCompany", methods=["POST"])
+def loginCompany():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+
+    if not email or not password:
+        return jsonify({"msg": "Email and password are required"}), 400
+
+    user = Company.query.filter_by(email=email).first()
+
+    if not user or not password_match(user, password):
+        return jsonify({"msg": "Invalid email or password"}), 401
+
+    access_token = create_access_token(identity=email)
+    return jsonify(access_token=access_token)
+
+
+@api.route('/meCompany', methods=['GET'])
+@jwt_required()
+def meCompany():
+    current_user = get_jwt_identity()
+    user = Company.query.filter_by(email=current_user).first()
+    return jsonify(user.serialize()), 200
+
+
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
@@ -76,6 +101,7 @@ def create_user_david():
     db.session.commit()
     return jsonify(new_user.serialize()), 200
 
+# GET para obtener un Usuario
 # GET para obtener un suario
 
 
@@ -239,28 +265,46 @@ def create_appointment():
 #
 # SERVICIOS
 #
-# Ruta para POST de servicios
-
-
+#Ruta para POST de servicios
 @api.route('/services', methods=['POST'])
-@jwt_required()
 def create_services():
-    current_company = get_jwt_identity()
-    company = Company.query.filter_by(email=current_company).first()
     request_body = request.get_json()
     services = Services(name=request_body['name'], description=request_body['description'],
-                        image=request_body['image'], id_company=request_body['id_company'], is_active=True)
+                image=request_body['image'],id_company=request_body['id_company'], is_active=True)
     db.session.add(services)
     db.session.commit()
     return jsonify(services.serialize()), 200
 
-# Ruta para GET de servicios
-
-
-@api.route('/services', methods=['GET'])
+#Ruta para GET de servicios
+@api.route('/services',methods=['GET'])
+@jwt_required()
 def get_services():
+    current_company = get_jwt_identity()
     print("Received a get request to /services")
-    services = Services.query.all()
+    #services = Services.query.all()
+    services = Services.query.filter_by(id_company=current_company).all()
     print("Services found:", services)  # Log de los servicios encontrados
     services = list(map(lambda x: x.serialize(), services))
     return jsonify(services), 200
+
+
+#Ryta para PUT para modificar informacion del usuario en la API
+
+@api.route('/user/<int:id>', methods=['PUT'])
+def user_update2(id):
+    user = User.query.get(id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    request_body = request.get_json()
+    user.email = request_body.get("email", user.email)
+    user.password = request_body.get("password", user.password)
+    user.location = request_body.get("location", user.location)
+    user.photo = request_body.get("photo", user.photo)
+    user.phone = request_body.get("phone", user.phone)
+    user.age = request_body.get("age", user.age)
+
+    db.session.commit()
+
+    return jsonify(user.serialize()), 200
+

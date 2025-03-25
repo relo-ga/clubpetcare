@@ -49,7 +49,8 @@ class User(db.Model):
             "location": self.location,
             "photo": self.photo,
             "phone": self.phone,
-            "role": self.role.name if self.role else None
+            "role": self.role.name if self.role else None,
+            "age": self.age,
             # Excluir la contraseña por seguridad
         }
     
