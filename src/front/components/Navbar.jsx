@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
+
 export const Navbar = () => {
 
 	const { store, dispatch } = useGlobalReducer();
@@ -75,7 +76,7 @@ export const Navbar = () => {
 								{store.profile?.name}
 								{store.profileCompany?.name_company}
 							</p>
-							<Link to="/profile" className="me-2" style={{ textDecoration: 'none' }}>
+							<Link to="/userprofile" className="me-2" style={{ textDecoration: 'none' }} >
 								<button className="btn" style={{ background: "#FFDDD2" }}>
 									Profile
 								</button>

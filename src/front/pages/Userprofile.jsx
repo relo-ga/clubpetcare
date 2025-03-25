@@ -1,9 +1,39 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+
 
 
 const Userprofile = () => {
+
+    const [ person, setPerson ] = useState({});
+    const { store, dispatch } = useGlobalReducer();
+    const { id } = useParams();
+
+    const fetchUser = async (id) => {
+        try {
+          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/${id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${store.token}`
+            },
+          });
+    
+          if (!response.ok) {
+            throw new Error("Failed to update user");
+          } console.error("Error updating user:", error);
+        } catch (error) {
+            console.error("Error updating user:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchUser();
+    }, []);
+          
+          
 
     const navigate = useNavigate();
 

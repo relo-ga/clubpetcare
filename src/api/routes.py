@@ -291,7 +291,10 @@ def get_services():
 #Ryta para PUT para modificar informacion del usuario en la API
 
 @api.route('/user/<int:id>', methods=['PUT'])
+@jwt_required()
 def user_update2(id):
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(id=current_user).first()
     user = User.query.get(id)
     if not user:
         return jsonify({"error": "User not found"}), 404
