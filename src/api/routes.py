@@ -26,12 +26,23 @@ def login():
         return jsonify({"msg": "Email and password are required"}), 400
 
     user = User.query.filter_by(email=email).first()
+    company = Company.query.filter_by(email=email).first()
 
-    if not user or not password_match(user, password):
+    if not user and not company:
+        return jsonify({"msg": "Invalid email or password"}), 401
+
+    if user and not password_match(user, password):
+        return jsonify({"msg": "Invalid email or password"}), 401
+
+    if company and not password_match(company, password):
         return jsonify({"msg": "Invalid email or password"}), 401
 
     access_token = create_access_token(identity=email)
-    return jsonify(access_token=access_token)
+    
+    role = "user" if user else "company"
+    profile = user if user else company
+    
+    return jsonify(access_token=access_token, profile=profile.serialize(), role=role), 200
 
 
 @api.route('/me', methods=['GET'])
@@ -39,7 +50,12 @@ def login():
 def me():
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
-    return jsonify(user.serialize()), 200
+    company = Company.query.filter_by(email=current_user).first()
+    if user:
+        return jsonify(user.serialize()), 200
+    if company:
+        return jsonify(company.serialize()), 200
+    return jsonify({"msg": "User not found"}), 404
 
 
 @api.route("/loginCompany", methods=["POST"])
@@ -170,6 +186,13 @@ def get_company():
     company = list(map(lambda x: x.serialize(), company))
     return jsonify(company), 200
 
+
+@api.route('/company/<int:id>', methods=['GET'])
+def get_company_by_id(id):
+    company = Company.query.get(id)
+    if not company:
+        return jsonify({"error": "Company not found"}), 404
+    return jsonify(company.serialize()), 200
 
 @api.route('/appointments', methods=['GET'])
 def get_reserve():
