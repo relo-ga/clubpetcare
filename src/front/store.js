@@ -33,6 +33,7 @@ export const initialStore=()=>{
     services_company:[],
     token: null || localStorage.getItem('token'),
     profile: null,
+    role: null,
     pets: [],
     profileCompany: null,
     person: []
@@ -74,6 +75,12 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         profile: action.payload
+      };
+
+    case 'update_role':
+      return {
+        ...store,
+        role: action.payload
       };
 
     case 'pet_info':

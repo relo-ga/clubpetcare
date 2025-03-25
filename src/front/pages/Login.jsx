@@ -45,7 +45,7 @@ const Login = () => {
             const endpoint =
                 selectedRole === "usuario"
                     ? import.meta.env.VITE_BACKEND_URL + "/api/login"
-                    : import.meta.env.VITE_BACKEND_URL + "/api/loginCompany";
+                    : import.meta.env.VITE_BACKEND_URL + "/api/login";
 
 
             const response = await fetch(endpoint, {
@@ -66,6 +66,8 @@ const Login = () => {
             const data = await response.json();
             if (response.ok) {
                 dispatch({ type: "update_token", payload: data.access_token });
+                dispatch({ type: "update_profile", payload: data.profile });
+                dispatch({ type: "update_role", payload: data.role });
                 navigate("/");
             } else {
                 alert("Credenciales incorrectas");
