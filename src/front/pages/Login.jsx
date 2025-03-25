@@ -40,6 +40,10 @@ const Login = () => {
 
     const login = async () => {
         try {
+            const endpoint =
+                selectedRole === "usuario"
+                    ? import.meta.env.VITE_BACKEND_URL + "/api/login"
+                    : import.meta.env.VITE_BACKEND_URL + "/api/login";
 
             const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/login", {
                 method: "POST",
@@ -49,15 +53,16 @@ const Login = () => {
                 body: JSON.stringify(credentials)
             });
             const data = await response.json();
-                    if (response.ok) {
-                        dispatch({ type: "update_token", payload: data.access_token });
-                        navigate("/DashboardUser");
-                    } else {
-                        alert("Credenciales incorrectas");
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
+            if (response.ok) {
+                dispatch({ type: "update_token", payload: data.access_token });
+                dispatch({ type: "update_profile", payload: data.profile });
+                dispatch({ type: "update_role", payload: data.role });
+                navigate("/");
+            } else {
+                alert("Credenciales incorrectas");
+            }
+        } catch (error) {
+            console.log(error);
         }
 
             const loginCompany = async () => {
@@ -173,5 +178,5 @@ const Login = () => {
                 </div >
             );
         }
-        
+    }
 export default Login;

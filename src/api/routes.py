@@ -37,7 +37,9 @@ def login():
     if company and not password_match(company, password):
         return jsonify({"msg": "Invalid email or password"}), 401
 
-    access_token = create_access_token(identity=email)
+    from datetime import timedelta
+    access_token = create_access_token(
+        identity=email, expires_delta=timedelta(hours=24))
     
     role = "user" if user else "company"
     profile = user if user else company

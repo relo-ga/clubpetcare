@@ -10,8 +10,9 @@ const Userprofile = () => {
     const [ person, setPerson ] = useState({});
     const { store, dispatch } = useGlobalReducer();
     const { id } = useParams();
+    const naigate = useNavigate();
 
-    const fetchUser = async (id) => {
+    const updateUser = async (id) => {
         try {
           const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/${id}`, {
             method: "PUT",
@@ -19,6 +20,7 @@ const Userprofile = () => {
               "Content-Type": "application/json",
               "Authorization": `Bearer ${store.token}`
             },
+              body: JSON.stringify(person)
           });
     
           if (!response.ok) {
@@ -30,8 +32,13 @@ const Userprofile = () => {
     };
 
     useEffect(() => {
-        fetchUser();
-    }, []);
+
+        // Route protection or Route Guard
+        if (store.token || store.role != "user") {
+            naigate("/login");
+        }
+
+    }, [store.role]);
           
           
 
@@ -40,7 +47,7 @@ const Userprofile = () => {
 
   return (
     <div className="container my-5">
-        <h1 className="text-center mb-4">Personal Information</h1>
+          <h1 className="text-center mb-4">{store.role == "company" ? "Company" : "Personal"} Information</h1>
         <div className="d-flex justify-content-center">
             <div className="col-md-4 text-center mx-2">
                 
@@ -59,7 +66,7 @@ const Userprofile = () => {
                                 <label for="name" className="form-label">
                                    
                                 </label>
-                                <input type="text" className="form-control" id="name" placeholder="Juan Perez"/>
+                          <input type="text" className="form-control" id="name" placeholder={store.profile && store.profile?.name_company || "Juan Perez"} />
                             </div>
                             <div className="mb-3 col-5">
                                 <label for="phone" className="form-label">Principal Phone Number</label>
