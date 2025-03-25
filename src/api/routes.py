@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Company, Services, Pet
+from api.models import db, User, Company, Services, Pet, Appointments
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -15,6 +15,7 @@ CORS(api)
 
 def password_match(user, password):
     return user.password == password
+
 
 @api.route("/login", methods=["POST"])
 def login():
@@ -40,6 +41,7 @@ def me():
     user = User.query.filter_by(email=current_user).first()
     return jsonify(user.serialize()), 200
 
+
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
@@ -50,6 +52,8 @@ def handle_hello():
     return jsonify(response_body), 200
 
 # Se crea la ruta para crear un usuario en la base de datos y se retorna el usuario creado en formato JSON
+
+
 @api.route('/user', methods=['POST'])
 def create_user_diego():
     request_body = request.get_json()
@@ -59,18 +63,22 @@ def create_user_diego():
     db.session.commit()
     return jsonify(user.serialize()), 200
 
-
 # TODO: No se esta utilizando en el proyecto por el momento
 # Se puede utilizar para crear un usuario desde el frontend
+
+
 @api.route('/createuser', methods=['POST'])
 def create_user_david():
     request_body = request.get_json()
-    new_user = User(name=request_body['name'], email=request_body['email'], password=request_body['password'], is_active=True)
+    new_user = User(name=request_body['name'], email=request_body['email'],
+                    password=request_body['password'], is_active=True)
     db.session.add(new_user)
     db.session.commit()
     return jsonify(new_user.serialize()), 200
 
 # GET para obtener un suario
+
+
 @api.route('/user/<int:id>', methods=['GET'])
 def get_user(id):
     user = User.query.get(id)
@@ -79,6 +87,8 @@ def get_user(id):
     return jsonify(user.serialize()), 200
 
 # PUT para actualizar un usuario
+
+
 @api.route('/user/<int:id>', methods=['PUT'])
 def update_user(id):
     user = User.query.get(id)
@@ -105,16 +115,15 @@ def create_company():
     return jsonify(new_company.serialize()), 200
 
 
-# Post para crear una reserva 
+# Post para crear una reserva
 @api.route('/appointments', methods=['POST'])
 def create_reserve():
     request_body = request.get_json()
-    reserve = Services(name=request_body['name'], id_company=request_body['id_company'], is_active=True)
+    reserve = Services(
+        name=request_body['name'], id_company=request_body['id_company'], is_active=True)
     db.session.add(reserve)
     db.session.commit()
     return jsonify(reserve.serialize()), 200
-
-
 
 
 # Se crea la ruta para obtener todos los usuarios de la base de datos y se retorna en formato JSON
@@ -145,11 +154,7 @@ def get_reserve():
     return jsonify(reserve), 200
 
 
-
-
-
-
-#Post para crear pets
+# Post para crear pets
 @api.route('/createpet', methods=['POST'])
 @jwt_required()
 def create_pet():
@@ -166,28 +171,96 @@ def create_pet():
 
     if not user_id:
         return "No has indicado un user id!", 400
-    owner = User.query.get(user_id) 
+    owner = User.query.get(user_id)
     if not owner:
         return "User not found", 404
-    new_pet = Pet(name=request_body['name'], gender=request_body['gender'], photo=request_body["photo"], medical_history=request_body["medical_history"]
-              ,race=request_body["race"], specie=request_body["specie"], emergency_phone=request_body["emergency_phone"], user=owner)
+    new_pet = Pet(name=request_body['name'], gender=request_body['gender'], photo=request_body["photo"], medical_history=request_body["medical_history"],
+                  race=request_body["race"], specie=request_body["specie"], emergency_phone=request_body["emergency_phone"], user=owner)
     db.session.add(new_pet)
     db.session.commit()
     return jsonify(new_pet.serialize()), 200
 
 # Get para obtener pets
-@api.route('/pets',methods=['GET'])
+
+
+@api.route('/pets', methods=['GET'])
+@jwt_required()
 def get_pets():
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(email=current_user).first()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
     print("Received a get request to /pets")
-    pets = Pet.query.all()
+    pets = Pet.query.filter_by(id_user=user.id).all()
     print("Pets found:", pets)  # Log de los usuarios encontrados
     pets = list(map(lambda x: x.serialize(), pets))
     return jsonify(pets), 200
 
 # Get para obtener pets por id
-@api.route('/pet/<int:id>',methods=['GET'])
+
+
+@api.route('/pet/<int:id>', methods=['GET'])
+@jwt_required()
 def get_pet_by_id(id):
-    print("Received a get request to /pets")
-    pet = Pet.query.get(id)
-    print("Pet found:", pet)  # Log de los usuarios encontrados
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(email=current_user).first()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    pet = Pet.query.filter_by(id=id, id_user=user.id).first()
+    if not pet:
+        return jsonify({"error": "Pet not found"}), 404
     return jsonify(pet.serialize()), 200
+
+
+# post para crear una reserva de potato
+@api.route('/appointmentPotato', methods=['POST'])
+def create_appointment():
+    request_body = request.get_json()
+    required_fields = ['date', 'status', 'time', 'location',
+                       'details', 'duration', 'id_pet', 'id_service', 'id_company']
+    for field in required_fields:
+        if field not in request_body:
+            return {"error": f"Field {field} is required"}, 400
+
+    new_appointment = Appointments(
+        date=request_body['date'],
+        status=request_body['status'],
+        time=request_body['time'],
+        location=request_body['location'],
+        details=request_body['details'],
+        duration=request_body['duration'],
+        id_pet=request_body['id_pet'],
+        id_service=request_body['id_service'],
+        id_company=request_body['id_company']
+    )
+    db.session.add(new_appointment)
+    db.session.commit()
+    return jsonify(new_appointment.serialize()), 200
+#
+# SERVICIOS
+#
+# Ruta para POST de servicios
+
+
+@api.route('/services', methods=['POST'])
+@jwt_required()
+def create_services():
+    current_company = get_jwt_identity()
+    company = Company.query.filter_by(email=current_company).first()
+    request_body = request.get_json()
+    services = Services(name=request_body['name'], description=request_body['description'],
+                        image=request_body['image'], id_company=request_body['id_company'], is_active=True)
+    db.session.add(services)
+    db.session.commit()
+    return jsonify(services.serialize()), 200
+
+# Ruta para GET de servicios
+
+
+@api.route('/services', methods=['GET'])
+def get_services():
+    print("Received a get request to /services")
+    services = Services.query.all()
+    print("Services found:", services)  # Log de los servicios encontrados
+    services = list(map(lambda x: x.serialize(), services))
+    return jsonify(services), 200

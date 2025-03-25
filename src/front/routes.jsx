@@ -36,7 +36,7 @@ export const router = createBrowserRouter(
         <Route path="/DashboardUser" element= {<DashboardUser/>} />
         <Route path="/login" element={<Login />} />
         <Route path="/veterinarios" element={<Veterinarios />} />
-        <Route path="/profilepet" element={<ProfilePet />} />
+        <Route path="/profilepet/:id" element={<ProfilePet />} />
         <Route path="/registercom" element={<Registercom />} />
         <Route path="/registeruse" element={<Registeruse />} />
         <Route path="/registerpet" element={<Registerpet />} />

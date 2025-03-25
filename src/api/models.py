@@ -23,13 +23,14 @@ class User(db.Model):
     location: Mapped[str] = mapped_column(nullable=True) 
     photo: Mapped[str] = mapped_column(nullable=True)
     phone: Mapped[str] = mapped_column(nullable=True)
+    age: Mapped[int] = mapped_column(nullable=True)
 
     #ASIGNACIÓN DE ROLES, one to many
     role_id: Mapped[int] = mapped_column(ForeignKey("role.id"), nullable=False)
     role: Mapped = relationship("Role", backref= "users", lazy=True)
 
     #constructor
-    def __init__(self, name, email, password, is_active, location=None, photo=None, phone=None):
+    def __init__(self, name, email, password, is_active, location=None, photo=None, phone=None, age=None):
         self.name = name
         self.email = email
         self.password = password
@@ -37,6 +38,7 @@ class User(db.Model):
         self.location = location
         self.photo = photo
         self.phone = phone
+        self.age = age
 
     def serialize(self):
         return {
@@ -130,22 +132,31 @@ class Services(db.Model):
     __tablename__ = "services"
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(nullable=False)
+    description: Mapped[str] = mapped_column(nullable=False)
+    image: Mapped[str] = mapped_column(nullable=False)
+    is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
 
 # --> Relation one to many with Company
 
     id_company: Mapped[int] = mapped_column(ForeignKey("company.id"))
-    company: Mapped["Company"] = relationship()
+    company: Mapped["Company"] = relationship("Company", backref="services")
 
     #constructor
-    def __init__(self, name, id_company):
+    def __init__(self, name, description, image, id_company, is_active):
         self.name = name
+        self.description = description
+        self.image = image
         self.id_company = id_company
+        self.is_active = is_active
 
     def serialize(self):
         return {
             "id": self.id,
             "name": self.name,
+            "description": self.description,
+            "image": self.image,
             "id_company": self.id_company,
+            "is_active": self.is_active
         }
 
 class Favorites(db.Model):
@@ -181,6 +192,8 @@ class Appointments(db.Model):
     status: Mapped[str] = mapped_column(nullable=False)
     time: Mapped[str] = mapped_column(nullable=False)
     location: Mapped[str] = mapped_column(nullable=False)
+    details: Mapped[str] = mapped_column(nullable=False)
+    duration: Mapped[str] = mapped_column(nullable=False)  
 
 # --> Relation Many to many with Pet
     id_pet: Mapped[int] = mapped_column(ForeignKey("pet.id"))
@@ -191,14 +204,22 @@ class Appointments(db.Model):
     service: Mapped["Services"] = relationship()
 
 
+# --> Relation
+    id_company: Mapped[int] = mapped_column(ForeignKey("company.id"))
+    company: Mapped["Company"] = relationship()
+
     #constructor
-    def __init__(self, date, status, time, location, id_pet, id_service):
+    def __init__(self, date, status, time, location,details,duration, id_pet, id_service,id_company):
         self.date = date
         self.status = status
         self.time = time
         self.location = location
+        self.details = details
+        self.duration = duration
         self.id_pet = id_pet
         self.id_service = id_service
+        self.id_company = id_company
+
 
     def serialize(self):
         return {
@@ -207,8 +228,10 @@ class Appointments(db.Model):
             "status": self.status,
             "time": self.time,
             "location": self.location,
+            "details": self.details,
+            "duration": self.duration,
             "id_pet": self.id_pet,
             "id_service": self.id_service,
+            "id_company": self.id_company
         }
-    
 
