@@ -35,12 +35,7 @@ export const Navbar = () => {
 		}
 	};
 
-	useEffect(() => {
-		if (store.token) {
-			fetchProfile();
-			fetchProfileCompany();
-		}
-	}, [store.token]);
+
 
 	return (
 
