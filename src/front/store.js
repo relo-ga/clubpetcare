@@ -100,16 +100,6 @@ export default function storeReducer(store, action = {}) {
         services_company: action.payload
       };
 
-    // case 'load_services':
-    //   const companyWithServices = store.company;
-    //   companyWithServices.post = [ action.payload, ...store.user.post];
-
-    //   return {
-    //   ...store,
-    //   services_company: [ action.payload, ...store.posts],
-    //   user: companyWithServices
-    //   };
-
     default:
       throw Error('Unknown action.');
   }    
