@@ -64,7 +64,7 @@ const Userprofile = () => {
                                 <label for="name" className="form-label">
                                    
                                 </label>
-                          <input type="text" className="form-control" id="name" placeholder={store.profile && store.profile?.name_company || "Juan Perez"} />
+                          <input type="text" className="form-control" id="name" placeholder={store.profile && store.profile?.name_user || "Juan Perez"} />
                             </div>
                             <div className="mb-3 col-5">
                                 <label for="phone" className="form-label">Principal Phone Number</label>
