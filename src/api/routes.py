@@ -76,15 +76,6 @@ def loginCompany():
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
 
-
-@api.route('/meCompany', methods=['GET'])
-@jwt_required()
-def meCompany():
-    current_user = get_jwt_identity()
-    user = Company.query.filter_by(email=current_user).first()
-    return jsonify(user.serialize()), 200
-
-
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
