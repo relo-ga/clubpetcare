@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import ListCompanyServices from "../components/ListCompanyServices";
 import { ModalServices } from "../components/ModalServices";
@@ -27,7 +27,7 @@ export const CompanyProfile = () => {
     }
   };
 
-  const { store } = useGlobalReducer();
+  const { store, dispatch } = useGlobalReducer();
 
   //Modal Services
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
@@ -46,6 +46,35 @@ export const CompanyProfile = () => {
       alert("Servicio agregado con éxito ✅");
       setShowModal(false);
   };
+
+  const [services, setServices] =  useState([]);
+
+  const fetchServices = async () => {
+    try {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/services", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${store.token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch services");
+      }
+
+      const data = await response.json();
+      setServices(data);
+      //console.log(data)
+      dispatch({ type: "load_services", payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(()=>{
+    fetchServices();
+  },[])
 
   return (
     <div style={{ backgroundColor: "#EDF6F9" }}>
@@ -135,17 +164,17 @@ export const CompanyProfile = () => {
           <h2 style={{ color: "#006D77", }}><i className="fa-solid fa-paw me-1" style={{ color: "#006D77", }}></i>Nuestros Servicios</h2>
           <div className="list-group">
             {
-              store.servicios_vet.map((element,index) => {
+              store.services_company.map((element,index) => {
                 return(
-                  <ListCompanyServices key={index} className="list-group-item" service={element.servicio} description={element.description} image={element.image} />
+                  <ListCompanyServices key={index} className="list-group-item" service={element.name} description={element.description} image={element.image} />
                 )
               })
             }
           </div>
           <div className="d-flex align-items-center mt-3 ms-3">
             <p className="fw-bold m-0 me-2">Agregar servicio</p>
-            <button type="button" class="btn btn-outline-dark rounded-pill" onClick={handleReservarClick}>
-                <i class="fa-solid fa-plus"></i>
+            <button type="button" className="btn btn-outline-dark rounded-pill" onClick={handleReservarClick}>
+                <i className="fa-solid fa-plus"></i>
             </button>
           </div>
         </section>

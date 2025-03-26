@@ -73,16 +73,16 @@ export const ModalServices = ({ show, onClose, onConfirm }) => {
           <div className="modal-body">
             <div className="mb-3">
               <div className="mb-3">
-                <label for="titleServices" className="form-label">Título:</label>
+                <label htmlFor="titleServices" className="form-label">Título:</label>
                 <input type="text" className="form-control" id="titleServices" placeholder="agregar un titulo" name="name" onChange={handleInputChange}/>
               </div>
               <div className="mb-3">
-                <label for="descriptionServices" className="form-label">Descripción:</label>
+                <label htmlFor="descriptionServices" className="form-label">Descripción:</label>
                 <textarea className="form-control" id="descriptionServices" rows="3" placeholder="agregue una breve descripción" name="description" onChange={handleInputChange}></textarea>
               </div>
-              <div class="mb-3">
-                <label for="uploadImageService" class="form-label">Agregar imagen:</label>
-                <input class="form-control form-control-sm" id="uploadImageService" type="text" name="image" onChange={handleInputChange}/>
+              <div className="mb-3">
+                <label htmlFor="uploadImageService" className="form-label">Agregar imagen:</label>
+                <input className="form-control form-control-sm" id="uploadImageService" type="text" name="image" onChange={handleInputChange}/>
               </div>
             </div>
           </div>

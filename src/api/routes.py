@@ -300,15 +300,14 @@ def create_services():
     db.session.commit()
     return jsonify(services.serialize()), 200
 
-#Ruta para GET de servicios
+#Ruta para GET de servicios por compañia
 @api.route('/services',methods=['GET'])
 @jwt_required()
-def get_services():
+def get_services_id():
     current_company = get_jwt_identity()
-    print("Received a get request to /services")
-    #services = Services.query.all()
-    services = Services.query.filter_by(id_company=current_company).all()
-    print("Services found:", services)  # Log de los servicios encontrados
+    company = Company.query.filter_by(email=current_company).first()
+    services = Services.query.filter_by(id_company=company.id).all()
+    print("Services found:", services)
     services = list(map(lambda x: x.serialize(), services))
     return jsonify(services), 200
 

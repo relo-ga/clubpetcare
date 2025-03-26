@@ -1,8 +1,12 @@
 
 import React from "react";
 import { useState } from "react";
+import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+
 
 const Registercom = () => {
+
+  const {store, dispatch} = useGlobalReducer();
 
   const [company, setCompany] = useState({
     name: "",
@@ -38,6 +42,7 @@ const Registercom = () => {
       if (response.ok) {
         const data = await response.json();
         console.log("Data: ", data);
+
         alert("Company created successfully ✅");
       }
 
