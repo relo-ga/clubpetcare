@@ -32,12 +32,10 @@ const Userprofile = () => {
     };
 
     useEffect(() => {
-
-        // Route protection or Route Guard
-        if (store.token || store.role != "user") {
-            naigate("/login");
-        }
-
+      // Route protection or Route Guard
+      if (store.token && store.role != "user") {
+      naigate("/login");
+      }
     }, [store.role]);
           
           

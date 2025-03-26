@@ -5,6 +5,8 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const Navbar = () => {
 
+	const { store, dispatch } = useGlobalReducer();
+
 	const fetchProfile = async () => {
 		try {
 			const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/me", {
@@ -17,25 +19,13 @@ export const Navbar = () => {
 		} catch (error) {
 			console.log(error);
 		}
-	};const { store, dispatch } = useGlobalReducer();
-
-	
-
-	const fetchProfileCompany = async () => {
-		try {
-			const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/meCompany", {
-				headers: {
-					Authorization: `Bearer ${store.token}`
-				}
-			});
-			const data = await response.json();
-			dispatch({ type: "update_profileCompany", payload: data });
-		} catch (error) {
-			console.log(error);
-		}
 	};
 
-
+	useEffect(() => {
+		if (store.token) {
+			fetchProfile();
+		}
+	}, [store.token]);
 
 	return (
 
