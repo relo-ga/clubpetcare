@@ -58,21 +58,30 @@ export const Navbar = () => {
 					{
 						store.token && <>
 							<p className="m-0 me-2 fw-bold text-black p-2">
-								{store.profile?.name}
-								{store.profileCompany?.name_company}
+								{store.profile?.name || store.profile?.name_company}
 							</p>
-							<Link to={"/userprofile/" + store?.profile?.id} className="me-2" style={{ textDecoration: 'none' }} >
-								<button className="btn" style={{ background: "#FFDDD2" }}>
-									Profile
+							{
+								store.role == "user" ? 
+								<Link to={"/userprofile/" + store?.profile?.id} className="me-2" style={{ textDecoration: 'none' }} >
+									<button className="btn" style={{ background: "#FFDDD2" }}>
+										Profile
+									</button>
+								</Link>
+								:
+								<Link to={"/companyprofile"} className="me-2" style={{ textDecoration: 'none' }} >
+									<button className="btn" style={{ background: "#FFDDD2" }}>
+										Profile
+									</button>
+								</Link>
+							}
+							<Link to={"/"} >
+								<button className="btn"
+									style={{ background: "#EDF6F9" }}
+									onClick={() => dispatch({ type: "update_token", payload: null })}
+								>
+									Logout
 								</button>
 							</Link>
-
-							<button className="btn"
-								style={{ background: "#EDF6F9" }}
-								onClick={() => dispatch({ type: "update_token", payload: null })}
-							>
-								Logout
-							</button>
 						</>
 					}
 					<nav className="navbar">

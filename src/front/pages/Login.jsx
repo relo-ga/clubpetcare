@@ -52,7 +52,8 @@ const Login = () => {
                 dispatch({ type: "update_token", payload: data.access_token });
                 dispatch({ type: "update_profile", payload: data.profile });
                 dispatch({ type: "update_role", payload: data.role });
-                navigate("/");
+                if(data.role == "user")navigate("/dashboarduser");
+                if(data.role !== "user")navigate("/companyprofile");
             } else {
                 alert("Credenciales incorrectas");
             }
