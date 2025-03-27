@@ -99,6 +99,11 @@ export default function storeReducer(store, action = {}) {
         ...store,
         services_company: action.payload
       };
+    case 'load_professionals':
+      return {
+        ...store,
+        professionals: action.payload
+      };
 
     default:
       throw Error('Unknown action.');

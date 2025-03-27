@@ -23,7 +23,7 @@ export const AppointmentForm = ({ pets, professionals }) => {
     e.preventDefault();
     // Aquí puedes manejar la lógica para enviar los datos del formulario
     console.log(formData);
-  };
+  }; 
 
   return (
     <div className="row justify-content-center mt-5">

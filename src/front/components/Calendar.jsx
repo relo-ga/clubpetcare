@@ -3,8 +3,37 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css"; // Estilos de react-datepicker
 
-export const Calendar = ({ show, onClose, onConfirm }) => {
+export const Calendar = ({ show, onClose, onConfirm, pets = [] }) => {
   const [selectedDate, setSelectedDate] = useState(new Date()); // Estado para la fecha seleccionada
+
+  const [formData, setFormData] = useState({
+    service: '',
+    petId: '',
+    date: '',
+    details: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí puedes manejar la lógica para enviar los datos del formulario
+    console.log(formData);
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    setFormData({
+      ...formData,
+      date: date.toISOString().split('T')[0] // Formato YYYY-MM-DD
+    });
+  };
 
   return (
     <div className={`modal ${show ? "show" : ""}`} style={{ display: show ? "block" : "none" }}>
@@ -20,19 +49,59 @@ export const Calendar = ({ show, onClose, onConfirm }) => {
             ></button>
           </div>
           <div className="modal-body">
-            <div className="mb-3">
-              <label style={{ color: "#006D77" }}>Selecciona la fecha y hora:</label>
-              <DatePicker
-                selected={selectedDate}
-                onChange={(date) => setSelectedDate(date)}
-                showTimeSelect
-                timeFormat="HH:mm"
-                timeIntervals={60}
-                timeCaption="Hora"
-                dateFormat="dd/MM/yyyy h:mm aa"
-                className="form-control"
-              />
-            </div>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label style={{ color: "#006D77" }}>Selecciona la fecha:</label>
+                <DatePicker
+                  selected={selectedDate}
+                  onChange={handleDateChange}
+                  dateFormat="dd/MM/yyyy"
+                  className="form-control"
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="petId" className="form-label" style={{ color: "#006D77" }}>Mascota</label>
+                <select
+                  className="form-select"
+                  id="petId"
+                  name="petId"
+                  value={formData.petId}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Selecciona una mascota</option>
+                  {pets.map(pet => (
+                    <option key={pet.id} value={pet.id}>{pet.name}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="petId" className="form-label" style={{ color: "#006D77" }}>Servicio</label>
+                <select
+                  className="form-select"
+                  id="petId"
+                  name="petId"
+                  value={formData.petId}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Selecciona un servicio</option>
+                  
+                </select>
+              </div>
+              <div>
+                <label htmlFor="details" className="form-label" style={{ color: "#006D77" }}>Detalles</label>
+                <textarea
+                  className="form-control"
+                  id="details"
+                  name="details"
+                  rows="3"
+                  value={formData.details}
+                  onChange={handleChange}
+                ></textarea>
+              </div>
+            </form>
           </div>
           <div className="modal-footer">
             <button
@@ -46,7 +115,7 @@ export const Calendar = ({ show, onClose, onConfirm }) => {
             <button
               type="button"
               className="btn btn-primary"
-              onClick={() => onConfirm(selectedDate)}
+              onClick={() => onConfirm({ ...formData, date: selectedDate })}
               style={{ backgroundColor: "#006D77", border: "none" }}
             >
               Confirmar reserva
@@ -57,4 +126,3 @@ export const Calendar = ({ show, onClose, onConfirm }) => {
     </div>
   );
 };
-

@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./colors.css"; // Importa el archivo de colores
-import { Calendar } from "../components/Calendar"; // Importa el componente Calendar
+import "./colors.css";
+import { Calendar } from "../components/Calendar";
 import { AppointmentForm } from "../components/AppointmentForm";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
 export const DashboardUser = () => {
   // Hooks
-  const [loading, setLoading] = useState(true); // Corregido
+  const [loading, setLoading] = useState(true);
+  const [loadingProfessionals, setLoadingProfessionals] = useState(true);
   const { store, dispatch } = useGlobalReducer();
 
   const [pets, setPets] = useState([]);
-  const [profesional, setProfesional] = useState([
-    { id: 1, name: "PomPom", specialty: "Veterinarian and Cantones", phone: 1234567890, email: "popon@gmail.com", location: "Costa Rica, San José, San Pedro, a la par de la UCR", img: "https://i.pinimg.com/736x/0c/b7/8a/0cb78a0d81370df294a89459e4734a98.jpg" },
-    { id: 2, name: "Dr. Titan", specialty: "Ser Feliz", phone: 9876543210, email: "titan@gmail.com", location: "Costa Rica, San José, Curridabat", img: "https://i.pinimg.com/736x/56/37/21/5637217d86a44baf78f13af6dd4e6744.jpg" },
-    { id: 3, name: "Dr. Capy", specialty: "Aves", phone: 1122334455, email: "capy@gmail.com", location: "Costa Rica, Heredia, San Pablo", img: "https://i.pinimg.com/736x/64/a8/84/64a884b56b595ebe57a87fa387802916.jpg" }
-  ]);
+  const [professionals, setProfessionals] = useState([]);
 
   const [formData, setFormData] = useState({
     service: "",
@@ -25,11 +22,39 @@ export const DashboardUser = () => {
 
   const navigate = useNavigate();
 
-  console.log("Token: " + store.token);
+  const fetchProfessionals = async () => {
+    try {
+      setLoadingProfessionals(true);
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/company`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${store.token}`
+        },
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      
+      if (!Array.isArray(data)) {
+        throw new Error("Los datos recibidos no son válidos");
+      }
+      
+      setProfessionals(data);
+    } catch (error) {
+      console.error("Error fetching professionals:", error);
+    } finally {
+      setLoadingProfessionals(false);
+    }
+  };
 
   const fetchPets = async () => {
     try {
-      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/pets", {
+      setLoading(true);
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/pets`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -38,28 +63,30 @@ export const DashboardUser = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch pets");
+        throw new Error(`Error: ${response.status}`);
       }
 
       const data = await response.json();
-      setPets(data); // Actualiza el estado local `pets`
+      setPets(data);
       dispatch({ type: "pet_info", payload: data });
     } catch (error) {
       console.error("Error fetching pets:", error);
     } finally {
-      setLoading(false); // Finaliza la carga, incluso si hay un error
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    const getPets = async () => {
+    // Cargar mascotas y profesionales en paralelo
+    const loadData = async () => {
       try {
-        await fetchPets();
+        await Promise.all([fetchPets(), fetchProfessionals()]);
       } catch (error) {
-        console.error("Error fetching pets:", error);
+        console.error("Error loading data:", error);
       }
     };
-    getPets();
+    
+    loadData();
   }, []);
 
   const handleChange = (e) => {
@@ -88,7 +115,9 @@ export const DashboardUser = () => {
             </h1>
             <div className="d-flex flex-wrap gap-3 justify-content-center mt-4">
               {loading ? (
-                <p>Cargando mascotas...</p>
+                <div className="spinner-border text-primary-css" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
               ) : pets && Array.isArray(pets) && pets.length > 0 ? (
                 pets.map(pet => (
                   <div key={pet.id} className="text-center position-relative">
@@ -189,53 +218,56 @@ export const DashboardUser = () => {
       <div className="row justify-content-center mt-5">
         <div className="col-lg-10 col-md-12">
           <h2 className="text-primary-css">Nearby Professionals</h2>
-          <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            {profesional.map(pro => (
-              <div className="col" key={pro.id}>
-                <div className="card h-100 shadow">
-                  <h5 className="card-header text-center secondary text-white">
-                    Nearby Professional
-                  </h5>
-                  <div className="card-body text-center">
-                    <img
-                      src={pro.img}
-                      className="rounded-circle mb-3"
-                      style={{ width: "100px", height: "100px", objectFit: "cover" }}
-                      alt={pro.name}
-                    />
-                    <p className="card-text text-primary-css">
-                      <strong>Name:</strong> {pro.name}<br />
-                      <strong>Specialty:</strong> {pro.specialty}<br />
-                      <strong>Phone:</strong> {pro.phone}<br />
-                      <strong>Email:</strong> {pro.email}<br />
-                      <strong>Location:</strong> {pro.location}
-                    </p>
-                    <button
-                      className="btn accent text-white"
-                      onClick={() => navigate("/veterinarios")}
-                    >
-                      Info
-                    </button>
+          {loadingProfessionals ? (
+            <div className="text-center">
+              <div className="spinner-border text-primary-css" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <p>Cargando profesionales...</p>
+            </div>
+          ) : professionals && professionals.length > 0 ? (
+            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+              {professionals.map(pro => (
+                <div className="col" key={pro.id}>
+                  <div className="card h-100 shadow">
+                    <h5 className="card-header text-center secondary text-white">
+                      {pro.specialty || "Professional"}
+                    </h5>
+                    <div className="card-body text-center">
+                      <img
+                        src={pro.photo || "https://i.pinimg.com/736x/f7/17/a9/f717a96b10ca251eab6282165ea37fb7.jpg"}
+                        className="rounded-circle mb-3"
+                        style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                        alt={pro.name}
+                      />
+                      <p className="card-text text-primary-css">
+                        <strong>Name:</strong> {pro.name_company}<br />
+                        <strong>Services:</strong> {pro.service || "N/A"}<br />
+                        <strong>Phone:</strong> {pro.phone || "N/A"}<br />
+                        <strong>Email:</strong> {pro.email || "N/A"}<br />
+                        <strong>Location:</strong> {pro.location || "N/A"}
+                      </p>
+                      <button
+                        className="btn accent text-white"
+                        onClick={() => navigate(`/veterinarios/${pro.id}`)}
+                      >
+                        Ver detalles
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="alert alert-info">
+              No se encontraron profesionales disponibles.
+            </div>
+          )}
         </div>
       </div>
 
       {/** Formulario de solicitud de cita */}
-      <AppointmentForm
-        formData={formData}
-        pets={pets}
-        professionals={profesional}
-        handleChange={handleChange}
-        handleSubmit={handleSubmit}
-      />
-
-      {/** Calendario */}
-
-
+      
     </div>
   );
 };
