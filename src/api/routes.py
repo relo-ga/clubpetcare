@@ -253,6 +253,25 @@ def get_pet_by_id(id):
         return jsonify({"error": "Pet not found"}), 404
     return jsonify(pet.serialize()), 200
 
+# Put para actualizar pets
+@api.route('/pet/<int:id>', methods=['PUT'])
+@jwt_required()
+def pet_update2(id):
+    current_user = get_jwt_identity()
+    user = User.query.filter_by(email=current_user).first()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    pet = Pet.query.filter_by(id=id, id_user=user.id).first()
+    if not pet:
+        return jsonify({"error": "Pet not found"}), 404
+    request_body = request.get_json()
+    pet.photo = request_body.get("photo", pet.photo)
+    pet.emergency_phone = request_body.get("emergency_phone", pet.emergency_phone)
+    pet.medical_history = request_body.get("medical_history", pet.medical_history)
+
+    db.session.commit()
+
+    return jsonify(pet.serialize()), 200
 
 # post para crear una reserva de potato
 @api.route('/appointmentPotato', methods=['POST'])
