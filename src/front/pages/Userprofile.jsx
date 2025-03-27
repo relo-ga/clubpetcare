@@ -6,21 +6,32 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 
 
 const Userprofile = () => {
+  
+  const { store, dispatch } = useGlobalReducer();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
     const [ person, setPerson ] = useState({
+        photo: "",
         phone: "",
+        secondary_phone: "",
         age: "",
         location: "",
-        email: "",
-        image: ""
     });
-    const { store, dispatch } = useGlobalReducer();
-    const { id } = useParams();
-    const useNavigate = useNavigate();
 
-    const updateUser = async (id) => {
+
+    const handleInputChange = (e) => {
+        setPerson({
+            ...person,
+            [e.target.name]: e.target.value
+          });
+    }
+
+    console.log(id);
+
+    const updateUser = async (person, id) => {
         try {
-          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/${id}`, {
+          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user_profile/${id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -29,36 +40,32 @@ const Userprofile = () => {
               body: JSON.stringify(person)
           });
     
-          if (!response.ok) {
-            throw new Error("Failed to update user");
-          } console.error("Error updating user:", error);
-        } catch (error) {
-            console.error("Error updating user:", error);
+          if (response.ok) {
+            const data = await response.json();
+            console.log("Data: ", data);
+            alert("User updated successfully ✅");
+          }
+        }
+        catch (error) {
+          console.log(error);
+          alert("There was an error updating the user ❌");
         }
     };
 
-    //useEffect(() => {
-      // Route protection or Route Guard
-      //if (store.token && store.role != "user") {
-      //naigate("/login");
-      //}
-    //}, [store.role]);
-          
-          
 
-    const navigate = useNavigate();
-
-
-  return (
-    <div className="container my-5">
-          <h1 className="text-center mb-4">{store.role == "company" ? "Company" : "Personal"} Information</h1>
+    
+    
+    return(
+      <div className="container my-5">
+          <h1 className="text-center mb-4">{store.role == "user" ? "user" : "Personal"} Information</h1>
         <div className="d-flex justify-content-center">
             <div className="col-md-4 text-center mx-2">
                 
-                <img src={store.profile && store.profile?.image || "https://th.bing.com/th/id/OIP.Nz2KaAaoPwGwAGlOWTuOCAHaHa?w=193&h=193&c=7&r=0&o=5&dpr=1.3&pid=1.7" }
+                <img src={store.profile && store.profile?.photo || "https://th.bing.com/th/id/OIP.Nz2KaAaoPwGwAGlOWTuOCAHaHa?w=193&h=193&c=7&r=0&o=5&dpr=1.3&pid=1.7"}
                  alt="Imagen de perfil" className="profile-img mb-3 col-5" id="profileImg" style={{ width: 300}}/>
-                
-                <input type="file" className="form-control mb-3" id="imageUpload" accept="image/*"/>
+                <input type="file" className="form-control mb-3" id="imageUpload" accept="image/*"
+                onChange={handleInputChange} name="photo"
+                />
                 
             </div>
 
@@ -70,30 +77,38 @@ const Userprofile = () => {
                                 <label for="name" className="form-label">
                                    Name
                                 </label>
-                                <input type="text" className="form-control" id="name" placeholder={store.profile && store.profile?.name || "Juan Perez"} />
+                                <input type="text" className="form-control" id="name" placeholder={store.profile && store.profile?.name || "Juan Perez"} disabled/>
                             </div>
                             <div className="mb-3 col-5">
                                 <label for="phone" className="form-label">Principal Phone Number</label>
-                                <input type="tel" className="form-control" id="phone" placeholder={store.profile && store.profile?.phone || "000-000-00-00" }/>
+                                <input type="tel" className="form-control" id="phone" placeholder={store.profile && store.profile?.phone || "000-000-00-00" }
+                                onChange={handleInputChange} name="phone"
+                                />
                             </div>
                             <div className="mb-3 col-5">
                                 <label for="phone" className="form-label">Seconary Phone Number</label>
-                                <input type="tel" className="form-control" id="phone" placeholder="000-000-00-00"/>
+                                <input type="tel" className="form-control" id="phone" placeholder="000-000-00-00"
+                                onChange={handleInputChange} name="secondary_phone"
+                                />
                             </div>
                             <div className="mb-3 col-5">
                                 <label for="age" className="form-label">Age</label>
-                                <input type="number" className="form-control" id="age" placeholder={store.profile && store.profile?.age || 25 } />
+                                <input type="number" className="form-control" id="age" placeholder={store.profile && store.profile?.age || 25 } 
+                                onChange={handleInputChange} name="age"
+                                />
                             </div>
                             <div className="mb-5 col-5">
                                 <label for="location" className="form-label">Address</label>
-                                <input type="text" className="form-control" id="location" placeholder={store.profile && store.profile?.location || "1234 Downtown AV, Apt 5, 25643"}/>
+                                <input type="text" className="form-control" id="location" placeholder={store.profile && store.profile?.location || "1234 Downtown AV, Apt 5, 25643"}
+                                onChange={handleInputChange} name="location"
+                                />
                             </div>
                             <div className="mb-5 col-5">
                                 <label for="location" className="form-label">Email</label>
-                                <input type="text" className="form-control" id="location" placeholder={store.profile && store.profile?.email || "emailexample@gmail.com" } />
+                                <input type="text" className="form-control" id="location" placeholder={store.profile && store.profile?.email || "emailexample@gmail.com" } disabled/>
                             </div>
                     
-                        <button type="submit" className="btn btn-primary" onClick={ () => updateUser(person)}>Update Changes</button>
+                        <button type="submit" className="btn btn-primary" onClick={ () => updateUser(person, id)}>Update Changes</button>
                 
                 </div>
             </div>
@@ -103,3 +118,10 @@ const Userprofile = () => {
 }
 
 export default Userprofile;
+
+//useEffect(() => {
+  // Route protection or Route Guard
+  //if (store.token && store.role != "user") {
+  //naigate("/login");
+  //}
+//}, [store.role]);
