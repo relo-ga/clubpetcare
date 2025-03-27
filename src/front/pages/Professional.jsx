@@ -82,7 +82,6 @@ const Professional = () => {
 
     return (
         <div className="py-4" style={{ backgroundColor: "#FFDDD2" }}>
-            {/* Sección de información del profesional */}
             {/* Sección de Información del Profesional */}
 <div className="card mb-5 border-0 shadow-lg container">
   <div className="row g-0">
