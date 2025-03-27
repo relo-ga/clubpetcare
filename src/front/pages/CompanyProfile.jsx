@@ -42,8 +42,9 @@ export const CompanyProfile = () => {
   };
 
   // Función para manejar el servicio
-  const handleReservar = () => {
+  const handleReservar = async () => {
       alert("Servicio agregado con éxito ✅");
+      await fetchServices();
       setShowModal(false);
   };
 

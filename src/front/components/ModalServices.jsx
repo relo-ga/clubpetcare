@@ -20,7 +20,7 @@ export const ModalServices = ({ show, onClose, onConfirm }) => {
       setService({
           ...service,
           [e.target.name]: e.target.value,
-          id_company: store.profileCompany.id
+          id_company: store.profile?.id
       });
   };
 
