@@ -7,10 +7,16 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const Userprofile = () => {
 
-    const [ person, setPerson ] = useState({});
+    const [ person, setPerson ] = useState({
+        phone: "",
+        age: "",
+        location: "",
+        email: "",
+        image: ""
+    });
     const { store, dispatch } = useGlobalReducer();
     const { id } = useParams();
-    const naigate = useNavigate();
+    const useNavigate = useNavigate();
 
     const updateUser = async (id) => {
         try {
@@ -87,7 +93,7 @@ const Userprofile = () => {
                                 <input type="text" className="form-control" id="location" placeholder={store.profile && store.profile?.email || "emailexample@gmail.com" } />
                             </div>
                     
-                        <button type="submit" className="btn btn-primary" onClick={ () => navigate("/DashboardUser")}>Update Changes</button>
+                        <button type="submit" className="btn btn-primary" onClick={ () => updateUser(person)}>Update Changes</button>
                 
                 </div>
             </div>

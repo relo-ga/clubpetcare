@@ -40,10 +40,10 @@ def login():
     from datetime import timedelta
     access_token = create_access_token(
         identity=email, expires_delta=timedelta(hours=24))
-    
+
     role = "user" if user else "company"
     profile = user if user else company
-    
+
     return jsonify(access_token=access_token, profile=profile.serialize(), role=role), 200
 
 
@@ -75,6 +75,7 @@ def loginCompany():
 
     access_token = create_access_token(identity=email)
     return jsonify(access_token=access_token)
+
 
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
@@ -187,6 +188,7 @@ def get_company_by_id(id):
         return jsonify({"error": "Company not found"}), 404
     return jsonify(company.serialize()), 200
 
+
 @api.route('/appointments', methods=['GET'])
 def get_reserve():
     print("Received a GET request to /reserve")  # Mensaje de log
@@ -281,18 +283,22 @@ def create_appointment():
 #
 # SERVICIOS
 #
-#Ruta para POST de servicios
+# Ruta para POST de servicios
+
+
 @api.route('/services', methods=['POST'])
 def create_services():
     request_body = request.get_json()
     services = Services(name=request_body['name'], description=request_body['description'],
-                image=request_body['image'],id_company=request_body['id_company'], is_active=True)
+                        image=request_body['image'], id_company=request_body['id_company'], is_active=True)
     db.session.add(services)
     db.session.commit()
     return jsonify(services.serialize()), 200
 
-#Ruta para GET de servicios por compañia
-@api.route('/services',methods=['GET'])
+# Ruta para GET de servicios por compañia
+
+
+@api.route('/services', methods=['GET'])
 @jwt_required()
 def get_services_id():
     current_company = get_jwt_identity()
@@ -303,7 +309,7 @@ def get_services_id():
     return jsonify(services), 200
 
 
-#Ryta para PUT para modificar informacion del usuario en la API
+# Ryta para PUT para modificar informacion del usuario en la API
 
 @api.route('/user/<int:id>', methods=['PUT'])
 @jwt_required()
@@ -316,7 +322,6 @@ def user_update2(id):
 
     request_body = request.get_json()
     user.email = request_body.get("email", user.email)
-    user.password = request_body.get("password", user.password)
     user.location = request_body.get("location", user.location)
     user.photo = request_body.get("photo", user.photo)
     user.phone = request_body.get("phone", user.phone)
@@ -325,4 +330,3 @@ def user_update2(id):
     db.session.commit()
 
     return jsonify(user.serialize()), 200
-
