@@ -249,7 +249,7 @@ export const DashboardUser = () => {
                       </p>
                       <button
                         className="btn accent text-white"
-                        onClick={() => navigate(`/veterinarios/${pro.id}`)}
+                        onClick={() => navigate(`/Professional/${pro.id}`)}
                       >
                         Ver detalles
                       </button>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import CardServicesProf from "../components/CardServicesProf";
 
-const Veterinarios = () => {
+const Professional = () => {
     const { id } = useParams(); // Obtiene el ID de la URL
     const navigate = useNavigate();
     const { store } = useGlobalReducer();
@@ -144,4 +144,4 @@ const Veterinarios = () => {
     );
 };
 
-export default Veterinarios;
+export default Professional;
