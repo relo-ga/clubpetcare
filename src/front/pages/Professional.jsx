@@ -83,31 +83,64 @@ const Professional = () => {
     return (
         <div className="py-4" style={{ backgroundColor: "#FFDDD2" }}>
             {/* Sección de información del profesional */}
-            <div className="mb-3 col-8 mx-auto border-bottom rounded-4" style={{ backgroundColor: "#fff" }}>
-                <div className="row g-0 m-5 pt-4">
-                    <div className="col-md-6 p-3 d-flex align-items-center">
-                        <div>
-                            <img 
-                                src={professional.photo || "https://i.pinimg.com/736x/04/ae/1e/04ae1ee8b69ae3fb24cebf094198b1b1.jpg"} 
-                                className="img-fluid rounded-start" 
-                                alt={professional.name}
-                            />
-                        </div>
-                    </div>
-                    <div className="col-md-6 p-3">
-                        <div className="card-body">
-                            <h5 className="card-title">{professional.name}</h5><br/>
-                            <p className="card-text">{professional.description || "Profesional veterinario"}</p>
-                            <p className="card-text">{professional.location || "Ubicación no especificada"}</p>
-                            <p>
-                                {professional.phone || "Teléfono no disponible"}<br/>
-                                {professional.email || "Email no disponible"}<br/>
-                                {professional.hours || "Horario no especificado"}
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            {/* Sección de Información del Profesional */}
+<div className="card mb-5 border-0 shadow-lg container">
+  <div className="row g-0">
+    {/* Columna de la foto */}
+    <div className="col-md-5 p-4 d-flex align-items-center justify-content-center bg-white">
+      <img 
+        src={professional.photo || "https://i.pinimg.com/736x/04/ae/1e/04ae1ee8b69ae3fb24cebf094198b1b1.jpg"} 
+        className="img-fluid rounded-3 shadow-sm"       
+      />
+    </div>
+
+    {/* Columna de la información */}
+    <div className="col-md-7 p-4 bg-light">
+      <div className="p-3">
+        <h1 className="display-5 fw-bold mb-4" style={{ color: "#006D77" }}>
+          {professional.name_company}
+        </h1>
+        
+        {/* Información de contacto */}
+        <div className="contact-info">
+          <div className="d-flex align-items-center mb-3">
+            <i className="bi bi-geo-alt-fill me-3 fs-4" style={{ color: "#006D77" }}></i>
+            <div>
+              <h5 className="mb-1 fw-semibold">Ubicación</h5>
+              <p className="mb-0">{professional.location || "No especificada"}</p>
             </div>
+          </div>
+          
+          <div className="d-flex align-items-center mb-3">
+            <i className="bi bi-telephone-fill me-3 fs-4" style={{ color: "#006D77" }}></i>
+            <div>
+              <h5 className="mb-1 fw-semibold">Teléfono</h5>
+              <p className="mb-0">{professional.phone || "No disponible"}</p>
+            </div>
+          </div>
+          
+          <div className="d-flex align-items-center mb-3">
+            <i className="bi bi-envelope-fill me-3 fs-4" style={{ color: "#006D77" }}></i>
+            <div>
+              <h5 className="mb-1 fw-semibold">Email</h5>
+              <p className="mb-0">{professional.email || "No disponible"}</p>
+            </div>
+          </div>
+          
+          <div className="d-flex align-items-center">
+            <i className="bi bi-clock-fill me-3 fs-4" style={{ color: "#006D77" }}></i>
+            <div>
+              <h5 className="mb-1 fw-semibold">Horario</h5>
+              <p className="mb-0">{professional.schedule || "No especificado"}</p>
+            </div>
+          </div>
+        </div>
+
+       
+      </div>
+    </div>
+  </div>
+</div>
             
             {/* Sección de descripción */}
             <div className="mb-3 col-8 mx-auto border-bottom rounded-4" style={{ backgroundColor: "#fff" }}>
@@ -118,7 +151,7 @@ const Professional = () => {
                     <div className="col-md-12 p-3">
                         <div className="card-body">
                             <p className="card-text lh-lg">
-                                {professional.bio || "Información no disponible :("}
+                                {professional.description || "Información no disponible :("}
                             </p>
                         </div>
                     </div>
