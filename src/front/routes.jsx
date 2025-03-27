@@ -11,7 +11,7 @@ import { Single } from "./pages/Single";
 import { CompanyProfile } from "./pages/CompanyProfile";
 import { DashboardUser } from "./pages/DashboardUser";
 import Login from "./pages/Login";
-import Veterinarios from "./pages/Veterinarios";
+import Professional from "./pages/Professional";
 import Registercom from "./pages/Registercom"
 import Registeruse from "./pages/Registeruse";
 import Registerpet from "./pages/Registerpet";
@@ -35,7 +35,7 @@ export const router = createBrowserRouter(
         <Route path="/CompanyProfile" element={<CompanyProfile />} />
         <Route path="/DashboardUser" element= {<DashboardUser/>} />
         <Route path="/login" element={<Login />} />
-        <Route path="/veterinarios/:id" element={<Veterinarios />} />
+        <Route path="/Professional/:id" element={<Professional />} />
         <Route path="/profilepet/:id" element={<ProfilePet />} />
         <Route path="/registercom" element={<Registercom />} />
         <Route path="/registeruse" element={<Registeruse />} />
