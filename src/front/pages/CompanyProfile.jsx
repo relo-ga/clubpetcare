@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import ListCompanyServices from "../components/ListCompanyServices";
 import { ModalServices } from "../components/ModalServices";
+import { useNavigate } from "react-router-dom";
 
 export const CompanyProfile = () => {
   const [nombreEmpresa, setNombreEmpresa] = useState("Nombre de la Empresa");
@@ -28,6 +29,7 @@ export const CompanyProfile = () => {
   };
 
   const { store, dispatch } = useGlobalReducer();
+  const navigate = useNavigate();
 
   //Modal Services
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
@@ -72,10 +74,14 @@ export const CompanyProfile = () => {
       console.log(error);
     }
   };
-
+  
   useEffect(()=>{
-    fetchServices();
-  },[])
+    //if(!store.role) navigate("/")
+    if(store.role == "company") fetchServices()
+    if(store.role == "user"){
+      navigate("/dashboarduser")
+    }
+  }, [store.role])
 
   return (
     <div style={{ backgroundColor: "#EDF6F9" }}>
