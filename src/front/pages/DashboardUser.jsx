@@ -268,8 +268,8 @@ export const DashboardUser = () => {
             </div>
           )}
         </div>
+        
       </div>
-
       {/** Formulario de solicitud de cita */}
       
     </div>

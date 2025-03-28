@@ -29,7 +29,7 @@ const CardServicesProf = (props) =>{
               <img src={props.image} className="card-img-top" alt="..." />
             </div>
             <div className="card-body p-4">
-              <h5 className="card-title mb-3 text-center">{props.title}</h5>
+              <h5 className="card-title mb-3 text-center">{props.name}</h5>
               <div className="text-wrap mb-3 text-center">
                 <p>{props.description}</p>
               </div>

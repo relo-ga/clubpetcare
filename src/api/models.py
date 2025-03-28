@@ -14,9 +14,10 @@ class User(db.Model):
     location: Mapped[str] = mapped_column(nullable=True) 
     photo: Mapped[str] = mapped_column(nullable=True)
     phone: Mapped[str] = mapped_column(nullable=True)
+    secondary_phone: Mapped[str] = mapped_column(nullable=True)
     age: Mapped[int] = mapped_column(nullable=True)
 
-    def __init__(self, name, email, password, is_active, location=None, photo=None, phone=None, age=None):
+    def __init__(self, name, email, password, is_active, location=None, photo=None, phone=None, secondary_phone=None, age=None):
         self.name = name
         self.email = email
         self.password = password
@@ -24,6 +25,7 @@ class User(db.Model):
         self.location = location
         self.photo = photo
         self.phone = phone
+        self.secondary_phone = secondary_phone
         self.age = age
 
     def serialize(self):
@@ -45,16 +47,22 @@ class Company(db.Model):
     name_company: Mapped[str] = mapped_column(nullable=False)
     email: Mapped[str] = mapped_column(nullable=False)
     password: Mapped[str] = mapped_column(nullable=False)
-    location: Mapped[str] = mapped_column(nullable=False)
-    photo: Mapped[str] = mapped_column(nullable=False)
+    location: Mapped[str] = mapped_column(nullable=True)
+    photo: Mapped[str] = mapped_column(nullable=True)
+    phone: Mapped[str] = mapped_column(nullable=True)
+    schedule: Mapped[str] = mapped_column(nullable=True)
+    description: Mapped[str] = mapped_column(nullable=True)
 
-    def __init__(self, name, name_company, email, password, location, photo):
+    def __init__(self, name, name_company, email, password, location, photo, phone, schedule, description):
         self.name = name
         self.name_company = name_company
         self.email = email
         self.password = password
         self.location = location
         self.photo = photo
+        self.phone = phone
+        self.schedule = schedule
+        self.description = description
 
     def serialize(self):
         return {
@@ -64,6 +72,9 @@ class Company(db.Model):
             "location": self.location,
             "photo": self.photo,
             "services": [service.serialize() for service in self.services],
+            "phone": self.phone,
+            "schedule": self.schedule,
+            "description": self.description
         }   
 
 class Pet(db.Model):
