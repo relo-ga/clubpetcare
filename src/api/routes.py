@@ -54,9 +54,14 @@ def me():
     user = User.query.filter_by(email=current_user).first()
     company = Company.query.filter_by(email=current_user).first()
     if user:
-        return jsonify(user.serialize()), 200
+        role = "user"
+        profile = user
+        return jsonify(profile=profile.serialize(), role=role), 200
     if company:
-        return jsonify(company.serialize()), 200
+        role = "company"
+        profile = company
+        return jsonify(profile=profile.serialize(),role=role), 200
+    
     return jsonify({"msg": "User not found"}), 404
 
 

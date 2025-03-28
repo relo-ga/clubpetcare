@@ -15,12 +15,14 @@ export const Navbar = () => {
 				}
 			});
 			const data = await response.json();
-			dispatch({ type: "update_profile", payload: data });
+			dispatch({ type: "update_profile", payload: data.profile });
+			dispatch({ type: "update_role", payload: data.role });
+			//console.log(data)
 		} catch (error) {
 			console.log(error);
 		}
 	};
-
+	//console.log("token", store.token)
 	useEffect(() => {
 		if (store.token) {
 			fetchProfile();
@@ -61,20 +63,22 @@ export const Navbar = () => {
 								{store.profile?.name || store.profile?.name_company}
 							</p>
 							{
-								store.role == "user" ? 
-								<Link to={"/userprofile/" + store?.profile?.id} className="me-2" style={{ textDecoration: 'none' }} >
+								store.role == "user" && 
+								<Link to={"/dashboarduser"} className="me-2" style={{ textDecoration: 'none' }} >
 									<button className="btn" style={{ background: "#FFDDD2" }}>
-										Profile
+										Dashboard
 									</button>
 								</Link>
-								:
+							}
+							{
+								store.role == "company" && 
 								<Link to={"/companyprofile"} className="me-2" style={{ textDecoration: 'none' }} >
 									<button className="btn" style={{ background: "#FFDDD2" }}>
 										Profile
 									</button>
 								</Link>
 							}
-							<Link to={"/"} >
+							<Link to={"/"} className="" style={{ textDecoration: 'none' }}>
 								<button className="btn"
 									style={{ background: "#EDF6F9" }}
 									onClick={() => dispatch({ type: "update_token", payload: null })}
@@ -98,23 +102,37 @@ export const Navbar = () => {
 								<div className="offcanvas-body">
 									<ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
 										<li className="nav-item">
-											<a className="nav-link" aria-current="page" href="#">Perfil</a>
+											{
+												store.token &&
+												<p className="m-0 me-2 fw-bold text-black p-2">
+													{store.profile?.name || store.profile?.name_company}
+												</p>
+											}
 										</li>
 										<li className="nav-item">
-											<a className="nav-link" href="#">Link</a>
+											<Link to={"/"} style={{ textDecoration: 'none' }}><p className="m-0 me-2 fw-bold text-black p-2" data-bs-dismiss="offcanvas">Home</p></Link>
 										</li>
-										<li className="nav-item dropdown">
-											<a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-												Dropdown
-											</a>
-											<ul className="dropdown-menu dropdown-menu-dark">
-												<li><a className="dropdown-item" href="#">Action</a></li>
-												<li><a className="dropdown-item" href="#">Another action</a></li>
-												<li>
-													<hr className="dropdown-divider" />
-												</li>
-												<li><a className="dropdown-item" href="#">Something else here</a></li>
-											</ul>
+										<li className="nav-item">
+											{
+												store.role == "user" && 
+												<Link to={"/dashboarduser"} className="" style={{ textDecoration: 'none' }} >
+														<p className="m-0 me-2 fw-bold text-black p-2" data-bs-dismiss="offcanvas">Dashboard</p>
+												</Link>
+											}
+										</li>
+										<li className="nav-item">
+											{
+												store.token && store.role == "user" && 
+												<Link to={"/userprofile/" + store?.profile?.id} className="me-2" style={{ textDecoration: 'none' }} >
+														<p className="m-0 me-2 fw-bold text-black p-2" data-bs-dismiss="offcanvas">Profile</p>
+												</Link>
+											}
+											{
+												store.token && store.role == "company" && 
+												<Link to={"/companyprofile"} className="me-2" style={{ textDecoration: 'none' }} >
+														<p className="m-0 me-2 fw-bold text-black p-2" data-bs-dismiss="offcanvas">Profile</p>
+												</Link>
+											}
 										</li>
 									</ul>
 								</div>
