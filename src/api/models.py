@@ -53,7 +53,7 @@ class Company(db.Model):
     schedule: Mapped[str] = mapped_column(nullable=True)
     description: Mapped[str] = mapped_column(nullable=True)
 
-    def __init__(self, name, name_company, email, password, location, photo, phone, schedule, description):
+    def __init__(self, name, name_company, email, password, location=None, photo=None, phone=None, schedule=None, description=None):
         self.name = name
         self.name_company = name_company
         self.email = email

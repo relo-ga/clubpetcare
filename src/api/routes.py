@@ -141,11 +141,10 @@ def update_user(id):
 
 
 # Post para crear una empresa
-@api.route('/createcompany', methods=['POST'])
+@api.route('/company', methods=['POST'])
 def create_company():
     request_body = request.get_json()
-    new_company = Company(name=request_body['name'], name_company=request_body['name_company'], email=request_body['email'], password=request_body['password'],
-                          location=request_body['location'], photo=request_body['photo'])
+    new_company = Company(name=request_body['name'], name_company=request_body['name_company'], email=request_body['email'], password=request_body['password'])
     db.session.add(new_company)
     db.session.commit()
     return jsonify(new_company.serialize()), 200
@@ -349,3 +348,24 @@ def user_update2(id):
     db.session.commit()
 
     return jsonify(user.serialize()), 200
+
+# Put para modificar la informacion de la Company
+
+@api.route('/company_profile/<int:id>', methods=['PUT'])
+@jwt_required()
+def company_update2(id):
+    current_user = get_jwt_identity()
+    company = Company.query.filter_by(email=current_user).first()
+    if not company:
+        return jsonify({"error": "Company not found"}), 404
+
+    request_body = request.get_json()
+    print(request_body)
+    company.location = request_body.get("location", company.location)
+    company.photo = request_body.get("photo", company.photo)
+    company.phone = request_body.get("phone", company.phone)
+    company.secondary_phone = request_body.get("secondary_phone", company.secondary_phone)
+
+    db.session.commit()
+
+    return jsonify(company.serialize()), 200
