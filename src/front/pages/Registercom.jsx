@@ -13,9 +13,7 @@ const Registercom = () => {
     name_company: "",
     email: "",
     password: "",
-    confirm: "",
-    photo: "",
-    location: "",
+    confirm: ""
   });
 
   const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +29,7 @@ const Registercom = () => {
     if (company.password === company.confirm) {
       console.log("Company: ", company);
 
-      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/createcompany", {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/company", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

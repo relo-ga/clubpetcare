@@ -85,9 +85,13 @@ export const DashboardUser = () => {
         console.error("Error loading data:", error);
       }
     };
-    
-    loadData();
-  }, []);
+    //if(!store.role) navigate("/")
+    if(store.role == "user") loadData();
+    if(store.role == "company"){
+      navigate("/companyprofile")
+    }
+
+  }, [store.role]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -264,8 +268,8 @@ export const DashboardUser = () => {
             </div>
           )}
         </div>
+        
       </div>
-
       {/** Formulario de solicitud de cita */}
       
     </div>

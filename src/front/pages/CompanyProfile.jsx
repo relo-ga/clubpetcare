@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import ListCompanyServices from "../components/ListCompanyServices";
 import { ModalServices } from "../components/ModalServices";
+import { useNavigate } from "react-router-dom";
 
 export const CompanyProfile = () => {
   const [nombreEmpresa, setNombreEmpresa] = useState("Nombre de la Empresa");
@@ -28,27 +29,28 @@ export const CompanyProfile = () => {
   };
 
   const { store, dispatch } = useGlobalReducer();
+  const navigate = useNavigate();
 
   //Modal Services
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
-  
+
   // Función para abrir el modal
   const handleReservarClick = () => {
-      setShowModal(true);
+    setShowModal(true);
   };
   // Función para cerrar el modal
   const handleCloseModal = () => {
-      setShowModal(false);
+    setShowModal(false);
   };
 
   // Función para manejar el servicio
   const handleReservar = async () => {
-      alert("Servicio agregado con éxito ✅");
-      await fetchServices();
-      setShowModal(false);
+    alert("Servicio agregado con éxito ✅");
+    await fetchServices();
+    setShowModal(false);
   };
 
-  const [services, setServices] =  useState([]);
+  const [services, setServices] = useState([]);
 
   const fetchServices = async () => {
     try {
@@ -73,9 +75,13 @@ export const CompanyProfile = () => {
     }
   };
 
-  useEffect(()=>{
-    fetchServices();
-  },[])
+  useEffect(() => {
+    //if(!store.role) navigate("/")
+    if (store.role == "company") fetchServices()
+    if (store.role == "user") {
+      navigate("/dashboarduser")
+    }
+  }, [store.role])
 
   return (
     <div style={{ backgroundColor: "#EDF6F9" }}>
@@ -165,8 +171,8 @@ export const CompanyProfile = () => {
           <h2 style={{ color: "#006D77", }}><i className="fa-solid fa-paw me-1" style={{ color: "#006D77", }}></i>Nuestros Servicios</h2>
           <div className="list-group">
             {
-              store.services_company.map((element,index) => {
-                return(
+              store.services_company.map((element, index) => {
+                return (
                   <ListCompanyServices key={index} className="list-group-item" service={element.name} description={element.description} image={element.image} />
                 )
               })
@@ -175,7 +181,7 @@ export const CompanyProfile = () => {
           <div className="d-flex align-items-center mt-3 ms-3">
             <p className="fw-bold m-0 me-2">Agregar servicio</p>
             <button type="button" className="btn btn-outline-dark rounded-pill" onClick={handleReservarClick}>
-                <i className="fa-solid fa-plus"></i>
+              <i className="fa-solid fa-plus"></i>
             </button>
           </div>
         </section>
@@ -215,6 +221,121 @@ export const CompanyProfile = () => {
             </p>
           )}
         </section>
+
+
+        {/* Sección de solicitud de appointment */}
+        <section className="bg-white mt-4 p-4 rounded shadow-sm">
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h2 style={{ color: "#006D77" }}>
+              <i className="fa-solid fa-calendar-check me-2" style={{ color: "#006D77" }}></i>
+              Solicitudes de Cita
+            </h2>
+          </div>
+
+          <div className="table-responsive">
+            <table className="table table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Mascota</th>
+                  <th scope="col">Servicio</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {/* Ejemplo de fila */}
+                <tr>
+                  <td>
+                    <div className="d-flex align-items-center">
+                      <img
+                        src="https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?w=100"
+                        className="rounded-circle me-2"
+                        width="30"
+                        height="30"
+                        alt="Mascota"
+                      />
+                      Max
+                    </div>
+                  </td>
+                  <td>Consulta general</td>
+                  <td>15 Nov 2025</td>
+                  <td>
+                    <span className="badge bg-warning text-dark">Pendiente</span>
+                  </td>
+                  <td>
+                    <button className="btn btn-sm btn-outline-success me-1">
+                      <i className="fa-solid fa-check"></i>
+                    </button>
+                    <button className="btn btn-sm btn-outline-danger">
+                      <i className="fa-solid fa-times"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                {/* Otra fila de ejemplo */}
+
+                <tr>
+                  <td>
+                    <div className="d-flex align-items-center">
+                      <img
+                        src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=100"
+                        className="rounded-circle me-2"
+                        width="30"
+                        height="30"
+                        alt="Mascota"
+                      />
+                      Luna
+                    </div>
+                  </td>
+                  <td>Vacunación</td>
+                  <td>16 Nov 2025</td>
+                  <td>
+                    <span className="badge bg-success">Confirmada</span>
+                  </td>
+                  <td>
+                    <button className="btn btn-sm btn-outline-secondary">
+                      <i className="fa-solid fa-ellipsis"></i>
+                    </button>
+                  </td>
+                </tr>
+
+                {/* Más filas de ejemplo */}
+                <tr>
+                  <td>
+                    <div className="d-flex align-items-center">
+                      <img
+                        src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?w=100"
+                        className="rounded-circle me-2"
+                        width="30"
+                        height="30"
+                        alt="Mascota"
+                      />
+                      Rocky
+                    </div>
+                  </td>
+                  <td>Cirugía</td>
+                  <td>17 Nov 2025</td>
+                  <td>
+                    <span className="badge bg-danger">Cancelada</span>
+                  </td>
+                  <td>
+                    <button className="btn btn-sm btn-outline-secondary">
+                      <i className="fa-solid fa-ellipsis"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="d-flex justify-content-end mt-3">
+
+          </div>
+        </section>
+
+
 
       </div>
     </div>
