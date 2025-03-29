@@ -38,10 +38,10 @@ const Userprofile = () => {
 
     const formData = new FormData();
     formData.append("file", person.photo);
-    formData.append('upload_preset', 'clubpetcare');
+    formData.append('upload_preset', 'ClubPetCare');
 
     try {
-      const cloudName = "dd0wschpy"
+      const cloudName = "dqs8bd3ts"
       const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
         method: "POST",
         body: formData
