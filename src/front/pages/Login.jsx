@@ -125,13 +125,13 @@ const Login = () => {
                             <div className="mt-3 col-5">
                                 <div className="form-floating my-2">
                                     <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"
-                                        onChange={handleCrendentialsCompany} name="email" value={credentialsCompany.email}
+                                        onChange={handleCrendentials} name="email" value={credentials.email}
                                     />
                                     <label htmlFor="floatingInput">Email address</label>
                                 </div>
                                 <div className="form-floating my-2">
                                     <input type="password" className="form-control" id="floatingPassword" placeholder="Password"
-                                        onChange={handleCrendentialsCompany} name="password" value={credentialsCompany.password}
+                                        onChange={handleCrendentials} name="password" value={credentials.password}
                                     />
                                     <label htmlFor="floatingPassword">Password</label>
                                 </div>
