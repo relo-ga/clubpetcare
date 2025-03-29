@@ -258,7 +258,7 @@ def get_pet_by_id(id):
 # Put para actualizar pets
 @api.route('/pet/<int:id>', methods=['PUT'])
 @jwt_required()
-def pet_update2(id):
+def pet_update(id):
     current_user = get_jwt_identity()
     user = User.query.filter_by(email=current_user).first()
     if not user:

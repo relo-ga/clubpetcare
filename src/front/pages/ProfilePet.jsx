@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const ProfilePet = () => {
+  
   const navigate = useNavigate();
   const { id } = useParams(); // Obtiene el id de la mascota desde la URL
   const { store, dispatch } = useGlobalReducer();
@@ -34,6 +35,7 @@ const ProfilePet = () => {
       setLoading(false); // Finaliza la carga, incluso si hay un error
     }
   };
+
 
   useEffect(() => {
     if (id) {
