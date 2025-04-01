@@ -399,3 +399,4 @@ def company_update2(id):
     db.session.commit()
 
     return jsonify(company.serialize()), 200
+
