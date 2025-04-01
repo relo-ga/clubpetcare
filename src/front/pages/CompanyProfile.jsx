@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import ListCompanyServices from "../components/ListCompanyServices";
 import { ModalServices } from "../components/ModalServices";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
 
 export const CompanyProfile = () => {
   const [nombreEmpresa, setNombreEmpresa] = useState("Nombre de la Empresa");
@@ -18,10 +19,6 @@ export const CompanyProfile = () => {
     if (campo === "address") setAddress(e.target.value);
   };
 
-  const handleSave = () => {
-    setEditando(false);
-  };
-
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       setEditando(false);
@@ -30,6 +27,7 @@ export const CompanyProfile = () => {
 
   const { store, dispatch } = useGlobalReducer();
   const navigate = useNavigate();
+  const { id } = store.profile;
 
   //Modal Services
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
@@ -87,19 +85,14 @@ export const CompanyProfile = () => {
     <div style={{ backgroundColor: "#EDF6F9" }}>
       <div className="container py-5">
 
-        <div className="text-center pb-2">
+      <div className="text-center pb-2">
           <img src="https://images.unsplash.com/photo-1596272875729-ed2ff7d6d9c5?w=400&h=400" alt="Logo" className="mb-2 rounded-pill" />
-          {editando ? (
-            <button className="btn btn-success ms-3" onClick={handleSave}>
-              Save
-            </button>
-          ) : (
-            <i
-              className="fa-solid fa-pencil ms-3"
-              style={{ cursor: "pointer" }}
-              onClick={() => setEditando(true)}
-            ></i>
-          )}
+            <Link to={`/Companyupdate/${store.profile.id}`} className="ms-3" style={{ textDecoration: 'none' }}>
+              <i
+                className="fa-solid fa-pencil"
+                style={{ cursor: "pointer", color: "black" }}
+              ></i>
+            </Link>
         </div>
 
         <header className="text-white text-center py-2 rounded" style={{ backgroundColor: "#006D77" }}>
