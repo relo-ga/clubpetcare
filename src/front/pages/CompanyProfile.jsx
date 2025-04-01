@@ -6,6 +6,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 
 export const CompanyProfile = () => {
+
   const [nombreEmpresa, setNombreEmpresa] = useState("Nombre de la Empresa");
   const [about, setAbout] = useState("Breve descripción de la empresa, su misión y visión.");
   const [hours, setHours] = useState("Urgencias 24 horas, etc.");

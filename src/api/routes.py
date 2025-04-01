@@ -394,7 +394,7 @@ def company_update2(id):
     company.location = request_body.get("location", company.location)
     company.photo = request_body.get("photo", company.photo)
     company.phone = request_body.get("phone", company.phone)
-    company.secondary_phone = request_body.get("secondary_phone", company.secondary_phone)
+    company.description = request_body.get("description", company.description)
 
     db.session.commit()
 
