@@ -102,6 +102,16 @@ export const CompanyProfile = () => {
           )}
         </div>
 
+        <div className="text-center pb-2">
+          <img src="https://images.unsplash.com/photo-1596272875729-ed2ff7d6d9c5?w=400&h=400" alt="Logo" className="mb-2 rounded-pill" />
+            <Link to={`/petUpdate/${id}`} className="ms-3" style={{ textDecoration: 'none' }}>
+              <i
+                className="fa-solid fa-pencil"
+                style={{ cursor: "pointer", color: "black" }}
+              ></i>
+            </Link>
+        </div>
+
         <header className="text-white text-center py-2 rounded" style={{ backgroundColor: "#006D77" }}>
           {editando ? (
             <input

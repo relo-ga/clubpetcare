@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const ProfilePet = () => {
-  
+
   const navigate = useNavigate();
   const { id } = useParams(); // Obtiene el id de la mascota desde la URL
   const { store, dispatch } = useGlobalReducer();
@@ -60,15 +60,23 @@ const ProfilePet = () => {
       {/* Renderiza la información de la mascota aquí */}
       <div className="my-3 col-5 mx-auto rounded-4 pb-2" style={{ backgroundColor: "#fff" }}>
         <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
-          <h2 className="text-center" style={{ color: "#006D77" }}>Datos de la Mascota</h2>
+          <h2 className="text-center" style={{ color: "#006D77" }}>
+            Datos de la Mascota
+            <Link to={`/petUpdate/${id}`} className="ms-3" style={{ textDecoration: 'none' }}>
+              <i
+                className="fa-solid fa-pencil"
+                style={{ cursor: "pointer", color: "black" }}
+              ></i>
+            </Link>
+          </h2>
         </div>
         <div className="row g-0 m-5 d-flex align-items-center justify-content-between">
           <div className="col-md-6 d-flex align-items-center">
             <div>
               <img src={pet.photo || "https://images3.memedroid.com/images/UPLOADED537/665c8560a1300.jpeg"}
-                   style={{ width: "300px" }}
-                   className="img-fluid rounded-pill"
-                   alt={pet.name} />
+                style={{ width: "300px" }}
+                className="img-fluid rounded-pill"
+                alt={pet.name} />
             </div>
           </div>
           <div className="col-md-6 p-3">
@@ -130,37 +138,37 @@ const ProfilePet = () => {
       </div>
 
       <div className="my-3 col-5 mx-auto rounded-4 pb-2" style={{ backgroundColor: "#fff" }}>
-                <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
-                    <h2 className="text-center" style={{color:"#006D77"}}>Servicios Reservados</h2>
-                </div>
-                <div className="row g-0 m-5 d-flex align-items-center justify-content-center">
-                    <div className="col-md-8 p-3">
-                        <div className="d-flex text-body-secondary pt-3">
-                            <i className="fa-solid fa-bone me-3"></i>
-                            <p className="pb-3 mb-0 small lh-sm border-bottom">
-                            <strong className="d-block text-gray-dark">@username</strong>
-                            Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
-                            </p>
-                        </div>
-                        <div className="d-flex text-body-secondary pt-3">
-                            <i className="fa-solid fa-bone me-3"></i>
-                            <p className="pb-3 mb-0 small lh-sm border-bottom">
-                            <strong className="d-block text-gray-dark">@username</strong>
-                            Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
-                            </p>
-                        </div>
-                        <div className="d-flex text-body-secondary pt-3">
-                            <i className="fa-solid fa-bone me-3"></i>
-                            <p className="pb-3 mb-0 small lh-sm border-bottom">
-                            <strong className="d-block text-gray-dark">@username</strong>
-                            Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-
+        <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
+          <h2 className="text-center" style={{ color: "#006D77" }}>Servicios Reservados</h2>
+        </div>
+        <div className="row g-0 m-5 d-flex align-items-center justify-content-center">
+          <div className="col-md-8 p-3">
+            <div className="d-flex text-body-secondary pt-3">
+              <i className="fa-solid fa-bone me-3"></i>
+              <p className="pb-3 mb-0 small lh-sm border-bottom">
+                <strong className="d-block text-gray-dark">@username</strong>
+                Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
+              </p>
             </div>
+            <div className="d-flex text-body-secondary pt-3">
+              <i className="fa-solid fa-bone me-3"></i>
+              <p className="pb-3 mb-0 small lh-sm border-bottom">
+                <strong className="d-block text-gray-dark">@username</strong>
+                Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
+              </p>
+            </div>
+            <div className="d-flex text-body-secondary pt-3">
+              <i className="fa-solid fa-bone me-3"></i>
+              <p className="pb-3 mb-0 small lh-sm border-bottom">
+                <strong className="d-block text-gray-dark">@username</strong>
+                Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
     </div>);
 };
 

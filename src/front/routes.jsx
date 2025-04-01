@@ -17,6 +17,7 @@ import Registeruse from "./pages/Registeruse";
 import Registerpet from "./pages/Registerpet";
 import ProfilePet from "./pages/ProfilePet";
 import Userprofile from "./pages/Userprofile";
+import PetUpdate from "./pages/PetUpdate";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -41,6 +42,7 @@ export const router = createBrowserRouter(
         <Route path="/registeruse" element={<Registeruse />} />
         <Route path="/registerpet" element={<Registerpet />} />
         <Route path="/userprofile/:id" element={<Userprofile />} />
+        <Route path="/petUpdate/:id" element={<PetUpdate />} />
         </Route>
     )
 );
