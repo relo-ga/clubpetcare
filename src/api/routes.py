@@ -193,14 +193,6 @@ def get_company_by_id(id):
     return jsonify(company.serialize()), 200
 
 
-@api.route('/appointments', methods=['GET'])
-def get_reserve():
-    print("Received a GET request to /reserve")  # Mensaje de log
-    reserve = Services.query.all()
-    print("Reserves found:", reserve)  # Log de los usuarios encontrados
-    reserve = list(map(lambda x: x.serialize(), reserve))
-    return jsonify(reserve), 200
-
 
 # Post para crear pets
 @api.route('/createpet', methods=['POST'])
@@ -279,30 +271,7 @@ def pet_update(id):
 
     return jsonify(pet.serialize()), 200
 
-# post para crear una reserva de potato
-@api.route('/appointmentPotato', methods=['POST'])
-def create_appointment():
-    request_body = request.get_json()
-    required_fields = ['date', 'status', 'time', 'location',
-                       'details', 'duration', 'id_pet', 'id_service', 'id_company']
-    for field in required_fields:
-        if field not in request_body:
-            return {"error": f"Field {field} is required"}, 400
 
-    new_appointment = Appointments(
-        date=request_body['date'],
-        status=request_body['status'],
-        time=request_body['time'],
-        location=request_body['location'],
-        details=request_body['details'],
-        duration=request_body['duration'],
-        id_pet=request_body['id_pet'],
-        id_service=request_body['id_service'],
-        id_company=request_body['id_company']
-    )
-    db.session.add(new_appointment)
-    db.session.commit()
-    return jsonify(new_appointment.serialize()), 200
 #
 # SERVICIOS
 #
@@ -400,3 +369,35 @@ def company_update2(id):
 
     return jsonify(company.serialize()), 200
 
+# post para crear una reserva de potato
+@api.route('/appointmentPotato', methods=['POST'])
+def create_appointment():
+    request_body = request.get_json()
+    required_fields = ['date', 'status', 'time', 'location',
+                       'details', 'duration', 'id_pet', 'id_service']
+    for field in required_fields:
+        if field not in request_body:
+            return {"error": f"Field {field} is required"}, 400
+
+    new_appointment = Appointments(
+        date=request_body['date'],
+        status=request_body['status'],
+        time=request_body['time'],
+        location=request_body['location'],
+        details=request_body['details'],
+        duration=request_body['duration'], 
+        id_pet=request_body['id_pet'],
+        id_service=request_body['id_service'],
+    )
+    db.session.add(new_appointment)
+    db.session.commit()
+    return jsonify(new_appointment.serialize()), 200
+
+# get para obtener las reservas de potato
+@api.route('/appointmentspotato', methods=['GET'])
+def get_appointments():
+    print("Received a GET request to /appointments")  # Mensaje de log
+    appointments = Appointments.query.all()
+    print("Appointments found:", appointments)  # Log de los usuarios encontrados
+    appointments = list(map(lambda x: x.serialize(), appointments))
+    return jsonify(appointments), 200
