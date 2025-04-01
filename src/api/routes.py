@@ -331,7 +331,32 @@ def get_services_id():
     services = list(map(lambda x: x.serialize(), services))
     return jsonify(services), 200
 
+# Ruta para GET de servicios por id
+@api.route('/services/<int:id>', methods=['GET'])
+@jwt_required()
+def get_services_id2(id):
+    current_company = get_jwt_identity()
+    company = Company.query.filter_by(email=current_company).first()
+    services = Services.query.filter_by(id=id, id_company=company.id).first()
+    if not services:
+        return jsonify({"error": "Service not found"}), 404
+    return jsonify(services.serialize()), 200
 
+
+
+
+@api.route('/company/<int:company_id>/services', methods=['GET'])
+def get_company_services(company_id):
+    # Asegúrate de devolver JSON incluso en errores
+    try:
+        company = Company.query.get_or_404(company_id)
+        services = Services.query.filter_by(id_company=company_id).all()
+        return jsonify([s.serialize() for s in services])
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500  # ¡Importante! Siempre jsonify
+        
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 # Ryta para PUT para modificar informacion del usuario en la API
 
 @api.route('/user_profile/<int:id>', methods=['PUT'])
@@ -374,3 +399,4 @@ def company_update2(id):
     db.session.commit()
 
     return jsonify(company.serialize()), 200
+
