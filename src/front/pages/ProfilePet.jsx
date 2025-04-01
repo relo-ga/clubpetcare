@@ -70,7 +70,7 @@ const ProfilePet = () => {
             </Link>
           </h2>
         </div>
-        <div className="row g-0 m-5 d-flex align-items-center justify-content-between">
+        <div className="row g-0 m-1 d-flex align-items-center justify-content-between">
           <div className="col-md-6 d-flex align-items-center">
             <div>
               <img src={pet.photo || "https://images3.memedroid.com/images/UPLOADED537/665c8560a1300.jpeg"}
@@ -79,7 +79,7 @@ const ProfilePet = () => {
                 alt={pet.name} />
             </div>
           </div>
-          <div className="col-md-6 p-3">
+          <div className="col-md-6 p-1">
             <div className="card-body">
               <table className="table table-borderless">
                 <tbody>

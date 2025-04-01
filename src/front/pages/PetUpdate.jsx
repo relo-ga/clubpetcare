@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
@@ -73,24 +71,24 @@ const PetUpdate = () => {
 
   const updatePET = async (petId) => {
     try {
-      const formData = new FormData();
-      if (puppy.photo) formData.append("photo", puppy.photo);
-      formData.append("emergency_phone", puppy.emergency_phone);
-      formData.append("medical_history", puppy.medical_history);
-      formData.append("age", puppy.age);
-
+      const petDataToUpdate = {
+        emergency_phone: puppy.emergency_phone,
+        medical_history: puppy.medical_history,
+        age: puppy.age,
+      };
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/pet/${petId}`, {
         method: "PUT",
         headers: {
-          "Authorization": `Bearer ${store.token}`
+          "Authorization": `Bearer ${store.token}`,
+          "Content-Type": "application/json",
         },
-        body: formData
+        body: JSON.stringify(petDataToUpdate)
       });
 
       if (!response.ok) {
         throw new Error("Error al actualizar la mascota");
       }
-      navigate("/pets");
+      navigate("/DashboardUser");
     } catch (error) {
       console.error("Error updating pet:", error);
     }
@@ -196,6 +194,10 @@ const PetUpdate = () => {
                 onChange={handleChange}
               />
             </div>
+            <div class="form-group">
+    <label htmlFor="exampleFormControlFile1">Example file input</label>
+    <input type="file" class="form-control-file" id="exampleFormControlFile1"/>
+  </div>
             <button 
               type="submit" 
               className="btn btn-primary" 

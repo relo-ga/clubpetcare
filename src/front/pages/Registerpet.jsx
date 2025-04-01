@@ -14,9 +14,10 @@ const Registerpet = () => {
         medical_history: "",
         race: "",
         emergency_phone: "",
-        age:"",
+        birthdate: "",
         weight: "",
     });
+    // const [selectedDate, setSelectedDate] = useState("");
 
     const handleInputChange = (e) => {
         setPet({
@@ -57,6 +58,12 @@ const Registerpet = () => {
         register(pet);
     };
 
+    // const handleDate = (e) => {
+    //     const date = e.target.value;
+    //     setSelectedDate(date);
+    //     setPet((prev) => ({ ...prev, date_of_birth: date })); // O usar otro nombre de campo según lo esperado en backend
+    // };
+
     return (
         <div className="d-flex flex-column">
             <div className="mx-auto my-5">
@@ -96,51 +103,50 @@ const Registerpet = () => {
                     <label htmlFor="floatingInput">Name of your Poppy!</label>
                 </div>
                 <div className="form-floating my-2 col-7 m-auto">
-                        <select
-                            className="form-select text-center"
-                            id="floatingSelect"
-                            name="gender"
-                            onChange={handleInputChange}
-                            defaultValue=""
-                        >
-                            <option value="" disabled>Select your pet specie:</option>
-                            <option value="dog">Dog</option>
-                            <option value="cat">Cat</option>
-                            <option value="fish">Fish</option>
-                            <option value="bird">Bird</option>
-                            <option value="reptile">Reptile</option>    
-                            <option value="farm">Farm animals</option>
-                            <option value="exotic">Exotic</option>
-                            <option value="other">Other</option>
-                        </select>
-                        <label htmlFor="floatingSelect">Specie</label>
-                    </div>
+                    <select
+                        className="form-select text-center"
+                        id="floatingSelect"
+                        name="specie"
+                        onChange={handleInputChange}
+                        defaultValue=""
+                    >
+                        <option value="" disabled>Select your pet specie:</option>
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                        <option value="fish">Fish</option>
+                        <option value="bird">Bird</option>
+                        <option value="reptile">Reptile</option>
+                        <option value="farm">Farm animals</option>
+                        <option value="exotic">Exotic</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <label htmlFor="floatingSelect">Specie</label>
+                </div>
                 <div className="form-floating my-2 col-7 m-auto">
-                        <select
-                            className="form-select text-center"
-                            id="floatingSelect"
-                            name="gender"
-                            onChange={handleInputChange}
-                            defaultValue=""
-                        >
-                            <option value="" disabled>Select your pet genre:</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
-                        </select>
-                        <label htmlFor="floatingSelect">Genre</label>
-                    </div>
+                    <select
+                        className="form-select text-center"
+                        id="floatingSelect"
+                        name="gender"
+                        onChange={handleInputChange}
+                        defaultValue=""
+                    >
+                        <option value="" disabled>Select your pet genre:</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <label htmlFor="floatingSelect">Genre</label>
+                </div>
                 <div className="form-floating my-2 col-7 m-auto">
                     <input
-
-                        type="text"
-                        className="form-control text-center"
-                        id="floatingInput"
-                        placeholder="Age"
-                        name="age"
+                        type="date"
+                        className="form-control"
+                        id="date"
+                        name="birthdate"
+                        value={pet.birthdate}
                         onChange={handleInputChange}
                     />
-                    <label htmlFor="floatingInput">Age</label>
+                    <label htmlFor="date" className="form-label text-center">Date of birth:</label>
                 </div>
                 <div className="form-floating my-2 col-7 m-auto">
                     <input
