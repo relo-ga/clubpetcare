@@ -146,9 +146,9 @@ const Userprofile = () => {
                                 />
                             </div>
                             <div className="mb-3 col-5">
-                                <label for="age" className="form-label">Age</label>
+                                <label for="age" className="form-label">Date of Birth</label>
                                 <input type="number" className="form-control" id="age" placeholder={store.profile && store.profile?.age || 25 } 
-                                onChange={handleInputChange} name="age"
+                                onChange={handleInputChange} name="Date of Birth"
                                 />
                             </div>
                             <div className="mb-5 col-5">
