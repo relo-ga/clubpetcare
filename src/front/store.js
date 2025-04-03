@@ -23,7 +23,8 @@ export const initialStore=()=>{
     role: null,
     pets: [],
     profileCompany: null,
-    person: []
+    person: [],
+    appointments: [],
   }
 }
 
@@ -103,6 +104,11 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         professionals: action.payload
+      };
+    case 'load_appointments':
+      return {
+        ...store,
+        appointments: action.payload
       };
 
     default:
