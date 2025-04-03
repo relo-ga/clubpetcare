@@ -116,7 +116,7 @@ const Userprofile = () => {
               onChange={handleInputChange} name="photo"
             />
             <button className="btn btn-primary" id="cameraBtn" onClick={() => setPerson({ ...person, photo: null })}>
-              <span className="camera-text">Clear Image</span>
+              <span className="camera-text">Clear Image</span> 
             </button>
                 
             </div>

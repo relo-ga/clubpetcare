@@ -8,9 +8,7 @@ import { useNavigate, Link } from "react-router-dom";
 export const CompanyProfile = () => {
 
   const [nombreEmpresa, setNombreEmpresa] = useState("Nombre de la Empresa");
-  const [about, setAbout] = useState("Breve descripción de la empresa, su misión y visión.");
   const [hours, setHours] = useState("Urgencias 24 horas, etc.");
-  const [address, setAddress] = useState("Gómez Bolaños 736")
   const [editando, setEditando] = useState(false);
 
   const handleChange = (e, campo) => {
@@ -74,9 +72,34 @@ export const CompanyProfile = () => {
     }
   };
 
+  const fetchAppointments = async () => {
+    try {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/company/appointments", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${store.token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch appointments");
+      }
+
+      const data = await response.json();
+      console.log(data)
+      dispatch({ type: "load_appointments", payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     //if(!store.role) navigate("/")
-    if (store.role == "company") fetchServices()
+    if (store.role != "user") {
+      fetchServices() 
+      fetchAppointments();
+    }
     if (store.role == "user") {
       navigate("/dashboarduser")
     }
@@ -85,19 +108,8 @@ export const CompanyProfile = () => {
   return (
     <div style={{ backgroundColor: "#EDF6F9" }}>
       <div className="container py-5">
-
-      <div className="text-center pb-2">
-          <img src="https://images.unsplash.com/photo-1596272875729-ed2ff7d6d9c5?w=400&h=400" alt="Logo" className="mb-2 rounded-pill" />
-            <Link to={`/Companyupdate/${store.profile.id}`} className="ms-3" style={{ textDecoration: 'none' }}>
-              <i
-                className="fa-solid fa-pencil"
-                style={{ cursor: "pointer", color: "black" }}
-              ></i>
-            </Link>
-        </div>
-
         <div className="text-center pb-2">
-          <img src="https://images.unsplash.com/photo-1596272875729-ed2ff7d6d9c5?w=400&h=400" alt="Logo" className="mb-2 rounded-pill" />
+          <img src={store.profile && store.profile?.image || "https://hospitalveterinariodonostia.com/wp-content/uploads/2022/02/Personalidad-gatos.png"} alt="Logo" className="mb-2 rounded-pill" />
             <Link to={`/petUpdate/${id}`} className="ms-3" style={{ textDecoration: 'none' }}>
               <i
                 className="fa-solid fa-pencil"
@@ -154,19 +166,9 @@ export const CompanyProfile = () => {
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
           <h2 style={{ color: "#006D77", }}>
             <i className="fa-solid fa-briefcase-medical me-1" style={{ color: "#006D77", }}></i>Sobre Nosotros</h2>
-          {editando ? (
-            <input
-              type="text"
-              value={about}
-              onChange={(e) => handleChange(e, "about")}
-              onKeyDown={handleKeyDown}
-              className="form-control text-center"
-            />
-          ) : (
-            <p className="text-muted">
-              {about}
-            </p>
-          )}
+            <p>
+              {store.profile && store.profile?.description || "Descripción de la empresa"}
+            </p>          
         </section>
 
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
@@ -211,19 +213,9 @@ export const CompanyProfile = () => {
 
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
           <h2 style={{ color: "#006D77", }}><i className="fa-solid fa-location-dot me-1" style={{ color: "#006D77", }}></i>Ubicación</h2>
-          {editando ? (
-            <input
-              type="text"
-              value={address}
-              onChange={(e) => handleChange(e, "address")}
-              onKeyDown={handleKeyDown}
-              className="form-control text-center"
-            />
-          ) : (
-            <p className="text-muted">
-              {address}
+            <p>
+            {store.profile && store.profile?.location || "Ubicación de la empresa"}
             </p>
-          )}
         </section>
 
 
