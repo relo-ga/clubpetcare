@@ -87,6 +87,7 @@ class Pet(db.Model):
     race: Mapped[str] = mapped_column(nullable=False)
     specie: Mapped[str] = mapped_column(nullable=False)
     emergency_phone: Mapped[str] = mapped_column(nullable=False)
+    
 
     id_user: Mapped[int] = mapped_column(ForeignKey("user.id"))
     user: Mapped["User"] = relationship("User", backref="pets")

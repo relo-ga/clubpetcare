@@ -17,7 +17,6 @@ const Registerpet = () => {
         birthdate: "",
         weight: "",
     });
-    // const [selectedDate, setSelectedDate] = useState("");
 
     const handleInputChange = (e) => {
         setPet({
@@ -58,27 +57,15 @@ const Registerpet = () => {
         register(pet);
     };
 
-    // const handleDate = (e) => {
-    //     const date = e.target.value;
-    //     setSelectedDate(date);
-    //     setPet((prev) => ({ ...prev, date_of_birth: date })); // O usar otro nombre de campo según lo esperado en backend
-    // };
-
     return (
         <div className="d-flex flex-column">
-            <div className="mx-auto my-5">
-                <img
-                    className="mx-auto rounded-circle"
-                    src="https://u4d2z7k9.delivery.rocketcdn.me/wp-content/uploads/2023/05/Untitled-683-%C3%97-1024px-1024-%C3%97-683px-15.jpg"
-                    alt=""
-                    width="300"
-                />
+            {/* <div className="mx-auto my-5">
                 <button className="btn btn-warning py-2 mx-1 rounded-pill" type="submit">
                     <i className="fa-solid fa-plus"></i>
 
                     onClick={() => upload}
                 </button>
-            </div>
+            </div> */}
 
             <div className="d-flex justify-content-around fs-1 col-5 border mx-auto rounded my-4 p-3" style={{ backgroundColor: "#FFDDD2" }}>
                 <div className="mx-2">
