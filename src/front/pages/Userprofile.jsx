@@ -3,8 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
-
-
 const Userprofile = () => {
   
   const { store, dispatch } = useGlobalReducer();
@@ -13,11 +11,10 @@ const Userprofile = () => {
 
     const [ person, setPerson ] = useState({
       photo: null,
-        phone: "",
+      phone: "",
       secondary_phone: "",
-        location: "",
+      location: "",
     });
-
 
   const handleInputChange = (e) => {
     if (e.target.name === "photo") {
@@ -106,6 +103,7 @@ const Userprofile = () => {
     }
     return "https://th.bing.com/th/id/OIP.Nz2KaAaoPwGwAGlOWTuOCAHaHa?w=193&h=193&c=7&r=0&o=5&dpr=1.3&pid=1.7";
   }
+  
     return(
       <div className="container my-5">
           <h1 className="text-center mb-4">{store.role == "user" ? "user" : "Personal"} Information</h1>

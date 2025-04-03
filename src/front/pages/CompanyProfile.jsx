@@ -72,9 +72,34 @@ export const CompanyProfile = () => {
     }
   };
 
+  const fetchAppointments = async () => {
+    try {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/company/appointments", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${store.token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch appointments");
+      }
+
+      const data = await response.json();
+      console.log(data)
+      dispatch({ type: "load_appointments", payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     //if(!store.role) navigate("/")
-    if (store.role == "company") fetchServices()
+    if (store.role != "user") {
+      fetchServices() 
+      fetchAppointments();
+    }
     if (store.role == "user") {
       navigate("/dashboarduser")
     }

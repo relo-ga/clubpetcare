@@ -401,3 +401,24 @@ def get_appointments():
     print("Appointments found:", appointments)  # Log de los usuarios encontrados
     appointments = list(map(lambda x: x.serialize(), appointments))
     return jsonify(appointments), 200
+
+@api.route('/company/appointments', methods=['GET'])
+@jwt_required()
+def get_company_appointments():
+    # Obtener el email de la compañía del token JWT
+    company_email = get_jwt_identity()
+    # Buscar la compañía en la base de datos
+    company = Company.query.filter_by(email=company_email).first()
+    if not company:
+        return jsonify({"error": "Company not found"}), 404
+    # Obtener todos los servicios de la compañía
+    services = Services.query.filter_by(id_company=company.id).all()
+    service_ids = [service.id for service in services]
+    # Obtener las citas para estos servicios
+    appointments = Appointments.query.filter(
+        Appointments.id_service.in_(service_ids)
+    ).all()
+    # Serializar los resultados
+    result = [appointment.serialize() for appointment in appointments]
+    print(f"Found {len(result)} appointments for company {company.id}")
+    return jsonify(result), 200
