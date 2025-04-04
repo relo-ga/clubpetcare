@@ -34,8 +34,7 @@ const PetUpdate = () => {
       dispatch({ type: "pet_info", payload: data });
 
       setPuppy({
-        //photo: data.photo || null,
-        emergency_phone: data.phone || "",
+        emergency_phone: data.emergency_phone || "",
         weight: data.weight || "",
         birthdate: data.birthdate || ""
       });
@@ -50,8 +49,7 @@ const PetUpdate = () => {
     } else {
       setPetData(store.pet);
       setPuppy({
-        //photo: store.pet.photo || null,
-        emergency_phone: store.pet.phone || "",
+        emergency_phone: store.pet.emergency_phone || "",
         weight: store.pet.weight || "",
         birthdate: store.pet.birthdate || "",
       });
@@ -104,8 +102,7 @@ const PetUpdate = () => {
       const petDataToUpdate = {
         ...(photoUrl ? { photo: photoUrl } : {}),
         emergency_phone: puppy.emergency_phone,
-        medical_history: puppy.medical_history,
-        age: puppy.age,
+        weight: puppy.weight,
       };
 
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/pet/${petId}`, {
@@ -175,19 +172,6 @@ const PetUpdate = () => {
             </div>
 
             <div className="mb-3 col-5">
-              <label htmlFor="emergency_phone" className="form-label">Emergency Phone</label>
-              <input
-                type="tel"
-                className="form-control"
-                id="emergency_phone"
-                name="emergency_phone"
-                value={puppy.emergency_phone}
-                placeholder={petData.phone || ""}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="mb-3 col-5">
               <label htmlFor="specie" className="form-label">Specie</label>
               <input
                 type="text"
@@ -199,15 +183,14 @@ const PetUpdate = () => {
             </div>
 
             <div className="mb-3 col-5">
-              <label htmlFor="age" className="form-label">Age</label>
+              <label htmlFor="birtdate" className="form-label">Birthdate</label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
-                id="age"
-                name="age"
-                value={puppy.age}
-                placeholder={petData.age || ""}
-                onChange={handleChange}
+                id="birthdate"
+                name="birthdate"
+                value={petData.birthdate}
+                readOnly
               />
             </div>
 
@@ -223,17 +206,31 @@ const PetUpdate = () => {
             </div>
 
             <div className="mb-3 col-5">
-              <label htmlFor="medical_history" className="form-label">Medical History</label>
+              <label htmlFor="weight" className="form-label">Weight</label>
               <input
                 type="text"
                 className="form-control"
-                id="medical_history"
-                name="medical_history"
-                value={puppy.medical_history}
-                placeholder={petData.medical_history || ""}
+                id="weight"
+                name="weight"
+                value={puppy.weight}
+                placeholder={petData.weight || ""}
                 onChange={handleChange}
               />
             </div>
+
+            <div className="mb-3 col-5">
+              <label htmlFor="emergency_phone" className="form-label">Emergency Phone</label>
+              <input
+                type="text"
+                className="form-control"
+                id="emergency_phone"
+                name="emergency_phone"
+                value={puppy.emergency_phone}
+                placeholder={petData.emergency_phone || ""}
+                onChange={handleChange}
+              />
+            </div>
+
             <button
               type="submit"
               className="btn btn-primary"
