@@ -67,6 +67,7 @@ class Company(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "name": self.name,
             "name_company": self.name_company,
             "email": self.email,
             "location": self.location,
@@ -87,11 +88,13 @@ class Pet(db.Model):
     race: Mapped[str] = mapped_column(nullable=False)
     specie: Mapped[str] = mapped_column(nullable=False)
     emergency_phone: Mapped[str] = mapped_column(nullable=False)
+    birthdate: Mapped[str] = mapped_column(nullable=True)
+    weight: Mapped[str] = mapped_column(nullable=True)
 
     id_user: Mapped[int] = mapped_column(ForeignKey("user.id"))
     user: Mapped["User"] = relationship("User", backref="pets")
 
-    def __init__(self, name,gender,photo,medical_history,race,specie,emergency_phone,user):
+    def __init__(self, name,gender,photo,medical_history,race,specie,emergency_phone,birthdate,weight,user):
         self.name = name
         self.gender = gender
         self.photo = photo
@@ -99,6 +102,8 @@ class Pet(db.Model):
         self.race = race
         self.specie = specie
         self.emergency_phone = emergency_phone
+        self.birthdate = birthdate
+        self.weight = weight
         self.user = user
 
 
@@ -112,6 +117,8 @@ class Pet(db.Model):
             "race": self.race,
             "specie": self.specie,
             "emergency_phone": self.emergency_phone,
+            "birthdate": self.birthdate,
+            "weight": self.weight,
             "id_user": self.id_user,
         }
 

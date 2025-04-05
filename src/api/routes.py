@@ -152,7 +152,9 @@ def create_company():
     new_company = Company(name=request_body['name'], name_company=request_body['name_company'], email=request_body['email'], password=request_body['password'])
     db.session.add(new_company)
     db.session.commit()
-    return jsonify(new_company.serialize()), 200
+    email = request_body['email']
+    access_token = create_access_token(identity=email)
+    return jsonify(company=new_company.serialize(), access_token=access_token), 200
 
 
 # Post para crear una reserva
@@ -215,7 +217,7 @@ def create_pet():
     if not owner:
         return "User not found", 404
     new_pet = Pet(name=request_body['name'], gender=request_body['gender'], photo=request_body["photo"], medical_history=request_body["medical_history"],
-                  race=request_body["race"], specie=request_body["specie"], emergency_phone=request_body["emergency_phone"], user=owner)
+                  race=request_body["race"], specie=request_body["specie"], emergency_phone=request_body["emergency_phone"], birthdate=request_body["birthdate"], weight=request_body["weight"], user=owner)
     db.session.add(new_pet)
     db.session.commit()
     return jsonify(new_pet.serialize()), 200
@@ -265,7 +267,7 @@ def pet_update(id):
     request_body = request.get_json()
     pet.photo = request_body.get("photo", pet.photo)
     pet.emergency_phone = request_body.get("emergency_phone", pet.emergency_phone)
-    pet.medical_history = request_body.get("medical_history", pet.medical_history)
+    pet.weight = request_body.get("weight", pet.weight)
 
     db.session.commit()
 
@@ -310,9 +312,6 @@ def get_services_id2(id):
     if not services:
         return jsonify({"error": "Service not found"}), 404
     return jsonify(services.serialize()), 200
-
-
-
 
 @api.route('/company/<int:company_id>/services', methods=['GET'])
 def get_company_services(company_id):

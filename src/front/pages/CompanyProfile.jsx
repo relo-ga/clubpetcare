@@ -265,7 +265,6 @@ export const CompanyProfile = () => {
 
 
         {/* Sección  de appointment */}
-        {/* Sección de appointment - SOLO ESTA SECCIÓN CAMBIA */}
 <section className="bg-white mt-4 p-4 rounded shadow-sm">
   <div className="d-flex justify-content-between align-items-center mb-3">
     <h2 style={{ color: "#006D77" }}>

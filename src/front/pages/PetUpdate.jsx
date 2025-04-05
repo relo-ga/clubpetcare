@@ -13,8 +13,7 @@ const PetUpdate = () => {
   const [puppy, setPuppy] = useState({
     photo: null,
     emergency_phone: "",
-    medical_history: "",
-    age: ""
+    weight: "",
   });
 
   const fetchPetById = async (petId) => {
@@ -35,10 +34,9 @@ const PetUpdate = () => {
       dispatch({ type: "pet_info", payload: data });
 
       setPuppy({
-        photo: data.photo || "",
-        emergency_phone: data.phone || "",
-        medical_history: data.medical_history || "",
-        age: data.age || ""
+        emergency_phone: data.emergency_phone || "",
+        weight: data.weight || "",
+        birthdate: data.birthdate || ""
       });
     } catch (error) {
       console.error("Error fetching pet data:", error);
@@ -51,10 +49,9 @@ const PetUpdate = () => {
     } else {
       setPetData(store.pet);
       setPuppy({
-        photo: store.pet.photo || "",
-        emergency_phone: store.pet.phone || "",
-        medical_history: store.pet.medical_history || "",
-        age: store.pet.age || ""
+        emergency_phone: store.pet.emergency_phone || "",
+        weight: store.pet.weight || "",
+        birthdate: store.pet.birthdate || "",
       });
     }
   }, [id, store.pet]);
@@ -105,8 +102,7 @@ const PetUpdate = () => {
       const petDataToUpdate = {
         ...(photoUrl ? { photo: photoUrl } : {}),
         emergency_phone: puppy.emergency_phone,
-        medical_history: puppy.medical_history,
-        age: puppy.age,
+        weight: puppy.weight,
       };
 
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/pet/${petId}`, {
@@ -128,6 +124,8 @@ const PetUpdate = () => {
   };
 
   const getPetImage = () => {
+    console.log("puppy: ", puppy);
+    console.log("petData: ", petData);
     if (puppy.photo) {
       return URL.createObjectURL(puppy.photo);
     }
@@ -158,111 +156,91 @@ const PetUpdate = () => {
           </button>
 
         </div>
-        {/* <div className="col-md-4 text-center mx-2">
-          <img
-            src={petData.photo || "https://th.bing.com/th/id/OIP.Nz2KaAaoPwGwAGlOWTuOCAHaHa?w=193&h=193&c=7&r=0&o=5&dpr=1.3&pid=1.7"}
-            alt="Imagen de perfil"
-            className="profile-img mb-3 col-5"
-            style={{ width: 300 }}
-          />
-          <input
-            type="file"
-            className="form-control mb-3"
-            id="imageUpload"
-            accept="image/*"
-            name="photo"
-            onChange={handleChange}
-          />
-      </div> */}
 
-      <div className="col-md-8 d-flex justify-content-around align-items-center mx-2">
-        <div id="profileForm" className="row g-3">
+        <div className="col-md-8 d-flex justify-content-around align-items-center mx-2">
+          <div id="profileForm" className="row g-3">
 
-          <div className="mb-3 col-5">
-            <label htmlFor="name" className="form-label">Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              value={petData.name || ""}
-              readOnly
-            />
-          </div>
+            <div className="mb-3 col-5">
+              <label htmlFor="name" className="form-label">Name</label>
+              <input
+                type="text"
+                className="form-control"
+                id="name"
+                value={petData.name || ""}
+                readOnly
+              />
+            </div>
 
-          <div className="mb-3 col-5">
-            <label htmlFor="emergency_phone" className="form-label">Emergency Phone</label>
-            <input
-              type="tel"
-              className="form-control"
-              id="emergency_phone"
-              name="emergency_phone"
-              value={puppy.emergency_phone}
-              placeholder={petData.phone || ""}
-              onChange={handleChange}
-            />
-          </div>
+            <div className="mb-3 col-5">
+              <label htmlFor="specie" className="form-label">Specie</label>
+              <input
+                type="text"
+                className="form-control"
+                id="specie"
+                value={petData.specie || ""}
+                readOnly
+              />
+            </div>
 
-          <div className="mb-3 col-5">
-            <label htmlFor="specie" className="form-label">Specie</label>
-            <input
-              type="text"
-              className="form-control"
-              id="specie"
-              value={petData.specie || ""}
-              readOnly
-            />
-          </div>
+            <div className="mb-3 col-5">
+              <label htmlFor="birtdate" className="form-label">Birthdate</label>
+              <input
+                type="text"
+                className="form-control"
+                id="birthdate"
+                name="birthdate"
+                value={petData.birthdate}
+                readOnly
+              />
+            </div>
 
-          <div className="mb-3 col-5">
-            <label htmlFor="age" className="form-label">Age</label>
-            <input
-              type="number"
-              className="form-control"
-              id="age"
-              name="age"
-              value={puppy.age}
-              placeholder={petData.age || ""}
-              onChange={handleChange}
-            />
-          </div>
+            <div className="mb-3 col-5">
+              <label htmlFor="race" className="form-label">Race</label>
+              <input
+                type="text"
+                className="form-control"
+                id="race"
+                value={petData.race || ""}
+                readOnly
+              />
+            </div>
 
-          <div className="mb-3 col-5">
-            <label htmlFor="race" className="form-label">Race</label>
-            <input
-              type="text"
-              className="form-control"
-              id="race"
-              value={petData.race || ""}
-              readOnly
-            />
-          </div>
+            <div className="mb-3 col-5">
+              <label htmlFor="weight" className="form-label">Weight</label>
+              <input
+                type="text"
+                className="form-control"
+                id="weight"
+                name="weight"
+                value={puppy.weight}
+                placeholder={petData.weight || ""}
+                onChange={handleChange}
+              />
+            </div>
 
-          <div className="mb-3 col-5">
-            <label htmlFor="medical_history" className="form-label">Medical History</label>
-            <input
-              type="text"
-              className="form-control"
-              id="medical_history"
-              name="medical_history"
-              value={puppy.medical_history}
-              placeholder={petData.medical_history || ""}
-              onChange={handleChange}
-            />
+            <div className="mb-3 col-5">
+              <label htmlFor="emergency_phone" className="form-label">Emergency Phone</label>
+              <input
+                type="text"
+                className="form-control"
+                id="emergency_phone"
+                name="emergency_phone"
+                value={puppy.emergency_phone}
+                placeholder={petData.emergency_phone || ""}
+                onChange={handleChange}
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={() => updatePET(id)}
+            >
+              Update Changes
+            </button>
           </div>
-          <div class="form-group">
-            <label htmlFor="exampleFormControlFile1">Example file input</label>
-            <input type="file" class="form-control-file" id="exampleFormControlFile1" />
-          </div>
-          <button
-            type="submit"
-            className="btn btn-primary"
-            onClick={() => updatePET(id)}
-          >
-            Update Changes
-          </button>
         </div>
       </div>
-    </div>
     </div >
   );
 };
