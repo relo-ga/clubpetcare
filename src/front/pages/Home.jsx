@@ -61,15 +61,15 @@ export const Home = () => {
 		{/* Sección de Servicios */}
 		<div className="services-section py-5">
 			<div className="container">
-				<h2 className="text-center mb-5">Nuestros Servicios</h2>
+				<h2 className="text-center mb-5 sour-gummy-head ">Nuestros Servicios</h2>
 				<div className="row g-4">
 					<div className="col-md-4">
 						<div className="service-card">
 							<div className="service-icon">
 								<i className="bi bi-heart-pulse"></i>
 							</div>
-							<h3>Asistencia Veterinaria</h3>
-							<p>Atención médica profesional para mantener a tu mascota saludable. Consultas, vacunas y tratamientos.</p>
+							<h3 className="sour-gummy-head">Asistencia Veterinaria</h3>
+							<p className="open-sans-body">Atención médica profesional para mantener a tu mascota saludable. Consultas, vacunas y tratamientos.</p>
 							<a href="#" className="service-link">Más información</a>
 						</div>
 					</div>
