@@ -67,6 +67,7 @@ class Company(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "name": self.name,
             "name_company": self.name_company,
             "email": self.email,
             "location": self.location,

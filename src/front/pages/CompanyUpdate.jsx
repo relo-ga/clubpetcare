@@ -123,19 +123,22 @@ const CompanyUpdate = () => {
                         <label for="name" className="form-label">
                             Name
                         </label>
-                        <input type="text" className="form-control" id="name" placeholder="Juan Perez" disabled/>
+                        <input type="text" className="form-control" id="name" placeholder={store.profile && store.profile?.name || "Juanito Pérez"} 
+                        disabled/>
                     </div>
                     <div className="mb-3 col-5">
                         <label for="phone" className="form-label">
                             Company name
                         </label>
-                        <input type="tel" className="form-control" id="phone" placeholder="Hogar dulce hogar" disabled/>
+                        <input type="tel" className="form-control" id="phone" placeholder={store.profile && store.profile?.name_company || "Perritos Felices"} 
+                        disabled/>
                     </div>
                     <div className="mb-3 col-5">
                         <label for="phone" className="form-label">
                             Email
                         </label>
-                        <input type="tel" className="form-control" id="phone" placeholder="hogardulce@gmail.com" disabled/>
+                        <input type="tel" className="form-control" id="phone" placeholder={store.profile && store.profile?.email || "perritosfelices@gmail.com"} 
+                        disabled/>
                     </div>
                     <div className="mb-3 col-5">
                         <label for="phone" className="form-label">

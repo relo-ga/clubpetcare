@@ -26,7 +26,6 @@ export const CompanyProfile = () => {
 
   const { store, dispatch } = useGlobalReducer();
   const navigate = useNavigate();
-  const { id } = store.profile;
 
   //Modal Services
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
@@ -105,12 +104,14 @@ export const CompanyProfile = () => {
     }
   }, [store.role])
 
+
+
   return (
     <div style={{ backgroundColor: "#EDF6F9" }}>
       <div className="container py-5">
         <div className="text-center pb-2">
           <img src={store.profile && store.profile?.image || "https://hospitalveterinariodonostia.com/wp-content/uploads/2022/02/Personalidad-gatos.png"} alt="Logo" className="mb-2 rounded-pill" />
-            <Link to={`/petUpdate/${id}`} className="ms-3" style={{ textDecoration: 'none' }}>
+            <Link to={`/Companyupdate/${store.profile?.id}`} className="ms-3" style={{ textDecoration: 'none' }}>
               <i
                 className="fa-solid fa-pencil"
                 style={{ cursor: "pointer", color: "black" }}

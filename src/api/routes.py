@@ -152,7 +152,9 @@ def create_company():
     new_company = Company(name=request_body['name'], name_company=request_body['name_company'], email=request_body['email'], password=request_body['password'])
     db.session.add(new_company)
     db.session.commit()
-    return jsonify(new_company.serialize()), 200
+    email = request_body['email']
+    access_token = create_access_token(identity=email)
+    return jsonify(company=new_company.serialize(), access_token=access_token), 200
 
 
 # Post para crear una reserva
