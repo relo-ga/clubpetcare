@@ -121,6 +121,14 @@ const ProfilePet = () => {
                     <td><p>{pet.specie}</p></td>
                   </tr>
                   <tr>
+                    <td><h5 className="card-title">Fecha de Nacimiento: </h5></td>
+                    <td><p>{pet.birthdate}</p></td>
+                  </tr>
+                  <tr>
+                    <td><h5 className="card-title">Peso [kg]: </h5></td>
+                    <td><p>{pet.weight}</p></td>
+                  </tr>
+                  <tr>
                     <td><h5 className="card-title">Teléfono de emergencia: </h5></td>
                     <td><p>{pet.emergency_phone}</p></td>
                   </tr>
@@ -140,8 +148,8 @@ const ProfilePet = () => {
         </div>
       </div>
 
-{/* Sección: Historial Médico */}
-<div className="my-3 col-12 col-md-8 col-lg-5 mx-auto rounded-4 pb-2" style={{ backgroundColor: "#fff" }}>
+      {/* Sección: Historial Médico */}
+      <div className="my-3 col-12 col-md-8 col-lg-5 mx-auto rounded-4 pb-2" style={{ backgroundColor: "#fff" }}>
         <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
           <h2 className="text-center" style={{ color: "#006D77" }}>Historial Médico</h2>
         </div>
