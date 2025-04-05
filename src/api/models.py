@@ -202,6 +202,10 @@ class Appointments(db.Model):
             "duration": self.duration,
             "id_pet": self.id_pet,
             "id_service": self.id_service,
-            "id_company": self.service.id_company
+            "id_company": self.service.id_company,
+            "pet_name": self.pet.name,
+            "service_name": self.service.name,
+            "service_description": self.service.description,
+            "pet_photo": self.pet.photo,
         }
 
