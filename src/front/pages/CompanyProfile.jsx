@@ -26,6 +26,7 @@ export const CompanyProfile = () => {
 
   const { store, dispatch } = useGlobalReducer();
   const navigate = useNavigate();
+  const { id } = store.profile;
 
   //Modal Services
   const [showModal, setShowModal] = useState(false); // Estado para controlar la visibilidad del modal
@@ -93,10 +94,53 @@ export const CompanyProfile = () => {
     }
   };
 
+  const updateAppointmentStatus = async (id, status) => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/appointments/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${store.token}`
+        },
+        body: JSON.stringify({ status })
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to update appointment");
+      }
+  
+      const data = await response.json();
+      
+      // Actualiza el estado local
+      const updatedAppointments = store.appointments.map(appt => 
+        appt.id === id ? { ...appt, status } : appt
+      );
+      dispatch({ type: "load_appointments", payload: updatedAppointments });
+      
+      return true; // Indica éxito
+      
+    } catch (error) {
+      console.error("Error:", error);
+      return false; // Indica fallo
+    }
+  };
+  // Handler para aprobar
+  const handleApprove = (id) => {
+    updateAppointmentStatus(id, "approved");
+    alert("Cita aprobada con éxito ✅");
+
+  };
+
+  // Handler para rechazar
+  const handleReject = (id) => {
+    updateAppointmentStatus(id, "rejected");
+    alert("Cita rechazada con éxito ❌");
+  };
+
   useEffect(() => {
     //if(!store.role) navigate("/")
     if (store.role != "user") {
-      fetchServices() 
+      fetchServices()
       fetchAppointments();
     }
     if (store.role == "user") {
@@ -104,19 +148,17 @@ export const CompanyProfile = () => {
     }
   }, [store.role])
 
-
-
   return (
     <div style={{ backgroundColor: "#EDF6F9" }}>
       <div className="container py-5">
         <div className="text-center pb-2">
           <img src={store.profile && store.profile?.image || "https://hospitalveterinariodonostia.com/wp-content/uploads/2022/02/Personalidad-gatos.png"} alt="Logo" className="mb-2 rounded-pill" />
-            <Link to={`/Companyupdate/${store.profile?.id}`} className="ms-3" style={{ textDecoration: 'none' }}>
-              <i
-                className="fa-solid fa-pencil"
-                style={{ cursor: "pointer", color: "black" }}
-              ></i>
-            </Link>
+          <Link to={`/petUpdate/${id}`} className="ms-3" style={{ textDecoration: 'none' }}>
+            <i
+              className="fa-solid fa-pencil"
+              style={{ cursor: "pointer", color: "black" }}
+            ></i>
+          </Link>
         </div>
 
         <header className="text-white text-center py-2 rounded" style={{ backgroundColor: "#006D77" }}>
@@ -164,12 +206,14 @@ export const CompanyProfile = () => {
           </small>
         </div>
 
+
+
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
           <h2 style={{ color: "#006D77", }}>
             <i className="fa-solid fa-briefcase-medical me-1" style={{ color: "#006D77", }}></i>Sobre Nosotros</h2>
-            <p>
-              {store.profile && store.profile?.description || "Descripción de la empresa"}
-            </p>          
+          <p>
+            {store.profile && store.profile?.description || "Descripción de la empresa"}
+          </p>
         </section>
 
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
@@ -214,123 +258,82 @@ export const CompanyProfile = () => {
 
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
           <h2 style={{ color: "#006D77", }}><i className="fa-solid fa-location-dot me-1" style={{ color: "#006D77", }}></i>Ubicación</h2>
-            <p>
+          <p>
             {store.profile && store.profile?.location || "Ubicación de la empresa"}
-            </p>
+          </p>
         </section>
 
 
-        {/* Sección de solicitud de appointment */}
-        <section className="bg-white mt-4 p-4 rounded shadow-sm">
-          <div className="d-flex justify-content-between align-items-center mb-3">
-            <h2 style={{ color: "#006D77" }}>
-              <i className="fa-solid fa-calendar-check me-2" style={{ color: "#006D77" }}></i>
-              Solicitudes de Cita
-            </h2>
-          </div>
+        {/* Sección  de appointment */}
+<section className="bg-white mt-4 p-4 rounded shadow-sm">
+  <div className="d-flex justify-content-between align-items-center mb-3">
+    <h2 style={{ color: "#006D77" }}>
+      <i className="fa-solid fa-calendar-check me-2" style={{ color: "#006D77" }}></i>
+      Solicitudes de Cita
+    </h2>
+  </div>
 
-          <div className="table-responsive">
-            <table className="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Mascota</th>
-                  <th scope="col">Servicio</th>
-                  <th scope="col">Fecha</th>
-                  <th scope="col">Estado</th>
-                  <th scope="col">Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-
-                {/* Ejemplo de fila */}
-                <tr>
-                  <td>
-                    <div className="d-flex align-items-center">
-                      <img
-                        src="https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?w=100"
-                        className="rounded-circle me-2"
-                        width="30"
-                        height="30"
-                        alt="Mascota"
-                      />
-                      Max
-                    </div>
-                  </td>
-                  <td>Consulta general</td>
-                  <td>15 Nov 2025</td>
-                  <td>
-                    <span className="badge bg-warning text-dark">Pendiente</span>
-                  </td>
-                  <td>
-                    <button className="btn btn-sm btn-outline-success me-1">
+  {store.appointments?.length > 0 ? (
+    <div className="table-responsive">
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Mascota</th>
+            <th>Servicio</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {store.appointments.map((appointment) => (
+            <tr key={appointment.id}>
+              <td>
+                <img
+                  src={appointment.photo || "https://i.pinimg.com/736x/55/4e/b3/554eb3a5fd27256e7949c8221807b8f5.jpg"}
+                  alt="Pet"
+                  className="rounded-circle me-2"
+                  style={{ width: "40px", height: "40px", objectFit: "cover" }}
+                />
+                {appointment.pet_name || "No name"}
+              </td>
+              <td>{appointment.service_name || "No service"}</td>
+              <td>{new Date(appointment.date).toLocaleString()}</td>
+              <td>
+                <span className={`badge ${
+                  appointment.status === "approved" ? "bg-success" :
+                  appointment.status === "rejected" ? "bg-danger" : "bg-warning"
+                }`}>
+                  {appointment.status}
+                </span>
+              </td>
+              <td>
+                {appointment.status === "pending" && (
+                  <>
+                    <button
+                      className="btn btn-sm btn-outline-success me-1"
+                      onClick={() => handleApprove(appointment.id)}
+                    >
                       <i className="fa-solid fa-check"></i>
                     </button>
-                    <button className="btn btn-sm btn-outline-danger">
+                    <button
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={() => handleReject(appointment.id)}
+                    >
                       <i className="fa-solid fa-times"></i>
                     </button>
-                  </td>
-                </tr>
-
-                {/* Otra fila de ejemplo */}
-
-                <tr>
-                  <td>
-                    <div className="d-flex align-items-center">
-                      <img
-                        src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=100"
-                        className="rounded-circle me-2"
-                        width="30"
-                        height="30"
-                        alt="Mascota"
-                      />
-                      Luna
-                    </div>
-                  </td>
-                  <td>Vacunación</td>
-                  <td>16 Nov 2025</td>
-                  <td>
-                    <span className="badge bg-success">Confirmada</span>
-                  </td>
-                  <td>
-                    <button className="btn btn-sm btn-outline-secondary">
-                      <i className="fa-solid fa-ellipsis"></i>
-                    </button>
-                  </td>
-                </tr>
-
-                {/* Más filas de ejemplo */}
-                <tr>
-                  <td>
-                    <div className="d-flex align-items-center">
-                      <img
-                        src="https://images.unsplash.com/photo-1543852786-1cf6624b9987?w=100"
-                        className="rounded-circle me-2"
-                        width="30"
-                        height="30"
-                        alt="Mascota"
-                      />
-                      Rocky
-                    </div>
-                  </td>
-                  <td>Cirugía</td>
-                  <td>17 Nov 2025</td>
-                  <td>
-                    <span className="badge bg-danger">Cancelada</span>
-                  </td>
-                  <td>
-                    <button className="btn btn-sm btn-outline-secondary">
-                      <i className="fa-solid fa-ellipsis"></i>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="d-flex justify-content-end mt-3">
-
-          </div>
-        </section>
+                  </>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <p className="text-muted">No hay solicitudes de cita pendientes</p>
+  )}
+</section>
 
 
 

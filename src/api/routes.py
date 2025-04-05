@@ -421,3 +421,16 @@ def get_company_appointments():
     result = [appointment.serialize() for appointment in appointments]
     print(f"Found {len(result)} appointments for company {company.id}")
     return jsonify(result), 200
+
+# Ruta para estatuus de appointment
+@api.route('/appointments/<int:id>', methods=['PUT'])
+def update_appointment(id):
+    appointment = Appointments.query.get(id)
+    if not appointment:
+        return jsonify({"error": "Appointment not found"}), 404
+
+    request_body = request.get_json()
+    appointment.status = request_body.get("status", appointment.status)
+    db.session.commit()
+
+    return jsonify(appointment.serialize()), 200

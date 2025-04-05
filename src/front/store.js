@@ -25,6 +25,7 @@ export const initialStore=()=>{
     profileCompany: null,
     person: [],
     appointments: [],
+    statusAppointment: [],
   }
 }
 
@@ -109,6 +110,11 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         appointments: action.payload
+      };
+    case 'load_statusAppointment':
+      return {
+        ...store,
+        statusAppointment: action.payload
       };
 
     default:
