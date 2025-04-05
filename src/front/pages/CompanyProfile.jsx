@@ -153,7 +153,7 @@ export const CompanyProfile = () => {
       <div className="container py-5">
         <div className="text-center pb-2">
           <img src={store.profile && store.profile?.image || "https://hospitalveterinariodonostia.com/wp-content/uploads/2022/02/Personalidad-gatos.png"} alt="Logo" className="mb-2 rounded-pill" />
-          <Link to={`/petUpdate/${id}`} className="ms-3" style={{ textDecoration: 'none' }}>
+          <Link to={`/CompanyUpdate/${id}`} className="ms-3" style={{ textDecoration: 'none' }}>
             <i
               className="fa-solid fa-pencil"
               style={{ cursor: "pointer", color: "black" }}
@@ -172,32 +172,32 @@ export const CompanyProfile = () => {
               autoFocus
             />
           ) : (
-            <h1 className="display-5">
+            <h1 className="display-5 open-sans-body">
               {nombreEmpresa}
             </h1>
           )}
         </header>
 
         <div className="my-3 p-3 bg-body rounded shadow-sm">
-          <h2 className="border-bottom pb-2 mb-0" style={{ color: "#006D77", }}><i className="fa-solid fa-calendar-days me-1"></i>Recordatorios para hoy</h2>
+          <h2 className="border-bottom pb-2 mb-0 open-sans-body" style={{ color: "#006D77", }}><i className="fa-solid fa-calendar-days me-1"></i>Recordatorios para hoy</h2>
           <div className="d-flex text-body-secondary pt-3">
             <i className="fa-solid fa-shield-cat me-3" style={{ color: "#E29578", }}></i>
-            <p className="pb-3 mb-0 small lh-sm border-bottom">
-              <strong className="d-block text-gray-dark">@username</strong>
+            <p className="pb-3 mb-0 small lh-sm border-bottom sour-gummy-head"> 
+              <strong className="d-block text-gray-dark sour-gummy-head">@username</strong>
               Some representative placeholder content, with some information about this user. Imagine this being some sort of status update, perhaps?
             </p>
           </div>
           <div className="d-flex text-body-secondary pt-3">
             <i className="fa-solid fa-shield-cat me-3" style={{ color: "#E29578", }}></i>
-            <p className="pb-3 mb-0 small lh-sm border-bottom">
-              <strong className="d-block text-gray-dark">@username</strong>
+            <p className="pb-3 mb-0 small lh-sm border-bottom sour-gummy-heady">
+              <strong className="d-block text-gray-dark sour-gummy-head">@username</strong>
               Some more representative placeholder content, related to this other user. Another status update, perhaps.
             </p>
           </div>
           <div className="d-flex text-body-secondary pt-3">
             <i className="fa-solid fa-shield-cat me-3" style={{ color: "#E29578", }}></i>
-            <p className="pb-3 mb-0 small lh-sm border-bottom">
-              <strong className="d-block text-gray-dark">@username</strong>
+            <p className="pb-3 mb-0 small lh-sm border-bottom sour-gummy-head">
+              <strong className="d-block text-gray-dark sour-gummy-head">@username</strong>
               This user also gets some representative placeholder content. Maybe they did something interesting, and you really want to highlight this in the recent updates.
             </p>
           </div>
@@ -209,9 +209,9 @@ export const CompanyProfile = () => {
 
 
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
-          <h2 style={{ color: "#006D77", }}>
+          <h2 className="open-sans-body" style={{ color: "#006D77", }}>
             <i className="fa-solid fa-briefcase-medical me-1" style={{ color: "#006D77", }}></i>Sobre Nosotros</h2>
-          <p>
+          <p className="sour-gummy-head">
             {store.profile && store.profile?.description || "Descripción de la empresa"}
           </p>
         </section>
@@ -219,18 +219,18 @@ export const CompanyProfile = () => {
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
           {/* Modal para reservar */}
           <ModalServices show={showModal} onClose={handleCloseModal} onConfirm={handleReservar} />
-          <h2 style={{ color: "#006D77", }}><i className="fa-solid fa-paw me-1" style={{ color: "#006D77", }}></i>Nuestros Servicios</h2>
-          <div className="list-group">
+          <h2 className="open-sans-body" style={{ color: "#006D77", }}><i className="fa-solid fa-paw me-1" style={{ color: "#006D77", }}></i>Nuestros Servicios</h2>
+          <div className="list-group sour-gummy-head text-muted">
             {
               store.services_company.map((element, index) => {
                 return (
-                  <ListCompanyServices key={index} className="list-group-item" service={element.name} description={element.description} image={element.image} />
+                  <ListCompanyServices key={index} className="list-group-item open-sans-body" service={element.name} description={element.description} image={element.image} />
                 )
               })
             }
           </div>
           <div className="d-flex align-items-center mt-3 ms-3">
-            <p className="fw-bold m-0 me-2">Agregar servicio</p>
+            <p className="fw-bold m-0 me-2 open-sans-body">Agregar servicio</p>
             <button type="button" className="btn btn-outline-dark rounded-pill" onClick={handleReservarClick}>
               <i className="fa-solid fa-plus"></i>
             </button>
@@ -238,7 +238,7 @@ export const CompanyProfile = () => {
         </section>
 
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
-          <h2 style={{ color: "#006D77", }}>
+          <h2 className="open-sans-body" style={{ color: "#006D77", }}>
             <i className="fa-solid fa-clock me-1" style={{ color: "#006D77", }}></i>Horarios</h2>
           {editando ? (
             <input
@@ -249,7 +249,7 @@ export const CompanyProfile = () => {
               className="form-control text-center"
             />
           ) : (
-            <p className="text-muted">
+            <p className="text-muted sour-gummy-head">
               {hours}
             </p>
           )}
@@ -257,8 +257,8 @@ export const CompanyProfile = () => {
         </section>
 
         <section className="bg-white mt-4 p-3 rounded shadow-sm">
-          <h2 style={{ color: "#006D77", }}><i className="fa-solid fa-location-dot me-1" style={{ color: "#006D77", }}></i>Ubicación</h2>
-          <p>
+          <h2 className="open-sans-body" style={{ color: "#006D77", }}><i className="fa-solid fa-location-dot me-1" style={{ color: "#006D77", }}></i>Ubicación</h2>
+          <p className="text-muted sour-gummy-head">
             {store.profile && store.profile?.location || "Ubicación de la empresa"}
           </p>
         </section>
@@ -267,7 +267,7 @@ export const CompanyProfile = () => {
         {/* Sección  de appointment */}
 <section className="bg-white mt-4 p-4 rounded shadow-sm">
   <div className="d-flex justify-content-between align-items-center mb-3">
-    <h2 style={{ color: "#006D77" }}>
+    <h2 className="open-sans-body" style={{ color: "#006D77" }}>
       <i className="fa-solid fa-calendar-check me-2" style={{ color: "#006D77" }}></i>
       Solicitudes de Cita
     </h2>
@@ -275,7 +275,7 @@ export const CompanyProfile = () => {
 
   {store.appointments?.length > 0 ? (
     <div className="table-responsive">
-      <table className="table">
+      <table className="table open-sans-body">
         <thead>
           <tr>
             <th>Mascota</th>
@@ -288,7 +288,7 @@ export const CompanyProfile = () => {
         <tbody>
           {store.appointments.map((appointment) => (
             <tr key={appointment.id}>
-              <td>
+              <td className="sour-gummy-head">
                 <img
                   src={appointment.photo || "https://i.pinimg.com/736x/55/4e/b3/554eb3a5fd27256e7949c8221807b8f5.jpg"}
                   alt="Pet"
@@ -297,9 +297,9 @@ export const CompanyProfile = () => {
                 />
                 {appointment.pet_name || "No name"}
               </td>
-              <td>{appointment.service_name || "No service"}</td>
-              <td>{new Date(appointment.date).toLocaleString()}</td>
-              <td>
+              <td className="sour-gummy-head">{appointment.service_name || "No service"}</td>
+              <td className="sour-gummy-head">{new Date(appointment.date).toLocaleString()}</td>
+              <td className="sour-gummy-head">
                 <span className={`badge ${
                   appointment.status === "approved" ? "bg-success" :
                   appointment.status === "rejected" ? "bg-danger" : "bg-warning"
@@ -307,7 +307,7 @@ export const CompanyProfile = () => {
                   {appointment.status}
                 </span>
               </td>
-              <td>
+              <td className="sour-gummy-head">
                 {appointment.status === "pending" && (
                   <>
                     <button
@@ -331,7 +331,7 @@ export const CompanyProfile = () => {
       </table>
     </div>
   ) : (
-    <p className="text-muted">No hay solicitudes de cita pendientes</p>
+    <p className="text-muted open-sans-body">No hay solicitudes de cita pendientes</p>
   )}
 </section>
 
