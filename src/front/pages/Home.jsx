@@ -1,10 +1,14 @@
 import React, { useEffect } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
 
-	const { store, dispatch } = useGlobalReducer()
+	const { store, dispatch } = useGlobalReducer();
+
+	const navigate = useNavigate();
+
 
 	const loadMessage = async () => {
 		try {
@@ -41,8 +45,27 @@ export const Home = () => {
 						<h1 className="display-4 fw-bold mb-3 open-sans-body">Tu mascota merece lo mejor.</h1>
 						<p className="lead mb-4 sour-gummy-head">Servicios veterinarios y de cuidado de calidad para tus compañeros peludos.</p>
 						<div className="d-flex flex-column flex-sm-row gap-3 mt-4">
-							<button className="btn btn-primary btn-lg open-sans-body">Reservar Cita</button>
-							<button className="btn btn-outline-secondary btn-lg open-sans-body">Conocer más</button>
+							<button
+								className="btn btn-primary btn-lg open-sans-body"
+								onClick={() => {
+									if (store.token) {
+										navigate("/DashboardUser");
+									} else {
+										navigate("/login");
+									}
+								}}
+							>
+								Reservar Cita
+							</button>
+							<button className="btn btn-outline-secondary btn-lg open-sans-body"
+								onClick={() => {
+									if (store.token) {
+										navigate("/DashboardUser");
+									} else {
+										navigate("/registeruse");
+									}
+								}}
+							>Conocer más</button>
 						</div>
 					</div>
 					<div className="col-lg-6">
@@ -70,7 +93,15 @@ export const Home = () => {
 							</div>
 							<h3 className="open-sans-body">Asistencia Veterinaria</h3>
 							<p className="open-sans-body sour-gummy-head">Atención médica profesional para mantener a tu mascota saludable. Consultas, vacunas y tratamientos.</p>
-							<a href="#" className="service-link open-sans-body">Más información</a>
+							<a href="#" className="service-link open-sans-body"
+								onClick={() => {
+									if (store.token) {
+										navigate("/DashboardUser");
+									} else {
+										navigate("/registeruse");
+									}
+								}}
+							>Más información</a>
 						</div>
 					</div>
 					<div className="col-md-4">
@@ -80,7 +111,14 @@ export const Home = () => {
 							</div>
 							<h3 className="open-sans-body">Peluquería y Baños</h3>
 							<p className="sour-gummy-head">Servicios de belleza y limpieza para que tu mascota luzca y se sienta increíble. Cortes personalizados.</p>
-							<a href="#" className="service-link open-sans-body">Más información</a>
+							<a href="#" className="service-link open-sans-body"
+								onClick={() => {
+									if (store.token) {
+										navigate("/DashboardUser");
+									} else {
+										navigate("/registeruse");
+									}
+								}}>Más información</a>
 						</div>
 					</div>
 					<div className="col-md-4">
@@ -90,7 +128,15 @@ export const Home = () => {
 							</div>
 							<h3 className="open-sans-body">Paseos</h3>
 							<p className="sour-gummy-head">Ejercicio y diversión garantizada con nuestros paseadores profesionales. Horarios flexibles.</p>
-							<a href="#" className="service-link open-sans-body">Más información</a>
+							<a href="#" className="service-link open-sans-body"
+								onClick={() => {
+									if (store.token) {
+										navigate("/DashboardUser");
+									} else {
+										navigate("/registeruse");
+									}
+								}}
+							>Más información</a>
 						</div>
 					</div>
 				</div>
@@ -209,12 +255,14 @@ export const Home = () => {
 							<div className="mb-3">
 								<textarea className="form-control open-sans-body" rows="4" placeholder="Mensaje"></textarea>
 							</div>
-							<button type="submit" className="btn btn-primary btn-lg w-100 open-sans-body">Enviar mensaje</button>
+							<button type="submit" className="btn btn-primary btn-lg w-100 open-sans-body"
+							onClick={() => alert("Mensaje enviado")}
+							>Enviar mensaje</button>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		</div>
+	</div>
 	);
 }; 

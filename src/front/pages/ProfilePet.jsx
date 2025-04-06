@@ -166,7 +166,7 @@ const ProfilePet = () => {
             <button
               type="button"
               className="btn btn-outline-dark rounded-pill"
-              onClick={() => navigate("/registerpet")}
+              onClick={() => navigate("")}
             >
               <i className="fa-solid fa-plus"></i>
             </button>

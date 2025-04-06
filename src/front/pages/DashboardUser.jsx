@@ -219,7 +219,7 @@ export const DashboardUser = () => {
       </div>
 
       {/** Seccion de Profesionales Cercanos */}
-      <div className="row justify-content-center mt-5">
+      <div className="row justify-content-center mt-5" id="Nearby">
         <div className="col-lg-10 col-md-12">
           <h2 className="text-primary-css open-sans-body">Nearby Professionals</h2>
           {loadingProfessionals ? (
