@@ -175,11 +175,11 @@ export const Home = () => {
 				<div className="row g-4">
 					<div className="col-lg-6">
 						<h2 className="open-sans-body">Contáctanos</h2>
-						<p className="lead">Estamos aquí para ayudarte con cualquier pregunta sobre nuestros servicios.</p>
+						<p className="lead sour-gummy-head">Estamos aquí para ayudarte con cualquier pregunta sobre nuestros servicios.</p>
 						<div className="contact-info">
-							<p><i className="bi bi-geo-alt"></i> Av. Principal #123, Ciudad</p>
-							<p><i className="bi bi-telephone"></i> +123 456 7890</p>
-							<p><i className="bi bi-envelope"></i> info@clubpetcare.com</p>
+							<p className="sour-gummy-head"><i className="bi bi-geo-alt"></i> Av. Principal #123, Ciudad</p>
+							<p className="sour-gummy-head"><i className="bi bi-telephone"></i> +123 456 7890</p>
+							<p className="sour-gummy-head"><i className="bi bi-envelope"></i> info@clubpetcare.com</p>
 						</div>
 						<div className="social-links mt-4">
 							<a href="#" className="social-link"><i className="bi bi-facebook"></i></a>
@@ -190,16 +190,16 @@ export const Home = () => {
 					<div className="col-lg-6">
 						<form className="contact-form">
 							<div className="mb-3">
-								<input type="text" className="form-control" placeholder="Nombre completo" />
+								<input type="text" className="form-control open-sans-body" placeholder="Nombre completo" />
 							</div>
 							<div className="mb-3">
-								<input type="email" className="form-control" placeholder="Correo electrónico" />
+								<input type="email" className="form-control open-sans-body" placeholder="Correo electrónico" />
 							</div>
 							<div className="mb-3">
-								<input type="tel" className="form-control" placeholder="Teléfono" />
+								<input type="tel" className="form-control open-sans-body" placeholder="Teléfono" />
 							</div>
 							<div className="mb-3">
-								<select className="form-select">
+								<select className="form-select open-sans-body">
 									<option selected>Selecciona un servicio</option>
 									<option>Asistencia Veterinaria</option>
 									<option>Peluquería y Baños</option>
@@ -207,7 +207,7 @@ export const Home = () => {
 								</select>
 							</div>
 							<div className="mb-3">
-								<textarea className="form-control" rows="4" placeholder="Mensaje"></textarea>
+								<textarea className="form-control open-sans-body" rows="4" placeholder="Mensaje"></textarea>
 							</div>
 							<button type="submit" className="btn btn-primary btn-lg w-100 open-sans-body">Enviar mensaje</button>
 						</form>
