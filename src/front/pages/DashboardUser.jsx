@@ -130,7 +130,7 @@ export const DashboardUser = () => {
                       onClick={() => navigate(`/profilepet/${pet.id}`)}
                     >
                       <img
-                        src={pet.photo || "https://images3.memedroid.com/images/UPLOADED537/665c8560a1300.jpeg"}
+                        src={pet.photo || "https://i.pinimg.com/736x/87/14/55/8714556a52021ba3a55c8e7a3547d28c.jpg"}
                         className="rounded-circle"
                         style={{ width: "100px", height: "100px", objectFit: "cover" }}
                         alt={pet.name}
@@ -239,7 +239,7 @@ export const DashboardUser = () => {
                     </h5>
                     <div className="card-body text-center">
                       <img
-                        src={pro.photo || "https://i.pinimg.com/736x/f7/17/a9/f717a96b10ca251eab6282165ea37fb7.jpg"}
+                        src={pro.photo || "https://i.pinimg.com/736x/87/14/55/8714556a52021ba3a55c8e7a3547d28c.jpg"}
                         className="rounded-circle mb-3"
                         style={{ width: "100px", height: "100px", objectFit: "cover" }}
                         alt={pro.name}
