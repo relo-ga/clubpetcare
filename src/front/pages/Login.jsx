@@ -65,15 +65,15 @@ const Login = () => {
     return (
         <div>
             <div className="col-6 mx-auto mt-5">
-                <h1 className="text-center"> Login</h1>
+                <h1 className="text-center open-sans-body">Login</h1>
 
                 <ul className="nav nav-pills nav-fill m-3" id="pills-tab" role="tablist">
                     <li className="nav-item" role="presentation">
-                        <button className="nav-link active" id="pills-usuario-tab" data-bs-toggle="pill"
+                        <button className="nav-link active open-sans-body" id="pills-usuario-tab" data-bs-toggle="pill"
                             data-bs-target="#pills-usuario" type="button" role="tab" aria-controls="pills-usuario" aria-selected="true">Usuario</button>
                     </li>
                     <li className="nav-item" role="presentation">
-                        <button className="nav-link" id="pills-empresa-tab" data-bs-toggle="pill"
+                        <button className="nav-link open-sans-body" id="pills-empresa-tab open-sans-body" data-bs-toggle="pill"
                             data-bs-target="#pills-empresa" type="button" role="tab" aria-controls="pills-empresa" aria-selected="false">Empresa</button>
                     </li>
                 </ul>
@@ -88,27 +88,27 @@ const Login = () => {
                             </div>
                             <div className="mt-3 col-5">
                                 <div className="form-floating my-2">
-                                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"
+                                    <input type="email" className="form-control sour-gummy-head" id="floatingInput" placeholder="name@example.com"
                                         onChange={handleCrendentials} name="email" value={credentials.email}
                                     />
-                                    <label htmlFor="floatingInput">Email address</label>
+                                    <label className="sour-gummy-head" htmlFor="floatingInput">Email address</label>
                                 </div>
                                 <div className="form-floating my-2">
-                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password"
+                                    <input type="password" className="form-control sour-gummy-head" id="floatingPassword" placeholder="Password"
                                         onChange={handleCrendentials} name="password" value={credentials.password}
                                     />
-                                    <label htmlFor="floatingPassword">Password</label>
+                                    <label className="sour-gummy-head" htmlFor="floatingPassword">Password</label>
                                 </div>
 
                                 <div className="form-check text-start my-3">
                                     <input className="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault" />
-                                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                                    <label className="form-check-label sour-gummy-head" htmlFor="flexCheckDefault">
                                         Remember me
                                     </label>
                                 </div>
-                                <button className="btn btn-primary w-100 py-2" type="submit" onClick={() => login()}>Sign in</button>
+                                <button className="btn btn-primary w-100 py-2 open-sans-body" type="submit" onClick={() => login()}>Sign in</button>
                                 <div>
-                                    <p className="mt-5 mb-3 text-body-secondary">No tienes cuenta? sé parte del club <Link to="/registeruse">aquí.</Link></p>
+                                    <p className="mt-5 mb-3 text-body-secondary open-sans-body">No tienes cuenta? sé parte del club <Link to="/registeruse">aquí.</Link></p>
                                 </div>
                             </div>
                         </div>
@@ -124,27 +124,27 @@ const Login = () => {
                             </div>
                             <div className="mt-3 col-5">
                                 <div className="form-floating my-2">
-                                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com"
+                                    <input type="email" className="form-control sour-gummy-head" id="floatingInput" placeholder="name@example.com"
                                         onChange={handleCrendentials} name="email" value={credentials.email}
                                     />
-                                    <label htmlFor="floatingInput">Email address</label>
+                                    <label className="sour-gummy-head" htmlFor="floatingInput">Email address</label>
                                 </div>
                                 <div className="form-floating my-2">
-                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password"
+                                    <input type="password" className="form-control sour-gummy-head" id="floatingPassword" placeholder="Password"
                                         onChange={handleCrendentials} name="password" value={credentials.password}
                                     />
-                                    <label htmlFor="floatingPassword">Password</label>
+                                    <label className="sour-gummy-head" htmlFor="floatingPassword">Password</label>
                                 </div>
 
                                 <div className="form-check text-start my-3">
-                                    <input className="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault" />
-                                    <label className="form-check-label" htmlFor="flexCheckDefault">
+                                    <input className="form-check-input sour-gummy-head" type="checkbox" value="remember-me" id="flexCheckDefault" />
+                                    <label className="form-check-label sour-gummy-head" htmlFor="flexCheckDefault">
                                         Remember me
                                     </label>
                                 </div>
                                 <button className="btn btn-primary w-100 py-2" type="submit" onClick={() => login()}>Sign in</button>
                                 <div>
-                                    <p className="mt-5 mb-3 text-body-secondary">Eres empresa? ofrece tus servicios <Link to="/registercom">aquí.</Link></p>
+                                    <p className="mt-5 mb-3 text-body-secondary open-sans-body">Eres empresa? ofrece tus servicios <Link to="/registercom">aquí.</Link></p>
                                 </div>
                             </div>
                         </div>

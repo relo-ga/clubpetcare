@@ -141,18 +141,18 @@ const PetUpdate = () => {
 
   return (
     <div className="container my-5">
-      <h1 className="text-center mb-4">Información de {petData.name}</h1>
+      <h1 className="text-center mb-4 open-sans-body">Información de {petData.name}</h1>
       <div className="d-flex justify-content-center">
 
         <div className="col-md-4 text-center mx-2">
 
           <img src={getPetImage()}
             alt="Imagen de mascota" className="profile-img mb-3 col-5" id="petImg" style={{ width: 300 }} />
-          <input type="file" className="form-control mb-3" id="imageUpload" accept="image/*"
+          <input type="file" className="form-control mb-3 open-sans-body" id="imageUpload" accept="image/*"
             onChange={handleChange} name="photo"
           />
           <button className="btn btn-primary" id="cameraBtn" onClick={() => setPuppy({ ...puppy, photo: null })}>
-            <span className="camera-text">Clear Image</span>
+            <span className="camera-text open-sans-body">Clear Image</span>
           </button>
 
         </div>
@@ -161,10 +161,10 @@ const PetUpdate = () => {
           <div id="profileForm" className="row g-3">
 
             <div className="mb-3 col-5">
-              <label htmlFor="name" className="form-label">Name</label>
+              <label htmlFor="name" className="form-label open-sans-body">Name</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control sour-gummy-head"
                 id="name"
                 value={petData.name || ""}
                 readOnly
@@ -172,10 +172,10 @@ const PetUpdate = () => {
             </div>
 
             <div className="mb-3 col-5">
-              <label htmlFor="specie" className="form-label">Specie</label>
+              <label htmlFor="specie" className="form-label open-sans-body">Specie</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control sour-gummy-head"
                 id="specie"
                 value={petData.specie || ""}
                 readOnly
@@ -183,10 +183,10 @@ const PetUpdate = () => {
             </div>
 
             <div className="mb-3 col-5">
-              <label htmlFor="birtdate" className="form-label">Birthdate</label>
+              <label htmlFor="birtdate" className="form-label open-sans-body">Birthdate</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control sour-gummy-head"
                 id="birthdate"
                 name="birthdate"
                 value={petData.birthdate}
@@ -195,10 +195,10 @@ const PetUpdate = () => {
             </div>
 
             <div className="mb-3 col-5">
-              <label htmlFor="race" className="form-label">Race</label>
+              <label htmlFor="race" className="form-label open-sans-body">Race</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control sour-gummy-head"
                 id="race"
                 value={petData.race || ""}
                 readOnly
@@ -206,10 +206,10 @@ const PetUpdate = () => {
             </div>
 
             <div className="mb-3 col-5">
-              <label htmlFor="weight" className="form-label">Weight</label>
+              <label htmlFor="weight" className="form-label open-sans-body">Weight</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control sour-gummy-head"
                 id="weight"
                 name="weight"
                 value={puppy.weight}
@@ -219,10 +219,10 @@ const PetUpdate = () => {
             </div>
 
             <div className="mb-3 col-5">
-              <label htmlFor="emergency_phone" className="form-label">Emergency Phone</label>
+              <label htmlFor="emergency_phone" className="form-label open-sans-body">Emergency Phone</label>
               <input
                 type="text"
-                className="form-control"
+                className="form-control sour-gummy-head"
                 id="emergency_phone"
                 name="emergency_phone"
                 value={puppy.emergency_phone}
@@ -233,7 +233,7 @@ const PetUpdate = () => {
 
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn btn-primary open-sans-body"
               onClick={() => updatePET(id)}
             >
               Update Changes

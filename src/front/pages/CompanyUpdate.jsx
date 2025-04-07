@@ -100,17 +100,17 @@ const CompanyUpdate = () => {
 
     return(
         <div className="container my-5">
-            <h1 className="text-center mb-4">{store.role == "user" ? "user" : "Personal"} Information</h1>
+            <h1 className="text-center mb-4 open-sans-body">{store.role == "user" ? "user" : "Company"} Information</h1>
           <div className="d-flex justify-content-center">
               <div className="col-md-4 text-center mx-2">
                   
               <img src={getProfileImage()}
                    alt="Imagen de perfil" className="profile-img mb-3 col-5" id="profileImg" style={{ width: 300}}/>
-                  <input type="file" className="form-control mb-3" id="imageUpload" accept="image/*"
+                  <input type="file" className="form-control mb-3 open-sans-body" id="imageUpload" accept="image/*"
                   onChange={handleInputChange} name="photo"
               />
               <button className="btn btn-primary" id="cameraBtn">
-                <span className="camera-text">Clear mage</span>
+                <span className="camera-text open-sans-body">Clear Image</span>
               </button>
                   
               </div>
@@ -120,52 +120,52 @@ const CompanyUpdate = () => {
                       
                     <div id="profileForm" className="row g-3">
                     <div className="mb-3 col-5">
-                        <label for="name" className="form-label">
+                        <label for="name" className="form-label open-sans-body">
                             Name
                         </label>
-                        <input type="text" className="form-control" id="name" placeholder={store.profile && store.profile?.name || "Juanito Pérez"} 
+                        <input type="text" className="form-control sour-gummy-head" id="name" placeholder={store.profile && store.profile?.name || "Juanito Pérez"} 
                         disabled/>
                     </div>
                     <div className="mb-3 col-5">
-                        <label for="phone" className="form-label">
+                        <label for="phone" className="form-label open-sans-body">
                             Company name
                         </label>
-                        <input type="tel" className="form-control" id="phone" placeholder={store.profile && store.profile?.name_company || "Perritos Felices"} 
+                        <input type="text" className="form-control sour-gummy-head" id="phone" placeholder={store.profile && store.profile?.name_company || "Perritos Felices"} 
                         disabled/>
                     </div>
                     <div className="mb-3 col-5">
-                        <label for="phone" className="form-label">
+                        <label for="email" className="form-label open-sans-body">
                             Email
                         </label>
-                        <input type="tel" className="form-control" id="phone" placeholder={store.profile && store.profile?.email || "perritosfelices@gmail.com"} 
+                        <input type="tel" className="form-control sour-gummy-head" id="phone" placeholder={store.profile && store.profile?.email || "perritosfelices@gmail.com"} 
                         disabled/>
                     </div>
                     <div className="mb-3 col-5">
-                        <label for="phone" className="form-label">
+                        <label for="text" className="form-label open-sans-body">
                             Location
                         </label>
-                        <input type="tel" className="form-control" id="phone" placeholder={store.profile && store.profile?.location || "P. Sherman, 42 Wallaby Way, Sídney"}
+                        <input type="tel" className="form-control sour-gummy-head" id="phone" placeholder={store.profile && store.profile?.location || "P. Sherman, 42 Wallaby Way, Sídney"}
                         onChange={handleInputChange} name="location"
                         />
                     </div>
                     <div className="mb-3 col-5">
-                        <label for="phone" className="form-label">
+                        <label for="phone" className="form-label open-sans-body">
                             Phone Number
                         </label>
-                        <input type="tel" className="form-control" id="phone" placeholder={store.profile && store.profile?.phone || "000-000-0000"}
+                        <input type="tel" className="form-control sour-gummy-head" id="phone" placeholder={store.profile && store.profile?.phone || "000-000-0000"}
                         onChange={handleInputChange} name="phone"
                         />
                     </div>
                     <div className="mb-3 col-5">
-                        <label for="phone" className="form-label">
+                        <label for="phone" className="form-label open-sans-body">
                             Description
                         </label>
-                        <textarea type="tel" className="form-control" id="phone" placeholder={store.profile && store.profile?.description || "Hogar dulce hogar"}
+                        <textarea type="text" className="form-control sour-gummy-head" id="phone" placeholder={store.profile && store.profile?.description || "Hogar dulce hogar"}
                         onChange={handleInputChange} name="description"
                         />
                     </div>
                 
-                    <button type="submit" className="btn btn-primary" onClick={ () => updatecompany(business, id)}>Update Changes</button>
+                    <button type="submit" className="btn btn-primary open-sans-body" onClick={ () => updatecompany(business, id)}>Update Changes</button>
                 
                     </div>
               </div>

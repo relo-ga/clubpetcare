@@ -14,13 +14,11 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
     id_pet: '',
     date: '',
     details: '',
-    // datos que se llenan por la empresa
+    // company-filled data
     duration: '',
     location: '',
     time: '',
     status: 'pending',
-
-
   });
 
   useEffect(() => {
@@ -36,10 +34,10 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
 
       const token = localStorage.getItem('token');
       if (!token) {
-        throw new Error('No se encontró un token de autenticación. Por favor, inicia sesión.');
+        throw new Error('No authentication token found. Please log in.');
       }
 
-      // Cargar mascotas del usuario
+      // Load user's pets
       const petsResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/pets`, {
         headers: {
           'Authorization': `Bearer ${token}`
@@ -48,19 +46,19 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
 
       if (!petsResponse.ok) {
         const errorData = await petsResponse.json();
-        throw new Error(errorData.message || 'Error al cargar mascotas');
+        throw new Error(errorData.message || 'Error loading pets');
       }
       const petsData = await petsResponse.json();
       setPets(petsData);
 
-      // Cargar servicios de la compañía
+      // Load company services
       const servicesResponse = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/api/company/${companyId}/services`
       );
 
       if (!servicesResponse.ok) {
         const errorData = await servicesResponse.json();
-        throw new Error(errorData.message || 'Error al cargar servicios');
+        throw new Error(errorData.message || 'Error loading services');
       }
       const servicesData = await servicesResponse.json();
       setServices(servicesData);
@@ -83,13 +81,13 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
 
   const handleDateChange = (date) => {
     if (date < new Date()) {
-      alert("Por favor selecciona una fecha válida.");
+      alert("Please select a valid date.");
       return;
     }
     setSelectedDate(date);
     setFormData({
       ...formData,
-      date: date.toISOString().split('T')[0] // Formato YYYY-MM-DD
+      date: date.toISOString().split('T')[0] // YYYY-MM-DD format
     });
   };
 
@@ -104,7 +102,7 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
   const postAppointment = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
-      alert("No se encontró un token de autenticación. Por favor, inicia sesión.");
+      alert("No authentication token found. Please log in.");
       return;
     }
   
@@ -118,7 +116,6 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
       location: formData.location, 
       time: formData.time 
     };
-  
   
     try {
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/appointmentPotato`, {
@@ -137,11 +134,11 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
       }
   
       const data = await response.json();
-      alert("Reserva realizada con éxito");
+      alert("Appointment booked successfully");
       onClose(); // Close the modal on success
     } catch (error) {
-      console.log("Error al crear cita:", error);
-      alert(`Error al crear la cita: ${error.message}`);
+      console.log("Error creating appointment:", error);
+      alert(`Error creating appointment: ${error.message}`);
     }
   };
 
@@ -149,9 +146,9 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
     if (formData.id_pet && formData.id_service && formData.date) {
       postAppointment();
       handleClose();
-      console.log("Datos de reserva:", formData);
+      console.log("Appointment data:", formData);
     } else {
-      alert("Por favor completa todos los campos requeridos.");
+      alert("Please complete all required fields.");
     }
   };
 
@@ -170,7 +167,7 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header" style={{ backgroundColor: "#83C5BE", color: "#FFFFFF" }}>
-            <h5 className="modal-title">Reservar cita</h5>
+            <h5 className="modal-title sour-gummy-head">Book Appointment</h5>
             <button
               type="button"
               className="btn-close"
@@ -178,13 +175,13 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
               aria-label="Close"
             ></button>
           </div>
-          <div className="modal-body">
+          <div className="modal-body open-sans-body">
             {loading ? (
               <div className="text-center py-4">
                 <div className="spinner-border text-primary" >
-                  <span className="visually-hidden">Cargando...</span>
+                  <span className="visually-hidden">Loading...</span>
                 </div>
-                <p>Cargando opciones...</p>
+                <p>Loading options...</p>
               </div>
             ) : error ? (
               <div className="alert alert-danger">
@@ -193,13 +190,13 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
                   className="btn btn-sm btn-outline-danger ms-2"
                   onClick={fetchData}
                 >
-                  Reintentar
+                  Retry
                 </button>
               </div>
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
-                  <label style={{ color: "#006D77" }}>Selecciona la fecha:</label>
+                  <label style={{ color: "#006D77" }} className="sour-gummy-head">Select date:</label>
                   <DatePicker
                     selected={selectedDate}
                     onChange={handleDateChange}
@@ -207,13 +204,13 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
                     className="form-control"
                     required
                     minDate={new Date()}
-                    aria-label="Selecciona la fecha de la cita"
+                    aria-label="Select appointment date"
                   />
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="id_pet" className="form-label" style={{ color: "#006D77" }}>
-                    Mascota
+                  <label htmlFor="id_pet" className="form-label sour-gummy-head" style={{ color: "#006D77" }}>
+                    Pet
                   </label>
                   <select
                     className="form-select"
@@ -223,9 +220,9 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
                     onChange={handleChange}
                     required
                     disabled={pets.length === 0}
-                    aria-label="Selecciona una mascota"
+                    aria-label="Select a pet"
                   >
-                    <option value="">{pets.length ? "Selecciona una mascota" : "No tienes mascotas registradas"}</option>
+                    <option value="">{pets.length ? "Select a pet" : "You have no registered pets"}</option>
                     {pets.map(pet => (
                       <option key={pet.id} value={pet.id}>
                         {pet.name} ({pet.specie})
@@ -235,8 +232,8 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="id_service" className="form-label" style={{ color: "#006D77" }}>
-                    Servicio
+                  <label htmlFor="id_service" className="form-label sour-gummy-head" style={{ color: "#006D77" }}>
+                    Service
                   </label>
                   <select
                     className="form-select"
@@ -246,9 +243,9 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
                     onChange={handleChange}
                     required
                     disabled={services.length === 0}
-                    aria-label="Selecciona un servicio"
+                    aria-label="Select a service"
                   >
-                    <option value="">{services.length ? "Selecciona un servicio" : "No hay servicios disponibles"}</option>
+                    <option value="">{services.length ? "Select a service" : "No available services"}</option>
                     {services.map(service => (
                       <option key={service.id} value={service.id}>
                         {service.name}
@@ -258,8 +255,8 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="details" className="form-label" style={{ color: "#006D77" }}>
-                    Detalles adicionales
+                  <label htmlFor="details" className="form-label sour-gummy-head" style={{ color: "#006D77" }}>
+                    Additional details
                   </label>
                   <textarea
                     className="form-control"
@@ -268,28 +265,28 @@ export const Calendar = ({ show, onClose, onConfirm, companyId }) => {
                     rows="3"
                     value={formData.details}
                     onChange={handleChange}
-                    placeholder="Indica cualquier información adicional que debamos conocer"
-                    aria-label="Detalles adicionales de la cita"
+                    placeholder="Provide any additional information we should know"
+                    aria-label="Appointment additional details"
                   ></textarea>
                 </div>
 
                 <div className="modal-footer">
                   <button
                     type="button"
-                    className="btn btn-secondary"
+                    className="btn btn-secondary sour-gummy-head"
                     onClick={onClose}
                     style={{ backgroundColor: "#E29578", border: "none" }}
                   >
-                    Cerrar
+                    Close
                   </button>
                   <button
                     type="submit"
-                    className="btn btn-primary"
+                    className="btn btn-primary sour-gummy-head"
                     style={{ backgroundColor: "#006D77", border: "none" }}
                     onClick={handleConfirm}
                     disabled={!formData.id_pet || !formData.id_service || !formData.date}
                   >
-                    Confirmar reserva
+                    Confirm Booking
                   </button>
                 </div>
               </form>
