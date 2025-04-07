@@ -38,7 +38,7 @@ export const Navbar = () => {
         <div className="d-flex align-items-center">
           {!store.token ? (
             <>
-              <Link to="/registeruser" className="me-2" style={{ textDecoration: 'none' }}>
+              <Link to="/registeruse" className="me-2" style={{ textDecoration: 'none' }}>
                 <button className="btn sour-gummy-head" style={{ background: "#FFDDD2" }}>
                   Register
                 </button>
