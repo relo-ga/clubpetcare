@@ -45,11 +45,11 @@ const Registeruse = () => {
   }
 
     return( 
-      <main className="col-4 form-signin m-auto">
+      <main className="col-4 form-signin m-auto open-sans-body">
         <div>
           <div className="d-flex flex-column justify-content-center align-items-center">
             <img className="m-1 mt-5" src="https://cdn-icons-png.flaticon.com/512/4792/4792929.png" alt="" width="150" />
-            <h1 className="h3 m-5 my-auto fw-normal">Be one of us 🙈</h1>
+            <h1 className="h3 m-5 my-auto fw-normal sour-gummy-head">Be one of us 🙈</h1>
           </div>
 
           <div className="form-floating my-2 mx-5">
@@ -83,7 +83,7 @@ const Registeruse = () => {
             >
               <i className="fa-solid fa-eye"></i>
             </button>
-            <button className="btn btn-primary py-2 me-5 w-25" type="submit"
+            <button className="btn btn-primary py-2 me-5 w-25 sour-gummy-head" type="submit"
               onClick={() => register(user)}
             >
               Sign in

@@ -84,7 +84,7 @@ const ProfilePet = () => {
       {/* Sección: Datos de la Mascota */}
       <div className="my-3 col-12 col-md-8 col-lg-5 mx-auto rounded-4 pb-2" style={{ backgroundColor: "#fff" }}>
         <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
-          <h2 className="text-center" style={{ color: "#006D77" }}>
+          <h2 className="text-center sour-gummy-head" style={{ color: "#006D77" }}>
             Datos de la Mascota
             <Link to={`/petUpdate/${id}`} className="ms-3" style={{ textDecoration: 'none' }}>
               <i className="fa-solid fa-pencil" style={{ cursor: "pointer", color: "black" }}></i>
@@ -105,32 +105,32 @@ const ProfilePet = () => {
               <table className="table table-borderless">
                 <tbody>
                   <tr>
-                    <td><h5 className="card-title">Nombre: </h5></td>
-                    <td><p>{pet.name}</p></td>
+                    <td><h5 className="card-title sour-gummy-head">Nombre: </h5></td>
+                    <td><p className="open-sans-body" >{pet.name}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title">Género: </h5></td>
-                    <td><p>{pet.gender}</p></td>
+                    <td><h5 className="card-title sour-gummy-head">Género: </h5></td>
+                    <td><p className="open-sans-body" >{pet.gender}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title">Raza: </h5></td>
-                    <td><p>{pet.race}</p></td>
+                    <td><h5 className="card-title sour-gummy-head">Raza: </h5></td>
+                    <td><p className="open-sans-body" >{pet.race}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title">Especie: </h5></td>
-                    <td><p>{pet.specie}</p></td>
+                    <td><h5 className="card-title sour-gummy-head">Especie: </h5></td>
+                    <td><p className="open-sans-body" >{pet.specie}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title">Fecha de Nacimiento: </h5></td>
-                    <td><p>{pet.birthdate}</p></td>
+                    <td><h5 className="card-title sour-gummy-head">Fecha de Nacimiento: </h5></td>
+                    <td><p className="open-sans-body" >{pet.birthdate}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title">Peso [kg]: </h5></td>
-                    <td><p>{pet.weight}</p></td>
+                    <td><h5 className="card-title sour-gummy-head">Peso [kg]: </h5></td>
+                    <td><p className="open-sans-body" >{pet.weight}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title">Teléfono de emergencia: </h5></td>
-                    <td><p>{pet.emergency_phone}</p></td>
+                    <td><h5 className="card-title sour-gummy-head">Teléfono de emergencia: </h5></td>
+                    <td><p className="open-sans-body" >{pet.emergency_phone}</p></td>
                   </tr>
                 </tbody>
               </table>
@@ -151,14 +151,14 @@ const ProfilePet = () => {
       {/* Sección: Historial Médico */}
       <div className="my-3 col-12 col-md-8 col-lg-5 mx-auto rounded-4 pb-2" style={{ backgroundColor: "#fff" }}>
         <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
-          <h2 className="text-center" style={{ color: "#006D77" }}>Historial Médico</h2>
+          <h2 className="text-center sour-gummy-head" style={{ color: "#006D77" }}>Historial Médico</h2>
         </div>
         <div className="row g-0 m-3 d-flex align-items-center justify-content-center">
           <div className="col-12 d-flex flex-column align-items-center">
             <table className="table table-borderless">
               <tbody>
                 <tr>
-                  <td><h5 className="card-title">Historial Médico: </h5></td>
+                  <td><h5 className="card-title open-sans-body">Historial Médico: </h5></td>
                   <td><p>{pet.medical_history}</p></td>
                 </tr>
               </tbody>
@@ -177,28 +177,28 @@ const ProfilePet = () => {
       {/* Sección: Servicios Reservados */}
       <div className="my-3 col-12 col-md-8 col-lg-5 mx-auto rounded-4 pb-2" style={{ backgroundColor: "#fff" }}>
         <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
-          <h2 className="text-center" style={{ color: "#006D77" }}>Servicios Reservados</h2>
+          <h2 className="text-center sour-gummy-head" style={{ color: "#006D77" }}>Servicios Reservados</h2>
         </div>
         <div className="row g-0 m-3 d-flex align-items-center justify-content-center">
           <div className="col-12 col-md-10 p-3">
             <div className="d-flex text-body-secondary pt-3 flex-wrap">
               <i className="fa-solid fa-bone me-3"></i>
               <p className="pb-3 mb-0 small lh-sm border-bottom">
-                <strong className="d-block text-gray-dark">@username</strong>
+                <strong className="d-block text-gray-dark open-sans-body">@username</strong>
                 Some representative placeholder content, with some information about this user.
               </p>
             </div>
             <div className="d-flex text-body-secondary pt-3 flex-wrap">
               <i className="fa-solid fa-bone me-3"></i>
               <p className="pb-3 mb-0 small lh-sm border-bottom">
-                <strong className="d-block text-gray-dark">@username</strong>
+                <strong className="d-block text-gray-dark open-sans-body">@username</strong>
                 Some representative placeholder content, with some information about this user.
               </p>
             </div>
             <div className="d-flex text-body-secondary pt-3 flex-wrap">
               <i className="fa-solid fa-bone me-3"></i>
               <p className="pb-3 mb-0 small lh-sm border-bottom">
-                <strong className="d-block text-gray-dark">@username</strong>
+                <strong className="d-block text-gray-dark open-sans-body">@username</strong>
                 Some representative placeholder content, with some information about this user.
               </p>
             </div>
