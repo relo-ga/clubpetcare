@@ -29,8 +29,23 @@ export const Navbar = () => {
   return (
     <nav className="navbar navbar-light" style={{ background: '#83C5BE' }}>
       <div className="container">
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <span className="navbar-brand mb-0 h1 text-white sour-gummy-head">
+        <Link to="/" className="navbar-brand d-flex align-items-center" style={{ textDecoration: 'none' }}>
+          <img
+            src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-42f8-51f7-954a-acf1d2c30f4a/raw?se=2025-04-07T02%3A27%3A46Z&sp=r&sv=2024-08-04&sr=b&scid=23c40df5-7cc8-5363-9ae8-0de3450a9ba4&skoid=f0c3f613-0f9b-4a8a-a29a-c1a910343ad7&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-06T19%3A31%3A00Z&ske=2025-04-07T19%3A31%3A00Z&sks=b&skv=2024-08-04&sig=CJseLs0sFH6U0jsfCYheJIC3s3e37hTbG%2Bv7yyR4KVA%3D"  // Reemplaza con la ruta correcta de tu imagen
+            alt="ClubPetCare Logo"
+            className="me-2"
+            style={{
+              height: '40px',
+              width: 'auto',
+              maxWidth: '120px',  // Ancho máximo para evitar que se vea pixelado
+              objectFit: 'contain'  // Mantiene las proporciones
+            }}
+            onError={(e) => {
+              e.target.src = '/ruta/alternativa/logo.png';  // Imagen de respaldo
+              e.target.alt = 'Logo alternativo';
+            }}
+          />
+          <span className="sour-gummy-head text-white fs-4">
             ClubPetCare
           </span>
         </Link>
