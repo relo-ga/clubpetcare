@@ -148,12 +148,22 @@ export const CompanyProfile = () => {
     }
   }, [store.role])
 
+  const getProfileImage = () => {
+    if(business.photo) {
+        return URL.createObjectURL(business.photo);
+    }
+    if (store.profile && store.profile.photo && !business.photo) {
+        return store.profile.photo;
+    }
+    return "https://res.cloudinary.com/dqs8bd3ts/image/upload/v1696345012/ClubPetCare/DefaultProfileImage.png";
+}
+
   return (
     <div style={{ backgroundColor: "#EDF6F9" }}>
       <div className="container py-5">
         <div className="text-center pb-2">
-          <img src={store.profile && store.profile?.image || "https://hospitalveterinariodonostia.com/wp-content/uploads/2022/02/Personalidad-gatos.png"} alt="Logo" className="mb-2 rounded-pill" />
-          <Link to={`/CompanyUpdate/${id}`} className="ms-3" style={{ textDecoration: 'none' }}>
+          <img src={getProfileImage || "https://hospitalveterinariodonostia.com/wp-content/uploads/2022/02/Personalidad-gatos.png"} alt="Logo" className="mb-2 rounded-pill" />
+          <Link to={`/Companyupdate/${id}`} className="ms-3" style={{ textDecoration: 'none' }}>
             <i
               className="fa-solid fa-pencil"
               style={{ cursor: "pointer", color: "black" }}
