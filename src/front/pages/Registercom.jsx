@@ -59,38 +59,38 @@ const Registercom = () => {
       <div >
         <div className="d-flex justify-content-center">
           <img className="m-5" src="https://cdn-icons-png.flaticon.com/512/4792/4792929.png" alt="" width="150" />
-          <h1 className="h3 m-5 my-auto fw-normal">Offer your services!!🎉</h1>
+          <h1 className="h3 m-4 my-auto fw-normal sour-gummy-head">Offer your services!!🎉</h1>
         </div>
 
         <div className="form-floating my-2 mx-5">
-          <input type="text" className="form-control text-center" id="user_name" placeholder="User Name"
+          <input type="text" className="form-control text-center open-sans-body" id="user_name" placeholder="User Name"
             onChange={handleInputChange} name="name"
           />
-          <label htmlFor="floatingInput">User Name</label>
+          <label className="open-sans-body" htmlFor="floatingInput">User Name</label>
         </div>
         <div className="form-floating my-2 mx-5">
           <input type="text" className="form-control text-center" id="name_company" placeholder="Company Name"
             onChange={handleInputChange} name="name_company"
           />
-          <label htmlFor="floatingInput">Company Name</label>
+          <label className="open-sans-body" htmlFor="floatingInput">Company Name</label>
         </div>
         <div className="form-floating my-2 mx-5">
           <input type="email" className="form-control text-center" id="email" placeholder="name@example.com"
             onChange={handleInputChange} name="email"
           />
-          <label htmlFor="floatingInput">Email address</label>
+          <label className="open-sans-body" htmlFor="floatingInput">Email address</label>
         </div>
         <div className="form-floating my-2 mx-5">
           <input type={!showPassword ? "password" : "text"} className="form-control text-center" id="password" placeholder="Password"
             onChange={handleInputChange} name="password"
           />
-          <label htmlFor="floatingPassword">Password</label>
+          <label className="open-sans-body" htmlFor="floatingPassword">Password</label>
         </div>
         <div className="form-floating my-2 mx-5">
           <input type={!showPassword ? "password" : "text"} className="form-control text-center" id="confirm" placeholder="Password"
             onChange={handleInputChange} name="confirm"
           />
-          <label htmlFor="floatingPassword">Confirm Password</label>
+          <label className="open-sans-body" htmlFor="floatingPassword">Confirm Password</label>
         </div>
 
         <div className="mx-auto text-end">
@@ -100,7 +100,7 @@ const Registercom = () => {
             <i className="fa-solid fa-eye"></i>
           </button>
 
-          <button className="btn btn-primary py-2 me-5 w-25" type="submit"
+          <button className="btn btn-primary py-2 me-5 w-25 sour-gummy-head" type="submit"
             onClick={() => register(company)}
           >Sign in
           </button>

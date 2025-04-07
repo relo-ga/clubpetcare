@@ -141,7 +141,7 @@ const PetUpdate = () => {
 
   return (
     <div className="container my-5">
-      <h1 className="text-center mb-4 open-sans-body">Información de {petData.name}</h1>
+      <h1 className="text-center mb-4 sour-gummy-head">Información de {petData.name}</h1>
       <div className="d-flex justify-content-center">
 
         <div className="col-md-4 text-center mx-2">
