@@ -116,7 +116,7 @@ const Registerpet = () => {
             <div className="mx-2">
               <i className="fa-solid fa-cat"></i>
             </div>
-            <h1 className="text-center sour-gummy-head">Pet Information</h1>
+            <h1 className="text-center open-sans-body">Pet Information</h1>
             <div className="mx-2">
               <i className="fa-solid fa-dog"></i>
             </div>
@@ -144,24 +144,24 @@ const Registerpet = () => {
                   />
                   <button
                     type="button"
-                    className="btn btn-primary sour-gummy-head"
+                    className="btn btn-primary open-sans-body"
                     id="cameraBtn"
                     onClick={() => setPet({ ...pet, photo: null })}
                   >
-                    <span className="camera-text sour-gummy-head">Clear Image</span>
+                    <span className="camera-text open-sans-body">Clear Image</span>
                   </button>
                 </div>
 
                 <div className="form-floating my-2 w-100">
                   <input
                     type="text"
-                    className="form-control text-center open-sans-body"
+                    className="form-control text-center sour-gummy-head"
                     id="floatingInput"
                     placeholder="Pet Name"
                     name="name"
                     onChange={handleInputChange}
                   />
-                  <label className="open-sans-body" htmlFor="floatingInput">Name of your Poppy!</label>
+                  <label className="sour-gummy-head" htmlFor="floatingInput">Name of your Poppy!</label>
                 </div>
                 <div className="form-floating my-2 w-100">
                   <select
@@ -171,7 +171,7 @@ const Registerpet = () => {
                     onChange={handleInputChange}
                     defaultValue=""
                   >
-                    <option className="open-sans-body" value="" disabled>
+                    <option className="sour-gummy-head" value="" disabled>
                       Select your pet specie:
                     </option>
                     <option value="dog">Dog</option>
@@ -200,7 +200,7 @@ const Registerpet = () => {
                     <option value="female">Female</option>
                     <option value="other">Other</option>
                   </select>
-                  <label className="open-sans-body" htmlFor="floatingSelect">Genre</label>
+                  <label className="sour-gummy-head" htmlFor="floatingSelect">Genre</label>
                 </div>
                 <div className="form-floating my-2 w-100">
                   <input
@@ -211,46 +211,46 @@ const Registerpet = () => {
                     value={pet.birthdate}
                     onChange={handleInputChange}
                   />
-                  <label htmlFor="date" className="form-label text-center open-sans-body">
+                  <label htmlFor="date" className="form-label text-center sour-gummy-head">
                     Date of birth:
                   </label>
                 </div>
-                <div className="form-floating my-2 w-100 open-sans-body">
+                <div className="form-floating my-2 w-100 sour-gummy-head">
                   <input
                     type="text"
-                    className="form-control text-center open-sans-body"
+                    className="form-control text-center sour-gummy-head"
                     id="floatingInput"
                     placeholder="Weight"
                     name="weight"
                     onChange={handleInputChange}
                   />
-                  <label className="open-sans-body" htmlFor="floatingInput">Weight [kg]</label>
+                  <label className="sour-gummy-head" htmlFor="floatingInput">Weight [kg]</label>
                 </div>
                 <div className="form-floating my-2 w-100">
                   <input
                     type="text"
-                    className="form-control text-center "
+                    className="form-control text-center sour-gummy-head"
                     id="floatingInput"
                     placeholder="Race"
                     name="race"
                     onChange={handleInputChange}
                   />
-                  <label className="open-sans-body" htmlFor="floatingInput">Race</label>
+                  <label className="sour-gummy-head" htmlFor="floatingInput">Race</label>
                 </div>
                 <div className="form-floating my-2 w-100">
                   <input
                     type="text"
-                    className="form-control text-center"
+                    className="form-control text-center sour-gummy-head"
                     id="floatingInput"
                     placeholder="Emergency Phone"
                     name="emergency_phone"
                     onChange={handleInputChange}
                   />
-                  <label className="open-sans-body" htmlFor="floatingInput">Emergency Phone</label>
+                  <label className="sour-gummy-head" htmlFor="floatingInput">Emergency Phone</label>
                 </div>
                 <div className="text-center my-1">
                   <button
-                    className="btn btn-warning py-2 mx-auto rounded-pill sour-gummy-head"
+                    className="btn btn-warning py-2 mx-auto rounded-pill open-sans-body"
                     type="submit"
                   >
                     Complete!

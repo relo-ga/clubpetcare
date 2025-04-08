@@ -106,17 +106,17 @@ const Userprofile = () => {
   
     return(
       <div className="container my-5">
-          <h1 className="text-center mb-4 sour-gummy-head">{store.role == "user" ? "user" : "Personal"} Information</h1>
+          <h1 className="text-center mb-4 open-sans-body">{store.role == "user" ? "user" : "Personal"} Information</h1>
         <div className="d-flex justify-content-center">
             <div className="col-md-4 text-center mx-2">
                 
             <img src={getProfileImage()}
                  alt="Imagen de perfil" className="profile-img mb-3 col-5" id="profileImg" style={{ width: 300}}/>
-                <input type="file" className="form-control mb-3 sour-gummy-head" id="imageUpload" accept="image/*"
+                <input type="file" className="form-control mb-3 open-sans-body" id="imageUpload" accept="image/*"
               onChange={handleInputChange} name="photo"
             />
             <button className="btn btn-primary" id="cameraBtn" onClick={() => setPerson({ ...person, photo: null })}>
-              <span className="camera-text sour-gummy-head">Clear Image</span> 
+              <span className="camera-text open-sans-body">Clear Image</span> 
             </button>
                 
             </div>
@@ -126,41 +126,41 @@ const Userprofile = () => {
                     
                         <div id="profileForm" className="row g-3">
                             <div className="mb-3 col-5 ">
-                                <label for="name" className="form-label sour-gummy-head">
+                                <label for="name" className="form-label open-sans-body">
                                    Name
                                 </label>
-                                <input type="text" className="form-control open-sans-body" id="name" placeholder={store.profile && store.profile?.name || "Juan Perez"} disabled/>
+                                <input type="text" className="form-contro sour-gummy-head" id="name" placeholder={store.profile && store.profile?.name || "Juan Perez"} disabled/>
                             </div>
                             <div className="mb-3 col-5">
-                                <label for="phone" className="form-label sour-gummy-head">Principal Phone Number</label>
-                                <input type="tel" className="form-control open-sans-body" id="phone" placeholder={store.profile && store.profile?.phone || "000-000-00-00" }
+                                <label for="phone" className="form-label open-sans-body">Principal Phone Number</label>
+                                <input type="tel" className="form-contro sour-gummy-head" id="phone" placeholder={store.profile && store.profile?.phone || "000-000-00-00" }
                                 onChange={handleInputChange} name="phone"
                                 />
                             </div>
                             <div className="mb-3 col-5">
-                                <label for="phone" className="form-label sour-gummy-head">Seconary Phone Number</label>
-                                <input type="tel" className="form-control open-sans-body" id="phone" placeholder="000-000-00-00"
+                                <label for="phone" className="form-label open-sans-body">Seconary Phone Number</label>
+                                <input type="tel" className="form-contro sour-gummy-head" id="phone" placeholder="000-000-00-00"
                                 onChange={handleInputChange} name="secondary_phone"
                                 />
                             </div>
                             <div className="mb-3 col-5">
-                                <label for="age" className="form-label sour-gummy-head">Date of Birth</label>
-                                <input type="number" className="form-control open-sans-body" id="age" placeholder={store.profile && store.profile?.age || 25 } 
+                                <label for="age" className="form-label open-sans-body">Date of Birth</label>
+                                <input type="number" className="form-contro sour-gummy-head" id="age" placeholder={store.profile && store.profile?.age || 25 } 
                                 onChange={handleInputChange} name="Date of Birth"
                                 />
                             </div>
                             <div className="mb-5 col-5">
-                                <label for="location" className="form-label sour-gummy-head">Address</label>
-                                <input type="text" className="form-control open-sans-body" id="location" placeholder={store.profile && store.profile?.location || "1234 Downtown AV, Apt 5, 25643"}
+                                <label for="location" className="form-label open-sans-body">Address</label>
+                                <input type="text" className="form-contro sour-gummy-head" id="location" placeholder={store.profile && store.profile?.location || "1234 Downtown AV, Apt 5, 25643"}
                                 onChange={handleInputChange} name="location"
                                 />
                             </div>
                             <div className="mb-5 col-5">
-                                <label for="location" className="form-label sour-gummy-head">Email</label>
-                                <input type="text" className="form-control open-sans-body" id="location" placeholder={store.profile && store.profile?.email || "emailexample@gmail.com" } disabled/>
+                                <label for="location" className="form-label open-sans-body">Email</label>
+                                <input type="text" className="form-contro sour-gummy-head" id="location" placeholder={store.profile && store.profile?.email || "emailexample@gmail.com" } disabled/>
                             </div>
                     
-                        <button type="submit" className="btn btn-primary sour-gummy-head" onClick={ () => updateUser(person, id)}>Update Changes</button>
+                        <button type="submit" className="btn btn-primary open-sans-body" onClick={ () => updateUser(person, id)}>Update Changes</button>
                 
                 </div>
             </div>
