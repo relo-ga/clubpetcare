@@ -68,7 +68,7 @@ const ProfilePet = () => {
   }, [id]); // Se elimina store.token de las dependencias
 
   if (loading) {
-    return <div>Cargando...</div>; // Muestra un mensaje de carga mientras se obtienen los datos
+    return <div>Loading...</div>; // Muestra un mensaje de carga mientras se obtienen los datos
   }
 
   if (error) {
@@ -76,7 +76,7 @@ const ProfilePet = () => {
   }
 
   if (!pet) {
-    return <div>No se encontró la mascota.</div>; // Muestra un mensaje si no hay datos de la mascota
+    return <div>Pet not found.</div>; // Muestra un mensaje si no hay datos de la mascota
   }
 
   return (
@@ -85,7 +85,7 @@ const ProfilePet = () => {
       <div className="my-3 col-12 col-md-8 col-lg-5 mx-auto rounded-4 pb-2" style={{ backgroundColor: "#fff" }}>
         <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
           <h2 className="text-center open-sans-body" style={{ color: "#006D77" }}>
-            Datos de la Mascota
+            Pet Information
             <Link to={`/petUpdate/${id}`} className="ms-3" style={{ textDecoration: 'none' }}>
               <i className="fa-solid fa-pencil" style={{ cursor: "pointer", color: "black" }}></i>
             </Link>
@@ -105,31 +105,31 @@ const ProfilePet = () => {
               <table className="table table-borderless">
                 <tbody>
                   <tr>
-                    <td><h5 className="card-title open-sans-body">Nombre: </h5></td>
+                    <td><h5 className="card-title open-sans-body">Name: </h5></td>
                     <td><p className="sour-gummy-head" >{pet.name}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title open-sans-body">Género: </h5></td>
+                    <td><h5 className="card-title open-sans-body">Gender: </h5></td>
                     <td><p className="sour-gummy-head" >{pet.gender}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title open-sans-body">Raza: </h5></td>
+                    <td><h5 className="card-title open-sans-body">Race: </h5></td>
                     <td><p className="sour-gummy-head" >{pet.race}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title open-sans-body">Especie: </h5></td>
+                    <td><h5 className="card-title open-sans-body">Specie: </h5></td>
                     <td><p className="sour-gummy-head" >{pet.specie}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title open-sans-body">Fecha de Nacimiento: </h5></td>
+                    <td><h5 className="card-title open-sans-body">Date of birth: </h5></td>
                     <td><p className="sour-gummy-head" >{pet.birthdate}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title open-sans-body">Peso [kg]: </h5></td>
+                    <td><h5 className="card-title open-sans-body">Weight [kg]: </h5></td>
                     <td><p className="sour-gummy-head" >{pet.weight}</p></td>
                   </tr>
                   <tr>
-                    <td><h5 className="card-title open-sans-body">Teléfono de emergencia: </h5></td>
+                    <td><h5 className="card-title open-sans-body">Contact phone number: </h5></td>
                     <td><p className="sour-gummy-head" >{pet.emergency_phone}</p></td>
                   </tr>
                 </tbody>
@@ -151,14 +151,14 @@ const ProfilePet = () => {
       {/* Sección: Historial Médico */}
       <div className="my-3 col-12 col-md-8 col-lg-5 mx-auto rounded-4 pb-2" style={{ backgroundColor: "#fff" }}>
         <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
-          <h2 className="text-center open-sans-body" style={{ color: "#006D77" }}>Historial Médico</h2>
+          <h2 className="text-center open-sans-body" style={{ color: "#006D77" }}>Medical History</h2>
         </div>
         <div className="row g-0 m-3 d-flex align-items-center justify-content-center">
           <div className="col-12 d-flex flex-column align-items-center">
             <table className="table table-borderless">
               <tbody>
                 <tr>
-                  <td><h5 className="card-title sour-gummy-head">Historial Médico: </h5></td>
+                  <td><h5 className="card-title sour-gummy-head">Medical History: </h5></td>
                   <td><p>{pet.medical_history}</p></td>
                 </tr>
               </tbody>
@@ -177,7 +177,7 @@ const ProfilePet = () => {
       {/* Sección: Servicios Reservados */}
       <div className="my-3 col-12 col-md-8 col-lg-5 mx-auto rounded-4 pb-2" style={{ backgroundColor: "#fff" }}>
         <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
-          <h2 className="text-center open-sans-body" style={{ color: "#006D77" }}>Servicios Reservados</h2>
+          <h2 className="text-center open-sans-body" style={{ color: "#006D77" }}>Scheduled Services</h2>
         </div>
         <div className="row g-0 m-3 d-flex align-items-center justify-content-center">
           <div className="col-12 col-md-10 p-3">
