@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
@@ -31,7 +32,7 @@ const Login = () => {
         });
     }
 
-    // nos manda al home si ya estamos logueados
+    // Redirect to the home if already logged in
     useEffect(() => {
         if (store.token) {
             navigate("/");
@@ -52,10 +53,10 @@ const Login = () => {
                 dispatch({ type: "update_token", payload: data.access_token });
                 dispatch({ type: "update_profile", payload: data.profile });
                 dispatch({ type: "update_role", payload: data.role });
-                if(data.role == "user")navigate("/dashboarduser");
-                if(data.role !== "user")navigate("/companyprofile");
+                if (data.role === "user") navigate("/dashboarduser");
+                if (data.role !== "user") navigate("/companyprofile");
             } else {
-                alert("Credenciales incorrectas");
+                alert("Incorrect credentials");
             }
         } catch (error) {
             console.log(error);
@@ -69,18 +70,22 @@ const Login = () => {
 
                 <ul className="nav nav-pills nav-fill m-3" id="pills-tab" role="tablist">
                     <li className="nav-item" role="presentation">
-                        <button className="nav-link active open-sans-body" id="pills-usuario-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-usuario" type="button" role="tab" aria-controls="pills-usuario" aria-selected="true">Usuario</button>
+                        <button className="nav-link active open-sans-body" id="pills-user-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-user" type="button" role="tab" aria-controls="pills-user" aria-selected="true">
+                            User
+                        </button>
                     </li>
                     <li className="nav-item" role="presentation">
-                        <button className="nav-link open-sans-body" id="pills-empresa-tab open-sans-body" data-bs-toggle="pill"
-                            data-bs-target="#pills-empresa" type="button" role="tab" aria-controls="pills-empresa" aria-selected="false">Empresa</button>
+                        <button className="nav-link open-sans-body" id="pills-company-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-company" type="button" role="tab" aria-controls="pills-company" aria-selected="false">
+                            Company
+                        </button>
                     </li>
                 </ul>
 
-                {/* Usuario */}
+                {/* User */}
                 <div className="tab-content" id="pills-tabContent">
-                    <div className="tab-pane fade show active" id="pills-usuario" role="tabpanel" aria-labelledby="pills-usuario-tab" tabIndex="0">
+                    <div className="tab-pane fade show active" id="pills-user" role="tabpanel" aria-labelledby="pills-user-tab" tabIndex="0">
                         <div className="col-10 mx-auto d-flex my-5">
                             <div className="d-flex align-items-start col-7">
                                 <img className="p-4 col-12" style={{ width: "100%", height: "300px", objectFit: "cover" }}
@@ -106,20 +111,24 @@ const Login = () => {
                                         Remember me
                                     </label>
                                 </div>
-                                <button className="btn btn-primary w-100 py-2 open-sans-body" type="submit" onClick={() => login()}>Sign in</button>
+                                <button className="btn btn-primary w-100 py-2 open-sans-body" type="submit" onClick={() => login()}>
+                                    Sign in
+                                </button>
                                 <div>
-                                    <p className="mt-5 mb-3 text-body-secondary open-sans-body">No tienes cuenta? sé parte del club <Link to="/registeruse">aquí.</Link></p>
+                                    <p className="mt-5 mb-3 text-body-secondary open-sans-body">
+                                        Don't have an account? Join the club <Link to="/registeruse">here.</Link>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Empresa */}
-
-                    <div className="tab-pane fade" id="pills-empresa" role="tabpanel" aria-labelledby="pills-empresa-tab" tabIndex="0">
+                    {/* Company */}
+                    <div className="tab-pane fade" id="pills-company" role="tabpanel" aria-labelledby="pills-company-tab" tabIndex="0">
                         <div className="col-10 mx-auto d-flex my-5">
                             <div className="d-flex align-items-start col-7">
-                                <img className="p-4 col-12" style={{ width: "100%", height: "300px", objectFit: "cover" }} src="https://tvazteca.brightspotcdn.com/dims4/default/7cee31f/2147483647/strip/true/crop/1280x728+0+0/resize/968x551!/format/webp/quality/90/?url=http%3A%2F%2Ftv-azteca-brightspot.s3.amazonaws.com%2F50%2F5c%2F48bbd95a4528a7f5078f236b5df3%2Fveterinaria-publica-en-mexico.jpg"
+                                <img className="p-4 col-12" style={{ width: "100%", height: "300px", objectFit: "cover" }}
+                                    src="https://tvazteca.brightspotcdn.com/dims4/default/7cee31f/2147483647/strip/true/crop/1280x728+0+0/resize/968x551!/format/webp/quality/90/?url=http%3A%2F%2Ftv-azteca-brightspot.s3.amazonaws.com%2F50%2F5c%2F48bbd95a4528a7f5078f236b5df3%2Fveterinaria-publica-en-mexico.jpg"
                                     alt="" />
                             </div>
                             <div className="mt-3 col-5">
@@ -142,16 +151,20 @@ const Login = () => {
                                         Remember me
                                     </label>
                                 </div>
-                                <button className="btn btn-primary w-100 py-2" type="submit" onClick={() => login()}>Sign in</button>
+                                <button className="btn btn-primary w-100 py-2" type="submit" onClick={() => login()}>
+                                    Sign in
+                                </button>
                                 <div>
-                                    <p className="mt-5 mb-3 text-body-secondary open-sans-body">Eres empresa? ofrece tus servicios <Link to="/registercom">aquí.</Link></p>
+                                    <p className="mt-5 mb-3 text-body-secondary open-sans-body">
+                                        Are you a company? Offer your services <Link to="/registercom">here.</Link>
+                                    </p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 }
 export default Login;
