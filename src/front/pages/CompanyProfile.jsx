@@ -322,7 +322,7 @@ export const CompanyProfile = () => {
                     <tr key={appointment.id}>
                       <td className="sour-gummy-head">
                         <img
-                          src={appointment.photo || "https://i.pinimg.com/736x/87/14/55/8714556a52021ba3a55c8e7a3547d28c.jpg"}
+                          src={appointment.pet_photo || "https://i.pinimg.com/736x/87/14/55/8714556a52021ba3a55c8e7a3547d28c.jpg"}
                           alt="Pet"
                           className="rounded-circle me-2"
                           style={{ width: "40px", height: "40px", objectFit: "cover" }}
