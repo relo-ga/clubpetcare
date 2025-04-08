@@ -101,7 +101,7 @@ const Registerpet = () => {
     if (pet.photo) {
       return URL.createObjectURL(pet.photo);
     }
-    return "https://images3.memedroid.com/images/UPLOADED537/665c8560a1300.jpeg";
+    return "https://i.pinimg.com/736x/87/14/55/8714556a52021ba3a55c8e7a3547d28c.jpg"; // Default image if no photo is selected
   };
 
   return (

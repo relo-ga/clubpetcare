@@ -13,7 +13,7 @@ const Professional = () => {
     const [error, setError] = useState(null);
     const [services, setServices] = useState([]);
 
-    // Función para obtener los datos del profesional
+    // Function to fetch professional data
     const fetchProfessional = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/company/${id}`, {
@@ -46,14 +46,14 @@ const Professional = () => {
             
             const contentType = response.headers.get('content-type');
             if (!contentType || !contentType.includes('application/json')) {
-                throw new Error('La respuesta no es JSON válido');
+                throw new Error('Response is not valid JSON');
             }
             
             const servicesData = await response.json();
             setServices(Array.isArray(servicesData) ? servicesData : []);
       
         } catch (error) {
-            console.error("Error al obtener servicios:", error);
+            console.error("Error fetching services:", error);
             setError(error.message);
             setServices([]);
         }
@@ -122,47 +122,47 @@ const Professional = () => {
     if (!professional) {
         return (
             <div className="py-4 d-flex justify-content-center align-items-center" style={{ backgroundColor: "#FFDDD2", minHeight: "100vh" }}>
-                <div className="alert alert-warning">Profesional no encontrado</div>
+                <div className="alert alert-warning">Professional not found</div>
             </div>
         );
     }
 
     return (
         <div className="py-4" style={{ backgroundColor: "#FFDDD2" }}>
-            {/* Sección de Información del Profesional */}
+            {/* Professional Information Section */}
             <div className="card mb-5 border-0 shadow-lg container">
                 <div className="row g-0">
-                    {/* Columna de la foto */}
+                    {/* Photo Column */}
                     <div className="col-md-5 p-4 d-flex align-items-center justify-content-center bg-white">
                         <img 
-                            src={professional.photo || "https://i.pinimg.com/736x/04/ae/1e/04ae1ee8b69ae3fb24cebf094198b1b1.jpg"} 
+                            src={professional.photo || "https://i.pinimg.com/736x/87/14/55/8714556a52021ba3a55c8e7a3547d28c.jpg"} 
                             className="img-fluid rounded-3 shadow-sm"       
-                            alt="Foto del profesional"
+                            alt="Professional photo"
                         />
                     </div>
 
-                    {/* Columna de la información */}
+                    {/* Information Column */}
                     <div className="col-md-7 p-4 bg-light">
                         <div className="p-3">
                             <h1 className="display-5 fw-bold mb-4 open-sans-body" style={{ color: "#006D77" }}>
                                 {professional.name_company}
                             </h1>
                             
-                            {/* Información de contacto */}
+                            {/* Contact Information */}
                             <div className="contact-info">
                                 <div className="d-flex align-items-center mb-3">
                                     <i className="bi bi-geo-alt-fill me-3 fs-4" style={{ color: "#006D77" }}></i>
                                     <div>
-                                        <h5 className="mb-1 fw-semibold open-sans-body">Ubicación</h5>
-                                        <p className="mb-0 sour-gummy-head">{professional.location || "No especificada"}</p>
+                                        <h5 className="mb-1 fw-semibold open-sans-body">Location</h5>
+                                        <p className="mb-0 sour-gummy-head">{professional.location || "Not specified"}</p>
                                     </div>
                                 </div>
                                 
                                 <div className="d-flex align-items-center mb-3">
                                     <i className="bi bi-telephone-fill me-3 fs-4" style={{ color: "#006D77" }}></i>
                                     <div>
-                                        <h5 className="mb-1 fw-semibold open-sans-body">Teléfono</h5>
-                                        <p className="mb-0 sour-gummy-head">{professional.phone || "No disponible"}</p>
+                                        <h5 className="mb-1 fw-semibold open-sans-body">Phone</h5>
+                                        <p className="mb-0 sour-gummy-head">{professional.phone || "Not available"}</p>
                                     </div>
                                 </div>
                                 
@@ -170,15 +170,15 @@ const Professional = () => {
                                     <i className="bi bi-envelope-fill me-3 fs-4" style={{ color: "#006D77" }}></i>
                                     <div>
                                         <h5 className="mb-1 fw-semibold open-sans-body">Email</h5>
-                                        <p className="mb-0 sour-gummy-head">{professional.email || "No disponible"}</p>
+                                        <p className="mb-0 sour-gummy-head">{professional.email || "Not available"}</p>
                                     </div>
                                 </div>
                                 
                                 <div className="d-flex align-items-center">
                                     <i className="bi bi-clock-fill me-3 fs-4" style={{ color: "#006D77" }}></i>
                                     <div>
-                                        <h5 className="mb-1 fw-semibold open-sans-body">Horario</h5>
-                                        <p className="mb-0 sour-gummy-head">{professional.schedule || "No especificado"}</p>
+                                        <h5 className="mb-1 fw-semibold open-sans-body">Schedule</h5>
+                                        <p className="mb-0 sour-gummy-head">{professional.schedule || "Not specified"}</p>
                                     </div>
                                 </div>
                             </div>
@@ -187,26 +187,26 @@ const Professional = () => {
                 </div>
             </div>
             
-            {/* Sección de descripción */}
+            {/* Description Section */}
             <div className="mb-3 col-8 mx-auto border-bottom rounded-4" style={{ backgroundColor: "#fff" }}>
                 <div className="pt-4 pb-1 rounded-top-4 open-sans-body" style={{ backgroundColor: "#83C5BE" }}>
-                    <h2 className="text-center" style={{color:"#006D77"}}>Descripción</h2>
+                    <h2 className="text-center" style={{color:"#006D77"}}>Description</h2>
                 </div>
                 <div className="row g-0 m-5">
                     <div className="col-md-12 p-3">
                         <div className="card-body">
                             <p className="card-text lh-lg sour-gummy-head">
-                                {professional.description || "Información no disponible :("}
+                                {professional.description || "Information not available"}
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Sección de servicios */}
+            {/* Services Section */}
             <div className="mb-3 col-8 mx-auto border-bottom rounded-4 open-sans-body" style={{ backgroundColor: "#fff" }}>
                 <div className="pt-4 pb-1 rounded-top-4" style={{ backgroundColor: "#83C5BE" }}>
-                    <h2 className="text-center" style={{color:"#006D77"}}>Servicios</h2>
+                    <h2 className="text-center" style={{color:"#006D77"}}>Services</h2>
                 </div>
                 <div className="row g-0 m-5">
                     {services.length > 0 ? (
@@ -215,7 +215,7 @@ const Professional = () => {
                         ))
                     ) : (
                         <div className="col-12 text-center py-4 sour-gummy-head">
-                            <p>No hay servicios disponibles</p>
+                            <p>No services available</p>
                         </div>
                     )}
                 </div>
