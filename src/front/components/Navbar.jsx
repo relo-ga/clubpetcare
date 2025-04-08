@@ -30,7 +30,7 @@ export const Navbar = () => {
     <nav className="navbar navbar-light" style={{ background: '#83C5BE' }}>
       <div className="container">
         <Link to="/" className="navbar-brand d-flex align-items-center" style={{ textDecoration: 'none' }}>
-          <img
+          {/* <img
             src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-42f8-51f7-954a-acf1d2c30f4a/raw?se=2025-04-08T02%3A08%3A27Z&sp=r&sv=2024-08-04&sr=b&scid=453167b7-6cb0-5c11-b0f6-e6e32feff455&skoid=acefdf70-07fd-4bd5-a167-a4a9b137d163&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-07T12%3A35%3A05Z&ske=2025-04-08T12%3A35%3A05Z&sks=b&skv=2024-08-04&sig=yNGmHpg8q6e442UC9btHAzvprLHdaQrygee4Uajtr6A%3D"  // Reemplaza con la ruta correcta de tu imagen
             alt="ClubPetCare Logo"
             className="me-2"
@@ -44,7 +44,7 @@ export const Navbar = () => {
               e.target.src = 'https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-42f8-51f7-954a-acf1d2c30f4a/raw?se=2025-04-08T02%3A08%3A27Z&sp=r&sv=2024-08-04&sr=b&scid=453167b7-6cb0-5c11-b0f6-e6e32feff455&skoid=acefdf70-07fd-4bd5-a167-a4a9b137d163&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-07T12%3A35%3A05Z&ske=2025-04-08T12%3A35%3A05Z&sks=b&skv=2024-08-04&sig=yNGmHpg8q6e442UC9btHAzvprLHdaQrygee4Uajtr6A%3D';  // Imagen de respaldo
               e.target.alt = 'Logo alternativo';
             }}
-          />
+          /> */}
           <span className="sour-gummy-head text-white fs-4">
             ClubPetCare
           </span>
