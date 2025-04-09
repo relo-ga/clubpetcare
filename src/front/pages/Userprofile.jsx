@@ -145,7 +145,7 @@ const Userprofile = () => {
                             </div>
                             <div className="mb-3 col-5">
                                 <label for="age" className="form-label open-sans-body">Date of Birth</label>
-                                <input type="number" className="form-contro sour-gummy-head" id="age" placeholder={store.profile && store.profile?.age || 25 } 
+                                <input type="text" className="form-contro sour-gummy-head" id="age" placeholder={store.profile && store.profile?.age || "12/8/888" } 
                                 onChange={handleInputChange} name="Date of Birth"
                                 />
                             </div>
