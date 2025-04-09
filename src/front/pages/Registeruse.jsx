@@ -90,7 +90,7 @@ const Registeruse = () => {
             </button>
           </div>
           <div>
-           <p className="mt-5 mb-3 text-body-secondary">Eres empresa? ofrece tus servicios <Link to="/registercom">aquí.</Link></p>
+           <p className="mt-5 mb-3 text-body-secondary">Are you a company? Offer your services<Link to="/registercom">here.</Link></p>
           </div>
         </div>
       </main>
