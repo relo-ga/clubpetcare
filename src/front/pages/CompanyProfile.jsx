@@ -27,7 +27,7 @@ export const CompanyProfile = () => {
 
   const { store, dispatch } = useGlobalReducer();
   const navigate = useNavigate();
-  const { id } = store.profile;
+  //const { id } = store.profile; ----------- Error
 
   // Estado para mostrar el modal de servicios
   const [showModal, setShowModal] = useState(false);
@@ -181,7 +181,8 @@ export const CompanyProfile = () => {
             }}
           />
           <Link
-            to={`/Companyupdate/${id}`}
+            //esto genera el error de no cargar la página, no está leyendo el id
+            to={`/Companyupdate/${store.profile.id}`}
             className="ms-3"
             style={{ textDecoration: "none" }}
           >
@@ -371,13 +372,12 @@ export const CompanyProfile = () => {
                       </td>
                       <td className="sour-gummy-head">
                         <span
-                          className={`badge ${
-                            appointment.status === "approved"
-                              ? "bg-success"
-                              : appointment.status === "rejected"
+                          className={`badge ${appointment.status === "approved"
+                            ? "bg-success"
+                            : appointment.status === "rejected"
                               ? "bg-danger"
                               : "bg-warning"
-                          }`}
+                            }`}
                         >
                           {appointment.status}
                         </span>
