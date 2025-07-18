@@ -16,11 +16,11 @@ const CardServicesProf = (props) => {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            
+
             if (!response.ok) throw new Error('Error loading pets');
             const petsData = await response.json();
             setPets(petsData);
-            
+
             setShowModal(true);
         } catch (error) {
             console.error("Error loading pets:", error);
@@ -41,7 +41,7 @@ const CardServicesProf = (props) => {
         });
         alert("Booking successful");
         setShowModal(false);
-        
+
         // Here you can make the fetch call to save the booking
         // saveBooking(bookingData);
     };
@@ -49,30 +49,30 @@ const CardServicesProf = (props) => {
     return (
         <div className="col-lg-3 col-md-6 mb-4">
             {/* Booking modal - Pass companyId from props */}
-            <Calendar 
-                show={showModal} 
-                onClose={handleCloseModal} 
-                onConfirm={handleBooking} 
+            <Calendar
+                show={showModal}
+                onClose={handleCloseModal}
+                onConfirm={handleBooking}
                 pets={pets}
                 companyId={props.id_company}
                 serviceId={props.id}
             />
-            
+
             <div className="card h-100 shadow-sm border-0">
                 <div className="p-3 d-flex justify-content-center mx-auto" style={{ height: "150px" }}>
-                    <img 
-                        src={props.image || "https://via.placeholder.com/150"} 
-                        className="card-img-top img-fluid rounded" 
+                    <img
+                        src={props.image || "https://placehold.co/600x400"}
+                        className="card-img-top img-fluid rounded"
                         alt={props.name}
-                        style={{ 
-                            height: "100%", 
+                        style={{
+                            height: "100%",
                             width: "100%",
                             objectFit: 'cover',
                             borderRadius: "8px",
                             boxShadow: "0 4px 8px rgba(0,0,0,0.1)"
                         }}
                         onError={(e) => {
-                            e.target.src = "https://via.placeholder.com/150";
+                            e.target.src = "https://placehold.co/600x400";
                         }}
                     />
                 </div>
@@ -82,8 +82,8 @@ const CardServicesProf = (props) => {
                         <p className="text-muted open-sans-body">{props.description}</p>
                     </div>
                     <div className="d-flex justify-content-center mt-auto">
-                        <button 
-                            type="button" 
+                        <button
+                            type="button"
                             className="btn btn-primary px-4 sour-gummy-head"
                             onClick={handleBookClick}
                             disabled={loadingPets}
